@@ -1,74 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CASININET - UNDER CONSTRUCTION</title>
+    <title>CASININET</title>
     <style>
         body {
-            background-color: #000080; /* Classic Navy Blue */
-            color: #FFFFFF;
-            font-family: "Courier New", Courier, monospace;
-            text-align: center;
-            margin-top: 100px;
+            background-color: #333333; /* Dark background to pop the box */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: "MS Sans Serif", Geneva, sans-serif;
         }
 
-        .main-box {
-            border: 3px double #FFFFFF;
-            display: inline-block;
-            padding: 40px;
-            background-color: #C0C0C0; /* Classic Windows Silver */
-            color: #000000;
+        /* Classic Windows-style Window Box */
+        .window {
+            background-color: #c0c0c0;
+            border: 2px solid #ffffff;
+            border-right-color: #808080;
+            border-bottom-color: #808080;
+            width: 450px;
+            padding: 2px;
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.2);
         }
 
-        h1 {
-            background-color: #000080;
+        /* Blue Title Bar */
+        .title-bar {
+            background: linear-gradient(90deg, #000080, #1084d0);
             color: white;
-            padding: 5px;
-            font-size: 24px;
-            text-transform: uppercase;
+            padding: 3px 10px;
+            font-weight: bold;
+            font-size: 13px;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
         }
 
-        .marquee-box {
-            background-color: #FFFF00;
-            color: #FF0000;
-            font-weight: bold;
-            padding: 5px;
-            border: 1px solid #000;
-            margin: 20px 0;
+        .content {
+            padding: 40px 20px;
+            text-align: center;
+            background-color: #c0c0c0;
+            color: #000;
         }
 
         .logo {
-            font-size: 40px;
-            font-weight: bold;
-            text-decoration: underline;
-            letter-spacing: 2px;
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #000;
+            display: inline-block;
         }
 
-        .gif-placeholder {
-            margin: 20px;
-            font-size: 12px;
+        .status {
+            font-size: 14px;
+            margin-top: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #808080;
+            border-bottom: 1px solid #ffffff;
+            margin: 20px 0;
         }
     </style>
 </head>
 <body>
 
-    <div class="main-box">
-        <div class="logo">CASININET.COM</div>
-        
-        <h1>*** UNDER CONSTRUCTION ***</h1>
-
-        <div class="marquee-box">
-            <marquee>SITE UPDATING... PLEASE CHECK BACK LATER... ESTABLISHED 2025...</marquee>
+    <div class="window">
+        <div class="title-bar">
+            <span>CASININET.EXE</span>
+            <span>[X]</span>
         </div>
-
-        <p>Best viewed in <b>Internet Explorer 6.0</b></p>
-        <p>Resolution: 800x600</p>
-        
-        <div class="gif-placeholder">
-            [ <img src="https://web.archive.org/web/20090830034539im_/http://geocities.com/SiliconValley/6548/undercon.gif" alt="Working"> ]
+        <div class="content">
+            <div class="logo">CASININET</div>
+            <br>
+            <div class="status">SYSTEM UNDER CONSTRUCTION</div>
+            <hr>
+            <p style="font-size: 12px;">PLEASE STAND BY... EST. 2025</p>
         </div>
-
-        <hr>
-        <p>&copy; 2005 CASININET Media Group</p>
     </div>
 
 </body>
