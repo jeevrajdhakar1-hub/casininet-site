@@ -1,1 +1,33 @@
+[
+  {
+    "tag": "Security",
+    "headline": "End-to-end encryption active for all portal users.",
+    "img": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=200",
+    "link": "#"
+  },
+  {
+    "tag": "Community",
+    "headline": "Join our official Telegram node for real-time alerts.",
+    "img": "https://images.unsplash.com/photo-1614680376593-902f74cf0d41?w=200",
+    "link": "#"
+  },
+  {
+    "tag": "Updates",
+    "headline": "System patch v2.0 deployed. Network speed optimized.",
+    "img": "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=200",
+    "link": "#"
+  },
+  {
+    "tag": "Network",
+    "headline": "Global server status is healthy. Uptime 99.9%.",
+    "img": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=200",
+    "link": "#"
+  },
+  {
+    "tag": "Support",
+    "headline": "Contact our technical team for 24/7 assistance.",
+    "img": "https://images.unsplash.com/photo-1534536281715-e28d76689b4d?w=200",
+    "link": "#"
+  }
+]
 
