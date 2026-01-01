@@ -1,88 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>CASININET</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CASININET | PRO PORTAL</title>
     <style>
-        body {
-            background-color: #333333; /* Dark background to pop the box */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: "MS Sans Serif", Geneva, sans-serif;
-        }
-
-        /* Classic Windows-style Window Box */
-        .window {
-            background-color: #c0c0c0;
-            border: 2px solid #ffffff;
-            border-right-color: #808080;
-            border-bottom-color: #808080;
-            width: 450px;
-            padding: 2px;
-            box-shadow: 10px 10px 0px rgba(0,0,0,0.2);
-        }
-
-        /* Blue Title Bar */
-        .title-bar {
-            background: linear-gradient(90deg, #000080, #1084d0);
-            color: white;
-            padding: 3px 10px;
-            font-weight: bold;
-            font-size: 13px;
-            text-align: left;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .content {
-            padding: 40px 20px;
-            text-align: center;
-            background-color: #c0c0c0;
-            color: #000;
-        }
-
-        .logo {
-            font-size: 32px;
-            font-weight: 900;
-            letter-spacing: -1px;
-            margin-bottom: 10px;
-            border-bottom: 3px solid #000;
-            display: inline-block;
-        }
-
-        .status {
-            font-size: 14px;
-            margin-top: 15px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        hr {
-            border: 0;
-            border-top: 1px solid #808080;
-            border-bottom: 1px solid #ffffff;
-            margin: 20px 0;
-        }
+        body { background-color: #0f0f0f; color: #d1d1d1; font-family: "Segoe UI", sans-serif; margin: 0; padding: 12px; }
+        @keyframes blink { 50% { opacity: 0.3; } }
+        .live-dot { height: 8px; width: 8px; background: red; border-radius: 50%; margin-right: 6px; animation: blink 1.5s infinite; }
+        .header { background: linear-gradient(180deg, #2a2a2a, #000); border: 1px solid #333; padding: 15px; border-radius: 18px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; }
+        .brand { font-size: 20px; font-weight: 800; color: #fff; letter-spacing: 2px; }
+        .live-tag { border: 1px solid #ff0000; padding: 4px 12px; border-radius: 10px; color: #ff4444; font-size: 11px; font-weight: bold; display: flex; align-items: center; }
+        
+        /* Dynamic Card Container */
+        #news-container { min-height: 200px; }
+        .feed-card { display: flex; background: #181818; margin-bottom: 15px; border: 1px solid #282828; padding: 12px; border-radius: 16px; text-decoration: none; color: inherit; transition: 0.2s; }
+        .feed-card:active { transform: scale(0.98); }
+        .thumb { width: 85px; height: 85px; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid #333; flex-shrink: 0; }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        .details { margin-left: 15px; display: flex; flex-direction: column; justify-content: center; }
+        .tag { color: #0078d7; font-size: 10px; font-weight: bold; text-transform: uppercase; margin-bottom: 4px; }
+        .headline { font-size: 15px; font-weight: 600; line-height: 1.4; color: #fff; }
+        
+        .footer { text-align: center; margin-top: 40px; padding: 15px; border-top: 1px solid #222; }
+        .footer p { font-size: 11px; color: #444; letter-spacing: 1.5px; font-weight: bold; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
-    <div class="window">
-        <div class="title-bar">
-            <span>CASININET.EXE</span>
-            <span>[X]</span>
-        </div>
-        <div class="content">
-            <div class="logo">CASININET</div>
-            <br>
-            <div class="status">SYSTEM UNDER CONSTRUCTION</div>
-            <hr>
-            <p style="font-size: 12px;">PLEASE STAND BY... EST. 2025</p>
-        </div>
+    <div class="header">
+        <div class="brand">CASININET</div>
+        <div class="live-tag"><span class="live-dot"></span> LIVE</div>
     </div>
 
+    <div id="news-container">
+        <p style="text-align:center; color:#444;">Loading nodes...</p>
+    </div>
+
+    <div class="footer"><p>POWERED BY <span>CASININET PORTAL</span></p></div>
+
+    <script>
+        // Professional Data Fetching
+        async function loadData() {
+            try {
+                const response = await fetch('data.json');
+                const data = await response.json();
+                const container = document.getElementById('news-container');
+                
+                container.innerHTML = data.map(item => `
+                    <a href="${item.link}" class="feed-card">
+                        <div class="thumb"><img src="${item.img}"></div>
+                        <div class="details">
+                            <div class="tag">${item.tag}</div>
+                            <div class="headline">${item.headline}</div>
+                        </div>
+                    </a>
+                `).join('');
+            } catch (err) {
+                document.getElementById('news-container').innerHTML = "<p style='color:red; text-align:center;'>Error loading data!</p>";
+            }
+        }
+        loadData();
+    </script>
 </body>
 </html>
+
 
