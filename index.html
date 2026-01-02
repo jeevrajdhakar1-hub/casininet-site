@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>CASININET | News</title>
     <style>
-        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; }
+        /* Universal Safari & Android Reset */
+        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; cursor: pointer; }
         
-        /* iPhone & Universal Reset */
         body { 
             background: #000; 
             color: #fff; 
@@ -17,6 +17,7 @@
             overflow-x: hidden; 
             transition: opacity 0.3s; 
             -webkit-font-smoothing: antialiased;
+            -webkit-overflow-scrolling: touch;
         }
         
         /* Header */
@@ -31,12 +32,14 @@
         .slider-box { display: flex; overflow-x: auto; gap: 15px; padding: 0 5px 20px 5px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
         .slider-box::-webkit-scrollbar { display: none; }
         
-        .round-card { flex: 0 0 85px; text-align: center; cursor: pointer; transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .round-card:active { transform: scale(0.85); }
+        /* Safari Animation Fix */
+        .round-card { flex: 0 0 85px; text-align: center; cursor: pointer; -webkit-transition: -webkit-transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); -webkit-user-select: none; }
+        .round-card:active { -webkit-transform: scale(0.85); transform: scale(0.85); }
         .round-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ff0000; padding: 2px; }
 
         /* Main News Cards */
-        .card-link { display: block; margin-bottom: 25px; text-decoration: none; position: relative; opacity: 0; transform: translateY(20px); animation: fadeInUp 0.5s forwards; }
+        .card-link { display: block; margin-bottom: 25px; text-decoration: none; position: relative; opacity: 0; -webkit-transform: translateY(20px); transform: translateY(20px); -webkit-animation: fadeInUp 0.5s forwards; animation: fadeInUp 0.5s forwards; }
+        @-webkit-keyframes fadeInUp { to { opacity: 1; -webkit-transform: translateY(0); } }
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
         
         .main-card { 
@@ -44,10 +47,11 @@
             border-radius: 25px; 
             overflow: hidden; 
             border: 1px solid #333; 
+            -webkit-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
-        .card-link:active .main-card { transform: scale(0.96); background: #222; }
+        .card-link:active .main-card { -webkit-transform: scale(0.96); transform: scale(0.96); background: #222; }
         
         .main-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #222; }
         .main-text { padding: 18px; position: relative; }
@@ -55,14 +59,14 @@
         .tag { color: #ff0000; font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: block; }
 
         /* Share Icon */
-        .share-btn { position: absolute; right: 15px; bottom: 18px; background: #fff; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; transition: transform 0.2s; }
-        .share-btn:active { transform: scale(1.2); }
+        .share-btn { position: absolute; right: 15px; bottom: 18px; background: #fff; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; -webkit-transition: -webkit-transform 0.2s; transition: transform 0.2s; }
+        .share-btn:active { -webkit-transform: scale(1.2); transform: scale(1.2); }
         .share-btn svg { width: 18px; height: 18px; fill: #000; }
 
         /* Ad Box */
         .ad-box { background: #0a0a0a; border: 1px dashed #333; border-radius: 20px; margin-bottom: 30px; padding: 15px; text-align: center; min-height: 250px; display: flex; align-items: center; justify-content: center; color: #444; font-size: 10px; letter-spacing: 2px; }
 
-        /* --- Professional About Section --- */
+        /* About Section */
         .about-sec { background: #111; border-radius: 20px; padding: 20px; margin: 40px 5px 20px 5px; border: 1px solid #222; text-align: center; }
         .about-title { color: #fff; font-size: 14px; font-weight: 800; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
         .about-p { color: #888; font-size: 12px; line-height: 1.6; margin: 0; }
@@ -72,9 +76,7 @@
         .footer-logo { font-weight: 900; color: #333; font-size: 14px; letter-spacing: 2px; }
     </style>
 </head>
-<body>
-
-    <div class="header">
+<body ontouchstart=""> <div class="header">
         <a href="#" class="logo">CASININET</a>
         <div class="live"><div class="dot"></div> LIVE</div>
     </div>
@@ -97,16 +99,13 @@
     </div>
 
     <script>
-        // Haptic feedback function
         const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
 
-        // MOBILE & iPHONE BACK BUTTON FIX
+        // Safari Click Fix: Empty listener to enable :active styles
+        document.addEventListener("touchstart", function() {}, true);
+
         window.addEventListener('pageshow', (event) => {
             document.body.style.opacity = "1";
-            // iPhone aggressive cache fix
-            if (event.persisted) {
-                document.body.style.opacity = "1";
-            }
         });
 
         async function share(e, title, id) {
@@ -132,7 +131,6 @@
                 const r = await fetch('data.json'); 
                 const d = await r.json();
 
-                // Circles: Top 5 Trending
                 const trending = d.filter(x => x.type === "trending").slice(0, 5);
                 document.getElementById('s').innerHTML = trending.map(n => `
                     <div class="round-card" onclick="go(${n.id})">
@@ -140,7 +138,6 @@
                         <div style="font-size:9px; color:#666; font-weight:600; margin-top:5px;">${n.headline.substring(0,8)}..</div>
                     </div>`).join('');
 
-                // Boxes: Top 5 Main
                 const main = d.filter(x => x.type === "main").slice(0, 5);
                 document.getElementById('m').innerHTML = main.map((n, i) => {
                     let html = `
@@ -156,13 +153,10 @@
                             <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
                         </div>
                     </div>`;
-                    // Automatic Ad placement after every 2 news boxes
                     if ((i + 1) % 2 === 0) html += `<div class="ad-box">ADVERTISEMENT</div>`;
                     return html;
                 }).join('');
-            } catch (e) { 
-                console.log("Error loading JSON. Make sure data.json is in the same folder."); 
-            }
+            } catch (e) { console.log("JSON Error"); }
         }
         load();
     </script>
