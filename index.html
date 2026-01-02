@@ -2,27 +2,40 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>CASININET | News</title>
     <style>
         * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; }
-        body { background: #000; color: #fff; font-family: -apple-system, sans-serif; margin: 0; padding: 10px; overflow-x: hidden; transition: opacity 0.3s; }
         
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #111; border-radius: 50px; border: 1px solid #222; margin-bottom: 25px; }
-        .logo { font-size: 20px; font-weight: 900; color: #fff; text-decoration: none; }
+        /* iPhone & Universal Reset */
+        body { 
+            background: #000; 
+            color: #fff; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            margin: 0; 
+            padding: env(safe-area-inset-top) 10px env(safe-area-inset-bottom) 10px; 
+            overflow-x: hidden; 
+            transition: opacity 0.3s; 
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Header */
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #111; border-radius: 50px; border: 1px solid #222; margin: 10px 0 25px 0; }
+        .logo { font-size: 20px; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: -0.5px; }
         .live { color: #ff0000; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 5px; border: 1px solid #ff0000; padding: 3px 10px; border-radius: 20px; }
         .dot { width: 7px; height: 7px; background: #ff0000; border-radius: 50%; animation: blink 1s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
-        .t-label { color: #ff0000; font-size: 11px; font-weight: 800; margin-left: 10px; margin-bottom: 10px; text-transform: uppercase; }
-        .slider-box { display: flex; overflow-x: auto; gap: 15px; padding: 0 5px 20px 5px; scrollbar-width: none; }
+        /* Trending Slider */
+        .t-label { color: #ff0000; font-size: 11px; font-weight: 800; margin-left: 10px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .slider-box { display: flex; overflow-x: auto; gap: 15px; padding: 0 5px 20px 5px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+        .slider-box::-webkit-scrollbar { display: none; }
         
-        /* Circle Click Animation */
-        .round-card { flex: 0 0 85px; text-align: center; cursor: pointer; transition: transform 0.2s; }
+        .round-card { flex: 0 0 85px; text-align: center; cursor: pointer; transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .round-card:active { transform: scale(0.85); }
         .round-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ff0000; padding: 2px; }
 
-        /* Box Color & Animation */
+        /* Main News Cards */
         .card-link { display: block; margin-bottom: 25px; text-decoration: none; position: relative; opacity: 0; transform: translateY(20px); animation: fadeInUp 0.5s forwards; }
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
         
@@ -34,46 +47,84 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
-        .card-link:active .main-card { transform: scale(0.94) translateY(5px); background: #222; }
+        .card-link:active .main-card { transform: scale(0.96); background: #222; }
         
         .main-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #222; }
         .main-text { padding: 18px; position: relative; }
         .main-title { font-size: 19px; font-weight: 700; color: #fff; line-height: 1.4; display: block; padding-right: 45px; }
         .tag { color: #ff0000; font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: block; }
 
-        .share-btn { position: absolute; right: 15px; bottom: 18px; background: #fff; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 99; transition: transform 0.2s; }
-        .share-btn:active { transform: scale(1.3); }
+        /* Share Icon */
+        .share-btn { position: absolute; right: 15px; bottom: 18px; background: #fff; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; transition: transform 0.2s; }
+        .share-btn:active { transform: scale(1.2); }
         .share-btn svg { width: 18px; height: 18px; fill: #000; }
 
-        .ad-box { background: #0a0a0a; border: 1px dashed #333; border-radius: 20px; margin-bottom: 30px; padding: 15px; text-align: center; min-height: 250px; display: flex; align-items: center; justify-content: center; color: #444; font-size: 10px; }
-        .footer { padding: 20px 0; text-align: center; border-top: 1px solid #111; margin-top: 10px; }
-        .footer-logo { font-weight: 900; color: #222; font-size: 12px; letter-spacing: 1px; }
+        /* Ad Box */
+        .ad-box { background: #0a0a0a; border: 1px dashed #333; border-radius: 20px; margin-bottom: 30px; padding: 15px; text-align: center; min-height: 250px; display: flex; align-items: center; justify-content: center; color: #444; font-size: 10px; letter-spacing: 2px; }
+
+        /* --- Professional About Section --- */
+        .about-sec { background: #111; border-radius: 20px; padding: 20px; margin: 40px 5px 20px 5px; border: 1px solid #222; text-align: center; }
+        .about-title { color: #fff; font-size: 14px; font-weight: 800; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .about-p { color: #888; font-size: 12px; line-height: 1.6; margin: 0; }
+        
+        /* Footer */
+        .footer { padding: 20px 0 40px 0; text-align: center; }
+        .footer-logo { font-weight: 900; color: #333; font-size: 14px; letter-spacing: 2px; }
     </style>
 </head>
 <body>
-    <div class="header"><a href="#" class="logo">CASININET</a><div class="live"><div class="dot"></div> LIVE</div></div>
+
+    <div class="header">
+        <a href="#" class="logo">CASININET</a>
+        <div class="live"><div class="dot"></div> LIVE</div>
+    </div>
+
     <div class="t-label">Trending Stories</div>
     <div class="slider-box" id="s"></div>
+
     <div id="m"></div>
-    <div class="footer"><div class="footer-logo">CASININET</div></div>
+
+    <div class="about-sec">
+        <div class="about-title">About Casininet</div>
+        <p class="about-p">
+            Digital media destination for real-time updates and trending insights. 
+            Delivering precision and speed in every story we cover.
+        </p>
+    </div>
+
+    <div class="footer">
+        <div class="footer-logo">CASININET • 2026</div>
+    </div>
 
     <script>
+        // Haptic feedback function
         const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
 
-        // MOBILE BACK BUTTON FIX: Page wapas aane par opacity reset karega
+        // MOBILE & iPHONE BACK BUTTON FIX
         window.addEventListener('pageshow', (event) => {
             document.body.style.opacity = "1";
+            // iPhone aggressive cache fix
+            if (event.persisted) {
+                document.body.style.opacity = "1";
+            }
         });
 
         async function share(e, title, id) {
             e.stopPropagation(); e.preventDefault(); h();
-            try { await navigator.share({ title: title, url: window.location.origin + '/article.html?id=' + id }); } catch (err) {}
+            try { 
+                await navigator.share({ 
+                    title: title, 
+                    url: window.location.origin + '/article.html?id=' + id 
+                }); 
+            } catch (err) { console.log("Share failed"); }
         }
 
         function go(id) {
             h(); 
             document.body.style.opacity = "0";
-            setTimeout(() => { window.location.href = `article.html?id=${id}`; }, 300);
+            setTimeout(() => { 
+                window.location.href = `article.html?id=${id}`; 
+            }, 300);
         }
 
         async function load() {
@@ -81,15 +132,15 @@
                 const r = await fetch('data.json'); 
                 const d = await r.json();
 
-                // Circles (Sirf 5 trending items)
+                // Circles: Top 5 Trending
                 const trending = d.filter(x => x.type === "trending").slice(0, 5);
                 document.getElementById('s').innerHTML = trending.map(n => `
                     <div class="round-card" onclick="go(${n.id})">
                         <img src="${n.img}" class="round-img">
-                        <div style="font-size:9px; color:#666; margin-top:5px;">${n.headline.substring(0,8)}..</div>
+                        <div style="font-size:9px; color:#666; font-weight:600; margin-top:5px;">${n.headline.substring(0,8)}..</div>
                     </div>`).join('');
 
-                // Boxes (Sirf 5 main items)
+                // Boxes: Top 5 Main
                 const main = d.filter(x => x.type === "main").slice(0, 5);
                 document.getElementById('m').innerHTML = main.map((n, i) => {
                     let html = `
@@ -105,10 +156,13 @@
                             <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
                         </div>
                     </div>`;
+                    // Automatic Ad placement after every 2 news boxes
                     if ((i + 1) % 2 === 0) html += `<div class="ad-box">ADVERTISEMENT</div>`;
                     return html;
                 }).join('');
-            } catch (e) { console.log("JSON Load Error"); }
+            } catch (e) { 
+                console.log("Error loading JSON. Make sure data.json is in the same folder."); 
+            }
         }
         load();
     </script>
