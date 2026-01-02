@@ -1,5 +1,5 @@
 [
-  { "id": 1, "type": "trending", "tag": "HOT", "headline": "Circle 1", "img": "https://picsum.photos/200/200?random=1", "desc": "..." },
+  { "id": 1, "type": "trending", "tag": "HOT", "headline": "Circle 1", "img": "https://picsum.photos/200/200?random=1", "desc":"site is under con.." },
   { "id": 2, "type": "trending", "tag": "HOT", "headline": "Circle 2", "img": "https://picsum.photos/200/200?random=2", "desc": "..." },
   { "id": 3, "type": "trending", "tag": "HOT", "headline": "Circle 3", "img": "https://picsum.photos/200/200?random=3", "desc": "..." },
   { "id": 4, "type": "trending", "tag": "HOT", "headline": "Circle 4", "img": "https://picsum.photos/200/200?random=4", "desc": "..." },
