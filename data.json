@@ -4,9 +4,9 @@
   { "id": 3, "type": "trending", "tag": "HOT", "headline": "Circle 3", "img": "https://picsum.photos/200/200?random=3", "desc": "..." },
   { "id": 4, "type": "trending", "tag": "HOT", "headline": "Circle 4", "img": "https://picsum.photos/200/200?random=4", "desc": "..." },
   { "id": 5, "type": "trending", "tag": "HOT", "headline": "Circle 5", "img": "https://picsum.photos/200/200?random=5", "desc": "..." },
-  { "id": 101, "type": "main", "tag": "NEWS", "headline": "Box News 1", "img": "https://picsum.photos/800/500?random=11", "desc": "site is under construction!" },
-  { "id": 102, "type": "main", "tag": "NEWS", "headline": "Box News 2", "img": "https://picsum.photos/800/500?random=12", "desc": "site is under construction!" },
-  { "id": 103, "type": "main", "tag": "NEWS", "headline": "Box News 3", "img": "https://picsum.photos/800/500?random=13", "desc": "site is under construction!" },
+  { "id": 101, "type": "main", "tag": "NEWS", "headline": "Box News 1", "img": "https://picsum.photos/800/500?random=11", "desc": "..." },
+  { "id": 102, "type": "main", "tag": "NEWS", "headline": "Box News 2", "img": "https://picsum.photos/800/500?random=12", "desc": "..." },
+  { "id": 103, "type": "main", "tag": "NEWS", "headline": "Box News 3", "img": "https://picsum.photos/800/500?random=13", "desc": "..." },
   { "id": 104, "type": "main", "tag": "NEWS", "headline": "Box News 4", "img": "https://picsum.photos/800/500?random=14", "desc": "..." },
   { "id": 105, "type": "main", "tag": "NEWS", "headline": "Box News 5", "img": "https://picsum.photos/800/500?random=15", "desc": "..." }
 ]
