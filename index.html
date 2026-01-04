@@ -87,7 +87,8 @@
         function go(id) { 
             h(); 
             document.body.style.opacity = "0";
-            setTimeout(() => { window.location.href = `article.html?id=${id}`; }, 200); 
+            // replace use karne se history clean rehti hai
+            setTimeout(() => { window.location.assign(`article.html?id=${id}`); }, 250); 
         }
 
         async function load() {
@@ -122,7 +123,16 @@
                 }).join('');
             } catch (e) { console.log("JSON Error"); }
         }
+        
+        // Browser back button handling
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                document.body.style.opacity = "1";
+            }
+        });
+
         load();
     </script>
 </body>
-</html>
+    </html>
+    
