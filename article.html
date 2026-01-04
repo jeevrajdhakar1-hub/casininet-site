@@ -6,27 +6,42 @@
     <title>Article | CASINInet</title>
     <style>
         * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; }
-        body { background: #000; color: #fff; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        body { background: #000; color: #fff; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
         
-        .close-btn { position: fixed; top: 20px; right: 20px; width: 40px; height: 40px; background: rgba(0,0,0,0.4); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; color: #fff; text-decoration: none; font-size: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .close-btn { position: fixed; top: 20px; right: 20px; width: 40px; height: 40px; background: rgba(0, 0, 0, 0.5); -webkit-backdrop-filter: blur(15px); backdrop-filter: blur(15px); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; color: #fff; text-decoration: none; font-size: 20px; border: 1px solid rgba(255,255,255,0.1); }
 
-        .hero-section { position: relative; width: 100%; height: 55vh; background: #000; overflow: hidden; }
+        .hero-section { position: relative; width: 100%; height: 50vh; height: calc(var(--vh, 1vh) * 50); background: #000; overflow: hidden; }
         .hero-img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.85); transition: transform 0.1s linear; transform-origin: center; }
-        .hero-overlay { position: absolute; bottom: 0; left: 0; width: 100%; height: 45%; background: linear-gradient(to bottom, transparent, #000); }
+        .hero-overlay { position: absolute; bottom: 0; left: 0; width: 100%; height: 50%; background: linear-gradient(to bottom, transparent, #000); }
 
-        .content-container { position: relative; margin-top: -60px; padding: 0 20px; z-index: 10; background: #000; border-radius: 35px 35px 0 0; }
+        .content-container { position: relative; margin-top: -60px; padding: 0 20px; z-index: 10; background: #000; border-radius: 35px 35px 0 0; min-height: 100vh; }
         .art-tag { display: inline-block; background: #ff3b30; color: #fff; padding: 4px 10px; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin: 25px 0 10px 0; }
-        .art-headline { font-size: 34px; font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 30px; }
+        .art-headline { font-size: 34px; font-weight: 800; line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 25px; }
 
-        .premium-ad { background: #080808; border: 1px solid #141414; border-radius: 15px; margin: 30px 0; padding: 20px; text-align: center; min-height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .ad-meta { font-size: 8px; color: #444; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+        /* Safari Optimized Ad Slots */
+        .premium-ad { 
+            display: flex !important; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            background: #0a0a0a !important; 
+            border: 1px solid #1a1a1a !important; 
+            border-radius: 16px; 
+            margin: 35px 0; 
+            padding: 20px; 
+            min-height: 200px !important; /* Force Safari to show height */
+            width: 100%;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        .ad-meta { font-size: 9px; color: #444; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
 
-        .article-body { font-size: 19.5px; line-height: 1.8; color: #d1d1d6; }
+        .article-body { font-size: 19px; line-height: 1.8; color: #d1d1d6; word-wrap: break-word; }
         
-        .share-container { margin: 45px 0; text-align: center; }
-        .share-trigger { background: #fff; color: #000; padding: 14px 45px; border-radius: 35px; font-weight: 700; font-size: 16px; cursor: pointer; transition: transform 0.2s; box-shadow: 0 10px 25px rgba(255,255,255,0.1); }
+        .share-container { margin: 40px 0; text-align: center; }
+        .share-trigger { background: #fff; color: #000; padding: 15px 45px; border-radius: 35px; font-weight: 700; font-size: 16px; cursor: pointer; transition: transform 0.2s; -webkit-appearance: none; }
 
-        .micro-footer { text-align: center; padding: 30px 0 50px 0; border-top: 1px solid #111; margin-top: 30px; }
+        .micro-footer { text-align: center; padding: 40px 0; border-top: 1px solid #111; margin-top: 30px; }
         .footer-brand { font-size: 12px; font-weight: 700; color: #333; text-decoration: none; }
     </style>
 </head>
@@ -36,12 +51,15 @@
     <div id="dynamic-article"></div>
 
     <script>
-        // Zoom Effect
+        // Safari Height Fix
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+
         window.onscroll = () => {
             const img = document.querySelector('.hero-img');
             if (img) {
                 let s = window.pageYOffset;
-                if (s >= 0) { img.style.transform = `scale(${1 + s/2500})`; img.style.opacity = `${1 - s/800}`; }
+                if (s >= 0) { img.style.transform = `scale(${1 + s/3000})`; img.style.opacity = `${1 - s/900}`; }
             }
         };
 
@@ -55,15 +73,17 @@
 
                 if (article) {
                     let content = article.content || "";
-                    let ad2 = `<div class="premium-ad"><span class="ad-meta">Ad Slot 2</span></div>`;
+                    let ad1 = `<section class="premium-ad"><span class="ad-meta">Ad Slot 1</span></section>`;
+                    let ad2 = `<section class="premium-ad"><span class="ad-meta">Ad Slot 2</span></section>`;
+                    let ad3 = `<section class="premium-ad" style="min-height:150px !important;"><span class="ad-meta">Ad Slot 3</span></section>`;
                     
-                    // FORCE SPLIT LOGIC: Paragraph ho ya na ho, beech mein ad ghusega
-                    let midIndex = Math.floor(content.length / 2);
-                    let splitPoint = content.indexOf(' ', midIndex); // Word ke beech se na kate
-                    if(splitPoint === -1) splitPoint = midIndex; 
+                    // SMART SPLIT
+                    let mid = Math.floor(content.length / 2);
+                    let splitAt = content.indexOf(' ', mid);
+                    if(splitAt === -1) splitAt = mid;
 
-                    let part1 = content.substring(0, splitPoint);
-                    let part2 = content.substring(splitPoint);
+                    let part1 = content.substring(0, splitAt);
+                    let part2 = content.substring(splitAt);
 
                     document.getElementById('dynamic-article').innerHTML = `
                         <div class="hero-section">
@@ -73,7 +93,7 @@
                         <div class="content-container">
                             <span class="art-tag">${article.tag}</span>
                             <h1 class="art-headline">${article.headline}</h1>
-                            <div class="premium-ad"><span class="ad-meta">Ad Slot 1</span></div>
+                            ${ad1}
                             <div class="article-body">
                                 ${part1}
                                 ${ad2}
@@ -82,7 +102,7 @@
                             <div class="share-container">
                                 <div class="share-trigger" onclick="hShare('${article.headline}')">Share Story</div>
                             </div>
-                            <div class="premium-ad" style="min-height:120px;"><span class="ad-meta">Ad Slot 3</span></div>
+                            ${ad3}
                             <div class="micro-footer"><div class="footer-brand">CASINInet • 2026</div></div>
                         </div>
                     `;
@@ -92,7 +112,9 @@
 
         function hShare(t) { 
             if (navigator.vibrate) navigator.vibrate(12);
-            navigator.share({ title: t, url: window.location.href }).catch(() => {}); 
+            if (navigator.share) {
+                navigator.share({ title: t, url: window.location.href }).catch(() => {});
+            }
         }
         fetchArticle();
     </script>
