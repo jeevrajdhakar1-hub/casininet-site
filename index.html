@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>CASININET | News</title>
+    <title>CASINInet | News</title>
     <style>
-        /* Universal Safari & Android Reset */
         * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; cursor: pointer; }
         
         body { 
@@ -14,70 +13,47 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
             margin: 0; 
             padding: env(safe-area-inset-top) 10px env(safe-area-inset-bottom) 10px; 
-            overflow-x: hidden; 
-            transition: opacity 0.3s; 
             -webkit-font-smoothing: antialiased;
-            -webkit-overflow-scrolling: touch;
+            transition: opacity 0.3s ease;
         }
         
-        /* Header */
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #111; border-radius: 50px; border: 1px solid #222; margin: 10px 0 25px 0; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #111; border-radius: 12px; border: 1px solid #222; margin: 10px 0 25px 0; }
         .logo { font-size: 20px; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: -0.5px; }
-        .live { color: #ff0000; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 5px; border: 1px solid #ff0000; padding: 3px 10px; border-radius: 20px; }
+        .live { color: #ff0000; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 5px; border: 1px solid #ff0000; padding: 3px 10px; border-radius: 8px; }
         .dot { width: 7px; height: 7px; background: #ff0000; border-radius: 50%; animation: blink 1s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
 
-        /* Trending Slider */
-        .t-label { color: #ff0000; font-size: 11px; font-weight: 800; margin-left: 10px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
-        .slider-box { display: flex; overflow-x: auto; gap: 15px; padding: 0 5px 20px 5px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+        .t-label { color: #ff0000; font-size: 11px; font-weight: 800; margin-left: 10px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        .slider-box { display: flex; overflow-x: auto; gap: 15px; padding: 0 5px 25px 5px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
         .slider-box::-webkit-scrollbar { display: none; }
         
-        /* Safari Animation Fix */
-        .round-card { flex: 0 0 85px; text-align: center; cursor: pointer; -webkit-transition: -webkit-transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); -webkit-user-select: none; }
-        .round-card:active { -webkit-transform: scale(0.85); transform: scale(0.85); }
+        .round-card { flex: 0 0 85px; text-align: center; transition: transform 0.2s; }
+        .round-card:active { transform: scale(0.85); } 
         .round-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ff0000; padding: 2px; }
 
-        /* Main News Cards */
-        .card-link { display: block; margin-bottom: 25px; text-decoration: none; position: relative; opacity: 0; -webkit-transform: translateY(20px); transform: translateY(20px); -webkit-animation: fadeInUp 0.5s forwards; animation: fadeInUp 0.5s forwards; }
-        @-webkit-keyframes fadeInUp { to { opacity: 1; -webkit-transform: translateY(0); } }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        .card-link { display: block; margin-bottom: 25px; text-decoration: none; position: relative; transition: transform 0.2s; }
+        .card-link:active { transform: scale(0.96); } 
         
-        .main-card { 
-            background: #1a1a1a; 
-            border-radius: 25px; 
-            overflow: hidden; 
-            border: 1px solid #333; 
-            -webkit-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-        }
-        .card-link:active .main-card { -webkit-transform: scale(0.96); transform: scale(0.96); background: #222; }
-        
-        .main-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #222; }
+        .main-card { background: #111; border-radius: 16px; overflow: hidden; border: 1px solid #222; }
+        .main-img { width: 100%; height: 210px; object-fit: cover; }
         .main-text { padding: 18px; position: relative; }
-        .main-title { font-size: 19px; font-weight: 700; color: #fff; line-height: 1.4; display: block; padding-right: 45px; }
-        .tag { color: #ff0000; font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 8px; display: block; }
+        .main-title { font-size: 19px; font-weight: 700; color: #fff; line-height: 1.35; display: block; padding-right: 45px; }
+        .tag { color: #ff0000; font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 6px; display: block; }
 
-        /* Share Icon */
-        .share-btn { position: absolute; right: 15px; bottom: 18px; background: #fff; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; -webkit-transition: -webkit-transform 0.2s; transition: transform 0.2s; }
-        .share-btn:active { -webkit-transform: scale(1.2); transform: scale(1.2); }
+        .share-btn { position: absolute; right: 15px; bottom: 18px; background: #fff; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; transition: transform 0.2s; }
+        .share-btn:active { transform: scale(1.2); }
         .share-btn svg { width: 18px; height: 18px; fill: #000; }
 
-        /* Ad Box */
-        .ad-box { background: #0a0a0a; border: 1px dashed #333; border-radius: 20px; margin-bottom: 30px; padding: 15px; text-align: center; min-height: 250px; display: flex; align-items: center; justify-content: center; color: #444; font-size: 10px; letter-spacing: 2px; }
+        .ad-box { background: #080808; border: 1px dashed #222; border-radius: 12px; margin-bottom: 30px; padding: 15px; text-align: center; min-height: 250px; display: flex; align-items: center; justify-content: center; color: #333; font-size: 10px; letter-spacing: 2px; }
 
-        /* About Section */
-        .about-sec { background: #111; border-radius: 20px; padding: 20px; margin: 40px 5px 20px 5px; border: 1px solid #222; text-align: center; }
-        .about-title { color: #fff; font-size: 14px; font-weight: 800; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
-        .about-p { color: #888; font-size: 12px; line-height: 1.6; margin: 0; }
-        
-        /* Footer */
-        .footer { padding: 20px 0 40px 0; text-align: center; }
-        .footer-logo { font-weight: 900; color: #333; font-size: 14px; letter-spacing: 2px; }
+        .about-sec { background: #0a0a0a; border-radius: 12px; padding: 20px; margin: 40px 5px 20px 5px; border: 1px solid #1a1a1a; text-align: center; }
+        .footer { padding: 30px 0 50px 0; text-align: center; border-top: 1px solid #111; }
+        .footer-logo { font-weight: 800; color: #444; font-size: 12px; letter-spacing: 1px; }
     </style>
 </head>
-<body ontouchstart=""> <div class="header">
-        <a href="#" class="logo">CASININET</a>
+<body ontouchstart=""> 
+    <div class="header">
+        <a href="#" class="logo">CASINInet</a>
         <div class="live"><div class="dot"></div> LIVE</div>
     </div>
 
@@ -87,29 +63,19 @@
     <div id="m"></div>
 
     <div class="about-sec">
-        <div class="about-title">About Casininet</div>
-        <p class="about-p">
-            Digital media destination for real-time updates and trending insights. 
-            Delivering precision and speed in every story we cover.
-        </p>
+        <div class="about-title" style="color:#fff; font-size:13px; font-weight:800; text-transform:none;">About CASINInet</div>
+        <p style="color:#777; font-size:12px; line-height:1.6; margin:8px 0 0 0;">Digital media destination for real-time updates.</p>
     </div>
 
     <div class="footer">
-        <div class="footer-logo">CASININET • 2026</div>
+        <div class="footer-logo">CASINInet • 2026</div>
     </div>
 
     <script>
         const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
-
-        // Safari Click Fix: Empty listener to enable :active styles
-        document.addEventListener("touchstart", function() {}, true);
-
-        window.addEventListener('pageshow', (event) => {
-            document.body.style.opacity = "1";
-        });
-
+        
         async function share(e, title, id) {
-            e.stopPropagation(); e.preventDefault(); h();
+            e.stopPropagation(); h();
             try { 
                 await navigator.share({ 
                     title: title, 
@@ -118,12 +84,10 @@
             } catch (err) { console.log("Share failed"); }
         }
 
-        function go(id) {
+        function go(id) { 
             h(); 
             document.body.style.opacity = "0";
-            setTimeout(() => { 
-                window.location.href = `article.html?id=${id}`; 
-            }, 300);
+            setTimeout(() => { window.location.href = `article.html?id=${id}`; }, 200); 
         }
 
         async function load() {
@@ -135,13 +99,13 @@
                 document.getElementById('s').innerHTML = trending.map(n => `
                     <div class="round-card" onclick="go(${n.id})">
                         <img src="${n.img}" class="round-img">
-                        <div style="font-size:9px; color:#666; font-weight:600; margin-top:5px;">${n.headline.substring(0,8)}..</div>
+                        <div style="font-size:9px; color:#777; font-weight:600; margin-top:8px;">${n.headline.substring(0,10)}..</div>
                     </div>`).join('');
 
                 const main = d.filter(x => x.type === "main").slice(0, 5);
                 document.getElementById('m').innerHTML = main.map((n, i) => {
                     let html = `
-                    <div class="card-link" onclick="go(${n.id})" style="animation-delay: ${i * 0.1}s">
+                    <div class="card-link" onclick="go(${n.id})">
                         <div class="main-card">
                             <img src="${n.img}" class="main-img">
                             <div class="main-text">
