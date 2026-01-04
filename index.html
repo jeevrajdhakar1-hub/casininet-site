@@ -51,7 +51,9 @@
         .footer-logo { font-weight: 800; color: #444; font-size: 12px; letter-spacing: 1px; }
     </style>
 </head>
+
 <body ontouchstart=""> 
+
     <div class="header">
         <a href="#" class="logo">CASINInet</a>
         <div class="live"><div class="dot"></div> LIVE</div>
@@ -63,7 +65,7 @@
     <div id="m"></div>
 
     <div class="about-sec">
-        <div class="about-title" style="color:#fff; font-size:13px; font-weight:800; text-transform:none;">About CASINInet</div>
+        <div class="about-title" style="color:#fff; font-size:13px; font-weight:800;">About CASINInet</div>
         <p style="color:#777; font-size:12px; line-height:1.6; margin:8px 0 0 0;">Digital media destination for real-time updates.</p>
     </div>
 
@@ -73,7 +75,7 @@
 
     <script>
         const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
-        
+
         async function share(e, title, id) {
             e.stopPropagation(); h();
             try { 
@@ -81,14 +83,15 @@
                     title: title, 
                     url: window.location.origin + '/article.html?id=' + id 
                 }); 
-            } catch (err) { console.log("Share failed"); }
+            } catch (err) {}
         }
 
         function go(id) { 
             h(); 
             document.body.style.opacity = "0";
-            // replace use karne se history clean rehti hai
-            setTimeout(() => { window.location.assign(`article.html?id=${id}`); }, 250); 
+            setTimeout(() => { 
+                window.location.href = `article.html?id=${id}`; 
+            }, 250); 
         }
 
         async function load() {
@@ -121,18 +124,17 @@
                     if ((i + 1) % 2 === 0) html += `<div class="ad-box">ADVERTISEMENT</div>`;
                     return html;
                 }).join('');
-            } catch (e) { console.log("JSON Error"); }
+            } catch (e) {}
         }
-        
-        // Browser back button handling
-        window.addEventListener('pageshow', (event) => {
-            if (event.persisted) {
-                document.body.style.opacity = "1";
-            }
+
+    
+        window.addEventListener("pageshow", () => {
+            document.body.style.opacity = "1";
         });
 
+        document.body.style.opacity = "1";
         load();
     </script>
+
 </body>
-    </html>
-    
+        </html>
