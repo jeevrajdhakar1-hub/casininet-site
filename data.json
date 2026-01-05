@@ -4,69 +4,79 @@
     "type": "trending",
     "img": "https://picsum.photos/200/200?random=1",
     "headline": "Elon Musk's New AI Venture",
-    "tag": "TECH"
+    "tag": "TECH",
+    "content": "Elon Musk has officially unveiled his latest AI venture, aiming to compete with major tech giants. The project focuses on creating more transparent and truth-seeking artificial intelligence systems that can assist humanity in complex problem-solving. Early reports suggest that the new platform will be integrated across his various tech platforms by late 2026."
   },
   {
     "id": 2,
     "type": "trending",
     "img": "https://picsum.photos/200/200?random=2",
     "headline": "Cricket World Cup Updates",
-    "tag": "SPORTS"
+    "tag": "SPORTS",
+    "content": "The Cricket World Cup 2026 preparations are in full swing. Teams are focusing on heavy data analytics and new training regimes. Experts predict this year to be one of the most competitive seasons in history, with several underdog teams showing remarkable performance in the warm-up matches held recently."
   },
   {
     "id": 3,
     "type": "trending",
     "img": "https://picsum.photos/200/200?random=3",
     "headline": "New Marvel Movie Trailer",
-    "tag": "MOVIES"
+    "tag": "MOVIES",
+    "content": "Marvel Studios has finally dropped the teaser for its most anticipated film of the year. The trailer suggests a deep dive into the multiverse lore, bringing back several fan-favorite characters. The cinematic visuals and the background score have already broken internet records within hours of the release."
   },
   {
     "id": 4,
     "type": "trending",
     "img": "https://picsum.photos/200/200?random=4",
     "headline": "Stock Market Records High",
-    "tag": "FINANCE"
+    "tag": "FINANCE",
+    "content": "The global stock market has reached an all-time high this quarter. Investors are showing great confidence in emerging tech and green energy sectors. Financial analysts suggest that the steady growth is a result of improved trade policies and significant breakthroughs in automation technology."
   },
   {
     "id": 5,
     "type": "trending",
     "img": "https://picsum.photos/200/200?random=5",
     "headline": "Global Warming Report 2026",
-    "tag": "NEWS"
+    "tag": "NEWS",
+    "content": "The 2026 environmental report highlights urgent challenges as global temperatures continue to fluctuate. Scientists are calling for immediate action from world leaders to implement stricter carbon emission laws. On a positive note, the adoption of renewable energy has seen a 40% increase compared to the previous year."
   },
   {
     "id": 101,
     "type": "main",
     "img": "https://picsum.photos/600/400?random=11",
     "headline": "India Set to Launch New Space Station in 2026",
-    "tag": "SPACE"
+    "tag": "SPACE",
+    "content": "India is on the verge of making history as ISRO prepares for the launch of its own space station modules in 2026. This project will enable Indian astronauts to stay in space for longer durations for advanced scientific research. The mission is considered a giant leap for Asia's presence in the global space race."
   },
   {
     "id": 102,
     "type": "main",
     "img": "https://picsum.photos/600/400?random=12",
     "headline": "Top 10 Gadgets You Need to Buy This Year",
-    "tag": "LIFESTYLE"
+    "tag": "LIFESTYLE",
+    "content": "From smart glasses that replace your phone to portable AI assistants, 2026 is the year of wearable tech. Our experts have tested over 50 products to bring you the top 10 gadgets that offer the best value for money and genuinely improve your daily productivity and lifestyle."
   },
   {
     "id": 103,
     "type": "main",
     "img": "https://picsum.photos/600/400?random=13",
     "headline": "The Future of Electric Vehicles in Asia",
-    "tag": "AUTO"
+    "tag": "AUTO",
+    "content": "Electric Vehicles (EVs) are no longer just a luxury but a necessity in modern Asian cities. With the development of faster charging infrastructure and cheaper battery technology, the shift from petrol to electric is happening faster than predicted. Major car manufacturers are now shifting their entire production lines to EV models."
   },
   {
     "id": 104,
     "type": "main",
     "img": "https://picsum.photos/600/400?random=14",
     "headline": "Why Hybrid Work is Staying Forever",
-    "tag": "BUSINESS"
+    "tag": "BUSINESS",
+    "content": "The debate over returning to the office has finally settled. Companies have realized that a hybrid work model boosts employee satisfaction and reduces overhead costs. New digital collaboration tools have made it easier than ever to manage global teams without the need for a physical office space."
   },
   {
     "id": 105,
     "type": "main",
     "img": "https://picsum.photos/600/400?random=15",
     "headline": "Hidden Travel Gems in North India",
-    "tag": "TRAVEL"
+    "tag": "TRAVEL",
+    "content": "Beyond the popular tourist spots, North India hides some of the most serene and untouched landscapes. From the quiet valleys of Himachal to the hidden monasteries in Ladakh, this guide explores the best offbeat destinations for travelers looking for peace and authentic local experiences away from the crowds."
   }
 ]
