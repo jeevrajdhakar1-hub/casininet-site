@@ -24,8 +24,9 @@
             height: 60vh; 
             background: #000; 
             overflow: hidden;
-            -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
-            mask-image: linear-gradient(to bottom, black 75%, transparent 100%);
+            /* Yahan blend fix kiya hai */
+            -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
         }
         
         .hero-img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9); transition: transform 0.1s linear; }
@@ -35,11 +36,12 @@
             bottom: 0; 
             left: 0; 
             width: 100%; 
-            height: 50%; 
+            height: 60%; 
+            /* Yahan se asli seamless blend ho raha hai */
             background: linear-gradient(to bottom, 
                 transparent 0%, 
-                rgba(0,0,0,0.5) 70%, 
-                rgba(0,0,0,0.9) 90%, 
+                rgba(0,0,0,0.4) 40%, 
+                rgba(0,0,0,0.8) 75%, 
                 #000 100%); 
             z-index: 2;
         }
@@ -64,7 +66,7 @@
         
         .share-container { margin: 40px 0; text-align: center; }
 
-        /* 2. SHARE BUTTON CLICK ANIMATION (Naya Addition) */
+        /* 2. SHARE BUTTON CLICK ANIMATION (Safari Optimised) */
         .share-trigger { 
             background: #fff; 
             color: #000; 
@@ -74,17 +76,22 @@
             font-size: 16px; 
             cursor: pointer; 
             border: none;
-            transition: transform 0.1s ease; /* Smooth click */
+            display: inline-block;
+            transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.1s;
+            user-select: none;
+            -webkit-user-select: none;
         }
+        
         .share-trigger:active {
-            transform: scale(0.92); /* Dabne par chota hoga */
+            transform: scale(0.92) !important; 
+            background-color: #efeff4 !important; 
         }
 
         .micro-footer { text-align: center; padding: 40px 0; border-top: 1px solid #111; margin-top: 30px; }
         .footer-brand { font-size: 12px; font-weight: 700; color: #333; text-decoration: none; }
     </style>
 </head>
-<body>
+<body ontouchstart=""> 
     <div id="dynamic-article"></div>
     <a href="index.html" class="close-btn">✕</a>
 
@@ -145,7 +152,7 @@
         }
 
         async function hShare(t) { 
-            h(); // Vibration on click
+            h(); 
             if (navigator.share) {
                 try {
                     await navigator.share({ 
@@ -159,5 +166,4 @@
         fetchArticle();
     </script>
 </body>
-    </html>
-    
+</html>
