@@ -2,81 +2,71 @@
   {
     "id": 1,
     "type": "trending",
-    "img": "https://picsum.photos/200?random=11",
-    "tag": "LIVE",
-    "headline": "Crypto Update",
-    "content": "<p>Market mein badi tezi dekhi ja rahi hai...</p>"
+    "img": "https://picsum.photos/200/200?random=1",
+    "headline": "Elon Musk's New AI Venture",
+    "tag": "TECH"
   },
   {
     "id": 2,
     "type": "trending",
-    "img": "https://picsum.photos/200?random=12",
-    "tag": "TECH",
-    "headline": "AI Future",
-    "content": "<p>Artificial Intelligence ne duniya badal di hai...</p>"
+    "img": "https://picsum.photos/200/200?random=2",
+    "headline": "Cricket World Cup Updates",
+    "tag": "SPORTS"
   },
   {
     "id": 3,
     "type": "trending",
-    "img": "https://picsum.photos/200?random=13",
-    "tag": "SPORTS",
-    "headline": "Olympic 2026",
-    "content": "<p>Naye records ki taiyari shuru ho chuki hai...</p>"
+    "img": "https://picsum.photos/200/200?random=3",
+    "headline": "New Marvel Movie Trailer",
+    "tag": "MOVIES"
   },
   {
     "id": 4,
     "type": "trending",
-    "img": "https://picsum.photos/200?random=14",
-    "tag": "FASHION",
-    "headline": "Style 2026",
-    "content": "<p>Is saal ka naya trend kaafi alag hone wala hai...</p>"
+    "img": "https://picsum.photos/200/200?random=4",
+    "headline": "Stock Market Records High",
+    "tag": "FINANCE"
   },
   {
     "id": 5,
     "type": "trending",
-    "img": "https://picsum.photos/200?random=15",
-    "tag": "SPACE",
-    "headline": "Mars Mission",
-    "content": "<p>Naya space mission agle mahine launch hoga...</p>"
+    "img": "https://picsum.photos/200/200?random=5",
+    "headline": "Global Warming Report 2026",
+    "tag": "NEWS"
   },
   {
-    "id": 6,
+    "id": 101,
     "type": "main",
-    "img": "https://picsum.photos/500/300?random=1",
-    "tag": "Breaking News",
-    "headline": "CASINI net ne launch kiya naya AI driven platform",
-    "content": "<p>Bhai ye aapka pehla bada article hai. Isme aap detail mein likh sakte hain ki kaise aapka platform news ki duniya badal raha hai.</p><p>Digital media destination for real-time updates and trending insights.</p>"
+    "img": "https://picsum.photos/600/400?random=11",
+    "headline": "India Set to Launch New Space Station in 2026",
+    "tag": "SPACE"
   },
   {
-    "id": 7,
+    "id": 102,
     "type": "main",
-    "img": "https://picsum.photos/500/300?random=2",
-    "tag": "Technology",
-    "headline": "Apple Vision Pro 2 ke naye features leak hue",
-    "content": "<p>Naya headset pehle se kaafi light aur fast hone wala hai. Isme 8K display ka use kiya gaya hai.</p>"
+    "img": "https://picsum.photos/600/400?random=12",
+    "headline": "Top 10 Gadgets You Need to Buy This Year",
+    "tag": "LIFESTYLE"
   },
   {
-    "id": 8,
+    "id": 103,
     "type": "main",
-    "img": "https://picsum.photos/500/300?random=3",
-    "tag": "Auto",
-    "headline": "Electric Cars: 1000km range ab hui sach",
-    "content": "<p>Nayi battery technology ne electric vehicles ki duniya mein hungama macha diya hai.</p>"
+    "img": "https://picsum.photos/600/400?random=13",
+    "headline": "The Future of Electric Vehicles in Asia",
+    "tag": "AUTO"
   },
   {
-    "id": 9,
+    "id": 104,
     "type": "main",
-    "img": "https://picsum.photos/500/300?random=4",
-    "tag": "Science",
-    "headline": "Duniya ka sabse bada Telescope hua taiyar",
-    "content": "<p>Ab hum antariksh ke aur bhi gehrayi tak dekh payenge aur naye grahon ki khoj kar payenge.</p>"
+    "img": "https://picsum.photos/600/400?random=14",
+    "headline": "Why Hybrid Work is Staying Forever",
+    "tag": "BUSINESS"
   },
   {
-    "id": 10,
+    "id": 105,
     "type": "main",
-    "img": "https://picsum.photos/500/300?random=5",
-    "tag": "Global",
-    "headline": "Climate Change: Duniya bhar mein naye niyam lagu",
-    "content": "<p>Green energy ko badhava dene ke liye sarkaron ne kade kadam uthaye hain.</p>"
+    "img": "https://picsum.photos/600/400?random=15",
+    "headline": "Hidden Travel Gems in North India",
+    "tag": "TRAVEL"
   }
 ]
