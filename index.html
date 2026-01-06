@@ -81,72 +81,67 @@
     </div>
 
     <script>
-        const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
+    // Vibration effect ke liye
+    const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
 
-        // UPDATED SHARE FUNCTION (For Rich Preview)
-        async function share(e, title, id) {
-            e.stopPropagation(); 
-            h();
-            const shareUrl = window.location.origin + '/article.html?id=' + id;
-            try { 
-                await navigator.share({ 
-                    title: 'CASINInet News',
-                    text: '🔥 ' + title + '\n\nRead more at:', 
-                    url: shareUrl 
-                }); 
-            } catch (err) {
-                console.log("Share cancelled");
-            }
-        }
+    // Share karne ka function (Fix: Isme cache problem nahi aayegi)
+    async function share(e, title, id) {
+        e.stopPropagation(); 
+        h();
+        const shareUrl = window.location.origin + window.location.pathname.replace('index.html', '') + 'article.html?id=' + id;
+        try { 
+            await navigator.share({ title: 'CASINInet', text: '🔥 ' + title, url: shareUrl }); 
+        } catch (err) { console.log("Cancelled"); }
+    }
 
-        function go(id) { 
-            h(); 
-            document.body.style.opacity = "0";
-            setTimeout(() => { 
-                window.location.href = `article.html?id=${id}`; 
-            }, 250); 
-        }
+    // Article page par jaane ke liye
+    function go(id) { 
+        h(); 
+        document.body.style.opacity = "0";
+        setTimeout(() => { window.location.href = `article.html?id=${id}`; }, 250); 
+    }
 
-        async function load() {
-            try {
-                const r = await fetch('data.json'); 
-                const d = await r.json();
+    // JSON LOAD KARNE KA MAIN CODE
+    async function load() {
+        try {
+            // FIX: '?v=' lagane se hamesha NAYI headlines dikhengi
+            const r = await fetch('data.json?v=' + new Date().getTime()); 
+            const d = await r.json();
 
-                const trending = d.filter(x => x.type === "trending").slice(0, 5);
-                document.getElementById('s').innerHTML = trending.map(n => `
-                    <div class="round-card" onclick="go(${n.id})">
-                        <img src="${n.img}" class="round-img">
-                        <div style="font-size:9px; color:#777; font-weight:600; margin-top:8px;">${n.headline.substring(0,10)}..</div>
-                    </div>`).join('');
+            // Trending section update
+            const trending = d.filter(x => x.type === "trending").slice(0, 5);
+            document.getElementById('s').innerHTML = trending.map(n => `
+                <div class="round-card" onclick="go(${n.id})">
+                    <img src="${n.img}" class="round-img">
+                    <div style="font-size:9px; color:#777; font-weight:600; margin-top:8px;">${n.headline.substring(0,10)}..</div>
+                </div>`).join('');
 
-                const main = d.filter(x => x.type === "main").slice(0, 5);
-                document.getElementById('m').innerHTML = main.map((n, i) => {
-                    let html = `
-                    <div class="card-link" onclick="go(${n.id})">
-                        <div class="main-card">
-                            <img src="${n.img}" class="main-img">
-                            <div class="main-text">
-                                <span class="tag">${n.tag}</span>
-                                <span class="main-title">${n.headline}</span>
-                            </div>
+            // Main news update
+            const main = d.filter(x => x.type === "main").slice(0, 5);
+            document.getElementById('m').innerHTML = main.map((n, i) => {
+                let html = `
+                <div class="card-link" onclick="go(${n.id})">
+                    <div class="main-card">
+                        <img src="${n.img}" class="main-img">
+                        <div class="main-text">
+                            <span class="tag">${n.tag}</span>
+                            <span class="main-title">${n.headline}</span>
                         </div>
-                        <div class="share-btn" onclick="share(event, '${n.headline}', ${n.id})">
-                            <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
-                        </div>
-                    </div>`;
-                    if ((i + 1) % 2 === 0) html += `<div class="ad-box">ADVERTISEMENT</div>`;
-                    return html;
-                }).join('');
-            } catch (e) {}
-        }
+                    </div>
+                    <div class="share-btn" onclick="share(event, '${n.headline.replace(/'/g, "\\'")}', ${n.id})">
+                        <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
+                    </div>
+                </div>`;
+                if ((i + 1) % 2 === 0) html += `<div class="ad-box">ADVERTISEMENT</div>`;
+                return html;
+            }).join('');
+        } catch (e) { console.log("Error loading JSON"); }
+    }
 
-        window.addEventListener("pageshow", () => {
-            document.body.style.opacity = "1";
-        });
-
-        document.body.style.opacity = "1";
-        load();
-    </script>
+    window.addEventListener("pageshow", () => { document.body.style.opacity = "1"; });
+    document.body.style.opacity = "1";
+    load();
+</script>
 </body>
-</html>
+ </html>
                                                      
