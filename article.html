@@ -96,74 +96,95 @@
     <a href="index.html" class="close-btn">✕</a>
 
     <script>
-        // 3. HAPTIC FEEDBACK FUNCTION
-        const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
+    // 1. Haptic Feedback
+    const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
 
-        window.onscroll = () => {
-            const img = document.querySelector('.hero-img');
-            if (img) {
-                let s = window.pageYOffset;
-                if (s >= 0) { 
-                    img.style.transform = `scale(${1 + s/3000})`; 
-                    img.style.opacity = `${1 - s/1000}`; 
-                }
+    // 2. Parallax Effect
+    window.onscroll = () => {
+        const img = document.querySelector('.hero-img');
+        if (img) {
+            let s = window.pageYOffset;
+            if (s >= 0) { 
+                img.style.transform = `scale(${1 + s/3000})`; 
+                img.style.opacity = `${1 - s/1000}`; 
             }
-        };
+        }
+    };
 
-        async function fetchArticle() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const artId = urlParams.get('id');
+    // 3. Ad Loader Function (This is the fix)
+    function loadAd(id) {
+        const container = document.getElementById(id);
+        if (!container) return;
+        const script = document.createElement('script');
+        script.async = true;
+        script.setAttribute('data-cfasync', 'false');
+        script.src = "https://pl28419127.effectivegatecpm.com/1dd72f211aefd488e56f759ff509152a/invoke.js";
+        const adDiv = document.createElement('div');
+        adDiv.id = "container-1dd72f211aefd488e56f759ff509152a";
+        container.appendChild(script);
+        container.appendChild(adDiv);
+    }
+
+    async function fetchArticle() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const artId = urlParams.get('id');
+        try {
+            const response = await fetch('data.json');
+            const data = await response.json();
+            const article = data.find(item => item.id == artId);
+            if (article) {
+                let content = article.content || "";
+                let mid = Math.floor(content.length / 2);
+                let splitAt = content.indexOf(' ', mid);
+                if(splitAt === -1) splitAt = mid;
+
+                let part1 = content.substring(0, splitAt);
+                let part2 = content.substring(splitAt);
+
+                // HTML Structure with Ad Slots
+                document.getElementById('dynamic-article').innerHTML = `
+                    <div class="hero-section">
+                        <img src="${article.img}" class="hero-img">
+                        <div class="hero-overlay"></div>
+                    </div>
+                    <div class="content-container">
+                        <span class="art-tag">${article.tag}</span>
+                        <h1 class="art-headline">${article.headline}</h1>
+                        <div id="ad-top"></div>
+                        <div class="article-body">
+                            ${part1}
+                            <div id="ad-mid"></div>
+                            ${part2}
+                        </div>
+                        <div class="share-container">
+                            <div class="share-trigger" onclick="hShare('${article.headline}')">Share Story</div>
+                        </div>
+                        <div id="ad-bottom"></div>
+                        <div class="micro-footer"><div class="footer-brand">CASINInet • 2026</div></div>
+                    </div>
+                `;
+                
+                // Triggering Ads
+                loadAd('ad-top');
+                loadAd('ad-mid');
+                loadAd('ad-bottom');
+            }
+        } catch (err) { console.error("Data Load Error"); }
+    }
+
+    async function hShare(t) { 
+        h(); 
+        if (navigator.share) {
             try {
-                const response = await fetch('data.json');
-                const data = await response.json();
-                const article = data.find(item => item.id == artId);
-                if (article) {
-                    let content = article.content || "";
-                    let ad1 = `<div style="margin:20px 0; min-height:100px; text-align:center;"><script async="async" data-cfasync="false" src="https://pl28419127.effectivegatecpm.com/1dd72f211aefd488e56f759ff509152a/invoke.js"></script><div id="container-1dd72f211aefd488e56f759ff509152a"></div></div>`;
-                    let ad2 = `<div style="margin:20px 0; min-height:100px; text-align:center;"><script async="async" data-cfasync="false" src="https://pl28419127.effectivegatecpm.com/1dd72f211aefd488e56f759ff509152a/invoke.js"></script><div id="container-1dd72f211aefd488e56f759ff509152a"></div></div>`;
-                    let ad3 = `<div style="margin:20px 0; min-height:100px; text-align:center;"><script async="async" data-cfasync="false" src="https://pl28419127.effectivegatecpm.com/1dd72f211aefd488e56f759ff509152a/invoke.js"></script><div id="container-1dd72f211aefd488e56f759ff509152a"></div></div>`;
-                    
-                    let mid = Math.floor(content.length / 2);
-                    let splitAt = content.indexOf(' ', mid);
-                    if(splitAt === -1) splitAt = mid;
-
-                    let part1 = content.substring(0, splitAt);
-                    let part2 = content.substring(splitAt);
-
-                    document.getElementById('dynamic-article').innerHTML = `
-                        <div class="hero-section">
-                            <img src="${article.img}" class="hero-img">
-                            <div class="hero-overlay"></div>
-                        </div>
-                        <div class="content-container">
-                            <span class="art-tag">${article.tag}</span>
-                            <h1 class="art-headline">${article.headline}</h1>
-                            ${ad1}
-                            <div class="article-body">${part1}${ad2}${part2}</div>
-                            <div class="share-container">
-                                <div class="share-trigger" onclick="hShare('${article.headline}')">Share Story</div>
-                            </div>
-                            ${ad3}
-                            <div class="micro-footer"><div class="footer-brand">CASINInet • 2026</div></div>
-                        </div>
-                    `;
-                }
-            } catch (err) { console.error("Error"); }
+                await navigator.share({ 
+                    title: t, 
+                    text: '🔥 ' + t + '\n\nRead more on CASINInet:',
+                    url: window.location.href 
+                });
+            } catch (err) {}
         }
-
-        async function hShare(t) { 
-            h(); 
-            if (navigator.share) {
-                try {
-                    await navigator.share({ 
-                        title: t, 
-                        text: '🔥 ' + t + '\n\nRead more on CASINInet:',
-                        url: window.location.href 
-                    });
-                } catch (err) {}
-            }
-        }
-        fetchArticle();
+    }
+    fetchArticle();
     </script>
 <script src="https://pl28419044.effectivegatecpm.com/b5/9a/de/b59ade8f82a6eaab152ca14bb09b363e.js"></script>
 </body>
