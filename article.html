@@ -46,13 +46,15 @@
         };
 
         // Ad loading function
-        function loadAd(containerId) {
+                function loadAd(containerId) {
             const box = document.getElementById(containerId);
             if(!box) return;
             const s = document.createElement('script');
-            s.src = "https://pl28419127.effectivegatecpm.com/1dd72f211aefd488e56f759ff509152a/invoke.js";
+            s.type = 'text/javascript'; 
             s.async = true;
             s.setAttribute('data-cfasync', 'false');
+            // Safari bypass logic
+            s.src = "https://pl28419127.effectivegatecpm.com/1dd72f211aefd488e56f759ff509152a/invoke.js?v=" + Math.random();
             const div = document.createElement('div');
             div.id = "container-1dd72f211aefd488e56f759ff509152a";
             box.appendChild(s);
