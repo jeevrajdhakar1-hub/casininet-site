@@ -46,21 +46,27 @@
         };
 
         // Ad loading function
-                function loadAd(containerId) {
+                    function loadAd(containerId) {
             const box = document.getElementById(containerId);
             if(!box) return;
-            const s = document.createElement('script');
-            s.type = 'text/javascript'; 
-            s.async = true;
-            s.setAttribute('data-cfasync', 'false');
-            // Safari bypass logic
-            s.src = "https://pl28419127.effectivegatecpm.com/1dd72f211aefd488e56f759ff509152a/invoke.js?v=" + Math.random();
+
+            // Purane div ko clear karein agar kuch ho
+            box.innerHTML = ''; 
+
             const div = document.createElement('div');
             div.id = "container-1dd72f211aefd488e56f759ff509152a";
-            box.appendChild(s);
             box.appendChild(div);
-        }
 
+            const s = document.createElement('script');
+            // Safari bypass: document.write ki jagah append use kar rahe hain thode delay ke saath
+            s.setAttribute('data-cfasync', 'false');
+            s.async = true;
+            s.src = "//pl28419127.effectivegatecpm.com/1dd72f211aefd488e56f759ff509152a/invoke.js";
+            
+            // Safari ko dhoka dene ke liye script ko body mein end mein add karna
+            document.body.appendChild(s);
+        }
+        
         async function fetchArticle() {
             const urlParams = new URLSearchParams(window.location.search);
             const artId = urlParams.get('id');
