@@ -3,90 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    
     <title>Article | CASINInet</title>
-    <meta property="og:title" content="CASINInet | Breaking News Story">
-    <meta property="og:description" content="Read the latest trending update on CASINInet Digital Media.">
-    <meta property="og:image" content="https://picsum.photos/500/300?random=1">
-    <meta property="og:type" content="article">
-    <meta name="twitter:card" content="summary_large_image">
-
     <style>
-        /* TERA ORIGINAL DESIGN (Bilkul touch nahi kiya) */
+        /* TERA ORIGINAL DESIGN */
         * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; }
         body { background: #000; color: #fff; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-        
         .close-btn { position: fixed; top: 20px; right: 20px; width: 40px; height: 40px; background: rgba(0, 0, 0, 0.5); -webkit-backdrop-filter: blur(15px); backdrop-filter: blur(15px); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; color: #fff; text-decoration: none; font-size: 20px; border: 1px solid rgba(255,255,255,0.1); }
-
-        .hero-section { 
-            position: relative; 
-            width: 100%; 
-            height: 60vh; 
-            background: #000; 
-            overflow: hidden;
-            /* Yahan blend fix kiya hai */
-            -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-            mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-        }
-        
+        .hero-section { position: relative; width: 100%; height: 60vh; background: #000; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
         .hero-img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9); transition: transform 0.1s linear; }
-
-        .hero-overlay { 
-            position: absolute; 
-            bottom: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 60%; 
-            /* Yahan se asli seamless blend ho raha hai */
-            background: linear-gradient(to bottom, 
-                transparent 0%, 
-                rgba(0,0,0,0.4) 40%, 
-                rgba(0,0,0,0.8) 75%, 
-                #000 100%); 
-            z-index: 2;
-        }
-
-        .content-container { 
-            position: relative; 
-            margin-top: -70px; 
-            padding: 0 24px; 
-            z-index: 10; 
-            background: #000; 
-            border-radius: 0; 
-            min-height: 100vh;
-            box-shadow: 0 -30px 50px 5px #000;
-        }
-
+        .hero-overlay { position: absolute; bottom: 0; left: 0; width: 100%; height: 60%; background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.8) 75%, #000 100%); z-index: 2; }
+        .content-container { position: relative; margin-top: -70px; padding: 0 24px; z-index: 10; background: #000; min-height: 100vh; box-shadow: 0 -30px 50px 5px #000; }
         .art-tag { display: inline-block; background: #ff3b30; color: #fff; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin: 50px 0 15px 0; }
         .art-headline { font-size: 34px; font-weight: 800; line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 25px; }
-
-        .premium-ad { display: flex !important; flex-direction: column; align-items: center; justify-content: center; background: #0a0a0a !important; border: 1px solid #1a1a1a !important; border-radius: 16px; margin: 35px 0; padding: 20px; min-height: 200px !important; width: 100%; }
-        .ad-meta { font-size: 9px; color: #444; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+        
+        /* DESIGN FIXED FOR AD BOXES */
+        .premium-ad { display: flex !important; flex-direction: column; align-items: center; justify-content: center; background: #0a0a0a !important; border: 1px solid #1a1a1a !important; border-radius: 16px; margin: 35px 0; padding: 20px; min-height: 250px !important; width: 100%; text-align: center; }
+        
         .article-body { font-size: 19px; line-height: 1.8; color: #d1d1d6; word-wrap: break-word; }
-        
         .share-container { margin: 40px 0; text-align: center; }
-
-        /* 2. SHARE BUTTON CLICK ANIMATION (Safari Optimised) */
-        .share-trigger { 
-            background: #fff; 
-            color: #000; 
-            padding: 15px 45px; 
-            border-radius: 35px; 
-            font-weight: 700; 
-            font-size: 16px; 
-            cursor: pointer; 
-            border: none;
-            display: inline-block;
-            transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.1s;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-        
-        .share-trigger:active {
-            transform: scale(0.92) !important; 
-            background-color: #efeff4 !important; 
-        }
-
+        .share-trigger { background: #fff; color: #000; padding: 15px 45px; border-radius: 35px; font-weight: 700; font-size: 16px; cursor: pointer; border: none; display: inline-block; transition: transform 0.1s; user-select: none; -webkit-user-select: none; }
+        .share-trigger:active { transform: scale(0.92) !important; }
         .micro-footer { text-align: center; padding: 40px 0; border-top: 1px solid #111; margin-top: 30px; }
         .footer-brand { font-size: 12px; font-weight: 700; color: #333; text-decoration: none; }
     </style>
@@ -96,96 +32,95 @@
     <a href="index.html" class="close-btn">✕</a>
 
     <script>
-    // 1. Haptic Feedback
-    const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
+        const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
 
-    // 2. Parallax Effect
-    window.onscroll = () => {
-        const img = document.querySelector('.hero-img');
-        if (img) {
-            let s = window.pageYOffset;
-            if (s >= 0) { 
-                img.style.transform = `scale(${1 + s/3000})`; 
-                img.style.opacity = `${1 - s/1000}`; 
+        window.onscroll = () => {
+            const img = document.querySelector('.hero-img');
+            if (img) {
+                let s = window.pageYOffset;
+                if (s >= 0) { 
+                    img.style.transform = `scale(${1 + s/3000})`; 
+                    img.style.opacity = `${1 - s/1000}`; 
+                }
             }
+        };
+
+        // Ad loading function
+        function loadAd(containerId) {
+            const box = document.getElementById(containerId);
+            if(!box) return;
+            const s = document.createElement('script');
+            s.src = "https://pl28419127.effectivegatecpm.com/1dd72f211aefd488e56f759ff509152a/invoke.js";
+            s.async = true;
+            s.setAttribute('data-cfasync', 'false');
+            const div = document.createElement('div');
+            div.id = "container-1dd72f211aefd488e56f759ff509152a";
+            box.appendChild(s);
+            box.appendChild(div);
         }
-    };
 
-    // 3. Ad Loader Function (This is the fix)
-    function loadAd(id) {
-        const container = document.getElementById(id);
-        if (!container) return;
-        const script = document.createElement('script');
-        script.async = true;
-        script.setAttribute('data-cfasync', 'false');
-        script.src = "https://pl28419127.effectivegatecpm.com/1dd72f211aefd488e56f759ff509152a/invoke.js";
-        const adDiv = document.createElement('div');
-        adDiv.id = "container-1dd72f211aefd488e56f759ff509152a";
-        container.appendChild(script);
-        container.appendChild(adDiv);
-    }
-
-    async function fetchArticle() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const artId = urlParams.get('id');
-        try {
-            const response = await fetch('data.json');
-            const data = await response.json();
-            const article = data.find(item => item.id == artId);
-            if (article) {
-                let content = article.content || "";
-                let mid = Math.floor(content.length / 2);
-                let splitAt = content.indexOf(' ', mid);
-                if(splitAt === -1) splitAt = mid;
-
-                let part1 = content.substring(0, splitAt);
-                let part2 = content.substring(splitAt);
-
-                // HTML Structure with Ad Slots
-                document.getElementById('dynamic-article').innerHTML = `
-                    <div class="hero-section">
-                        <img src="${article.img}" class="hero-img">
-                        <div class="hero-overlay"></div>
-                    </div>
-                    <div class="content-container">
-                        <span class="art-tag">${article.tag}</span>
-                        <h1 class="art-headline">${article.headline}</h1>
-                        <div id="ad-top"></div>
-                        <div class="article-body">
-                            ${part1}
-                            <div id="ad-mid"></div>
-                            ${part2}
-                        </div>
-                        <div class="share-container">
-                            <div class="share-trigger" onclick="hShare('${article.headline}')">Share Story</div>
-                        </div>
-                        <div id="ad-bottom"></div>
-                        <div class="micro-footer"><div class="footer-brand">CASINInet • 2026</div></div>
-                    </div>
-                `;
-                
-                // Triggering Ads
-                loadAd('ad-top');
-                loadAd('ad-mid');
-                loadAd('ad-bottom');
-            }
-        } catch (err) { console.error("Data Load Error"); }
-    }
-
-    async function hShare(t) { 
-        h(); 
-        if (navigator.share) {
+        async function fetchArticle() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const artId = urlParams.get('id');
             try {
-                await navigator.share({ 
-                    title: t, 
-                    text: '🔥 ' + t + '\n\nRead more on CASINInet:',
-                    url: window.location.href 
-                });
-            } catch (err) {}
+                const response = await fetch('data.json');
+                const data = await response.json();
+                const article = data.find(item => item.id == artId);
+                if (article) {
+                    let content = article.content || "";
+                    let mid = Math.floor(content.length / 2);
+                    let splitAt = content.indexOf(' ', mid);
+                    if(splitAt === -1) splitAt = mid;
+                    let part1 = content.substring(0, splitAt);
+                    let part2 = content.substring(splitAt);
+
+                    document.getElementById('dynamic-article').innerHTML = `
+                        <div class="hero-section">
+                            <img src="${article.img}" class="hero-img">
+                            <div class="hero-overlay"></div>
+                        </div>
+                        <div class="content-container">
+                            <span class="art-tag">${article.tag}</span>
+                            <h1 class="art-headline">${article.headline}</h1>
+                            
+                            <div id="ad-top" class="premium-ad"></div>
+
+                            <div class="article-body">
+                                ${part1}
+                                <div id="ad-mid" class="premium-ad"></div>
+                                ${part2}
+                            </div>
+                            
+                            <div class="share-container">
+                                <div class="share-trigger" onclick="hShare('${article.headline}')">Share Story</div>
+                            </div>
+                            
+                            <div id="ad-bottom" class="premium-ad"></div>
+                            
+                            <div class="micro-footer"><div class="footer-brand">CASINInet • 2026</div></div>
+                        </div>
+                    `;
+                    loadAd('ad-top');
+                    loadAd('ad-mid');
+                    loadAd('ad-bottom');
+                }
+            } catch (err) { console.error("Error"); }
         }
-    }
-    fetchArticle();
+
+        async function hShare(t) { 
+            h(); 
+            if (navigator.share) {
+                try {
+                    await navigator.share({ 
+                        title: t, 
+                        text: '🔥 ' + t + '\n\nRead more on CASINInet:',
+                        url: window.location.href 
+                    });
+                } catch (err) {}
+            }
+        }
+        fetchArticle();
     </script>
-<script src="https://pl28419044.effectivegatecpm.com/b5/9a/de/b59ade8f82a6eaab152ca14bb09b363e.js"></script>
+    <script src="https://pl28419044.effectivegatecpm.com/b5/9a/de/b59ade8f82a6eaab152ca14bb09b363e.js"></script>
 </body>
 </html>
