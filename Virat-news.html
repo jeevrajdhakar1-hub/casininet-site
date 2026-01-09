@@ -61,22 +61,23 @@ async function fetchArticle() {
         }
     } catch (err) { console.error("Error loading news"); }
 }
-
-// Ye hShare function Safari aur Android dono pe chalega
 function hShare(t) {
+    const sData = {
+        title: t,
+        text: '🔥 ' + t,
+        // Yahan link bilkul sahi wala dalo
+        url: 'https://casininet.com/virat-news.html' 
+    };
+
     if (navigator.share) {
-        navigator.share({
-            title: t,
-            text: '🔥 ' + t,
-            url: window.location.href
-        }).catch(() => {
-            window.location.href = "whatsapp://send?text=" + encodeURIComponent('🔥 ' + t + " " + window.location.href);
+        navigator.share(sData).catch(() => {
+            window.location.href = "whatsapp://send?text=" + encodeURIComponent(sData.text + " " + sData.url);
         });
     } else {
-        window.location.href = "whatsapp://send?text=" + encodeURIComponent('🔥 ' + t + " " + window.location.href);
+        window.location.href = "whatsapp://send?text=" + encodeURIComponent(sData.text + " " + sData.url);
     }
-        }
-            
+}
+                                            
     </script>
 </body>
 </html>
