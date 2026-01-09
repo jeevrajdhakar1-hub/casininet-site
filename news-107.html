@@ -115,20 +115,21 @@
             }
         };
 
-    async function hShare(t) { 
-    h(); 
-    if (navigator.share) {
-        try {
-            // Humne link ke aage ?v=1 joda hai taaki WhatsApp ise naya page samjhe
-            const shareUrl = window.location.origin + window.location.pathname + "?v=" + Math.floor(Math.random() * 100);
-            await navigator.share({ 
-                title: t, 
-                text: '🔥 ' + t + '\n\nRead more on CASINInet:',
-                url: shareUrl 
-            });
-        } catch (err) { console.log("Share failed"); }
-    }
+    async function share(e, title, id) {
+    e.stopPropagation(); 
+    h();
+    // Ye line ensure karegi ki link hamesha news-ID.html bane
+    const shareUrl = window.location.origin + '/news-' + id + '.html?v=' + Math.floor(Math.random() * 100);
+    
+    try { 
+        await navigator.share({ 
+            title: 'CASINInet', 
+            text: '🔥 ' + title, 
+            url: shareUrl 
+        }); 
+    } catch (err) { console.log("Cancelled"); }
         }
+        
         
     </script>
 </body>
