@@ -20,10 +20,35 @@
         * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; }
         body { background: #000; color: #fff; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
         .close-btn { position: fixed; top: 20px; right: 20px; width: 40px; height: 40px; background: rgba(0, 0, 0, 0.5); -webkit-backdrop-filter: blur(15px); backdrop-filter: blur(15px); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; color: #fff; text-decoration: none; font-size: 20px; border: 1px solid rgba(255,255,255,0.1); }
-        .hero-section { position: relative; width: 100%; height: 60vh; background: #000; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
-        .hero-img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9); transition: transform 0.1s linear; }
+        .hero-section { 
+    position: relative; 
+    width: 100%; 
+    height: 65vh; 
+    background: #000; 
+    overflow: hidden; 
+    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%); 
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%); 
+}
+
+.hero-img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    filter: brightness(0.9); 
+    transform-origin: center top; 
+    transition: transform 0.1s ease-out; 
+    will-change: transform; 
+}
         .hero-overlay { position: absolute; bottom: 0; left: 0; width: 100%; height: 60%; background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.8) 75%, #000 100%); z-index: 2; }
-        .content-container { position: relative; margin-top: -70px; padding: 0 24px; z-index: 10; background: #000; min-height: 100vh; box-shadow: 0 -30px 50px 5px #000; }
+        .content-container { 
+    position: relative; 
+    margin-top: -80px; 
+    padding: 0 24px; 
+    z-index: 10; 
+    background: #000; 
+    min-height: 100vh; 
+    box-shadow: 0 -40px 60px 10px #000; 
+        }
         .art-tag { display: inline-block; background: #ff3b30; color: #fff; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin: 50px 0 15px 0; }
         .art-headline { font-size: 34px; font-weight: 800; line-height: 1.1; letter-spacing: -1.2px; margin-bottom: 25px; }
         
@@ -44,17 +69,21 @@
 
     <script>
         const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
+window.onscroll = () => {
+    const img = document.querySelector('.hero-img');
+    if (img) {
+        let s = window.pageYOffset;
+        if (s >= 0) { 
+            let zoom = 1 + (s / 1500); // Side se zoom
+            let stretch = 1 + (s / 1000); // Niche ki taraf stretch
+            img.style.transform = `scale(${zoom}, ${stretch})`; 
+            img.style.opacity = `${1 - s/800}`; 
+        }
+    }
+};
 
-        window.onscroll = () => {
-            const img = document.querySelector('.hero-img');
-            if (img) {
-                let s = window.pageYOffset;
-                if (s >= 0) { 
-                    img.style.transform = `scale(${1 + s/3000})`; 
-                    img.style.opacity = `${1 - s/1000}`; 
-                }
-            }
-        };
+        
+            
 
         // Ad loading function
                 function loadAd(containerId) {
