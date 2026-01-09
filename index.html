@@ -97,12 +97,13 @@
             await navigator.share({ title: 'CASINInet', text: '🔥 ' + title, url: shareUrl }); 
         } catch (err) { console.log("Cancelled"); }
     }
+function go(id) { 
+    h(); 
+    document.body.style.opacity = "0";
+    // Agar id 106 hai (Virat wali), toh virat-news.html pe bhejo
+    let link = (id == 106) ? 'virat-news.html' : `article.html?id=${id}`;
+    setTimeout(() => { window.location.href = link; }, 250); 
 
-    // Article page par jaane ke liye
-    function go(id) { 
-        h(); 
-        document.body.style.opacity = "0";
-        setTimeout(() => { window.location.href = `article.html?id=${id}`; }, 250); 
     }
 
         async function load() {
