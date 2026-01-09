@@ -58,36 +58,25 @@
                 }
             } catch (err) { console.error("Error loading news"); }
         }
-
-        function hShare(t) {
-    // 1. Vibration turant trigger karo (Android/Chrome ke liye)
-    if (navigator.vibrate) navigator.vibrate(15);
-
-    // 2. Data tayyar karo
-    const shareData = {
-        title: 'CASINInet',
+function hShare(t) {
+    // 1. Data ko seedha function ke andar rakhein
+    const sData = {
+        title: 'CASINInet News',
         text: '🔥 ' + t,
         url: window.location.href
     };
 
-    // 3. Share API call (Bina kisi delay ke)
+    // 2. Sirf simple share call karein
     if (navigator.share) {
-        navigator.share(shareData)
-            .then(() => console.log('Successful share'))
-            .catch((error) => console.log('Error sharing', error));
+        navigator.share(sData)
+            .then(() => console.log('Shared'))
+            .catch((e) => {
+                // Agar button kaam na kare toh ye niche wala tareeka chalega
+                window.location.href = "whatsapp://send?text=" + encodeURIComponent('🔥 ' + t + " " + window.location.href);
+            });
     } else {
-        // Fallback: Agar browser support na kare
-        const dummy = document.createElement('input');
-        document.body.appendChild(dummy);
-        dummy.value = window.location.href;
-        dummy.select();
-        document.execCommand('copy');
-        document.body.removeChild(dummy);
-        alert("Link Copy Ho Gaya! Ab aap kahin bhi paste kar sakte hain.");
-    
-        
-        
-
+        // Fallback for browsers that don't support share
+        window.location.href = "whatsapp://send?text=" + encodeURIComponent('🔥 ' + t + " " + window.location.href);
     </script>
 </body>
 </html>
