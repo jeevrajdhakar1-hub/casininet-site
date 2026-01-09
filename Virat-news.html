@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+    <title>Virat Kohli News | CASINInet</title>
+    <meta property="og:title" content="🔥 Virat Kohli's New Look Goes Viral!">
+    <meta property="og:description" content="Read the full story on CASINInet.">
+    <meta property="og:image" content="https://i.postimg.cc/virat-photo.jpg"> 
+    <meta property="og:url" content="https://casininet.com/virat.html">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <style>
+        /* Tera Original Design (Vahi CSS jo tune pehle di thi) */
+        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; }
+        body { background: #000; color: #fff; font-family: -apple-system, sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
+        .close-btn { position: fixed; top: 20px; right: 20px; width: 40px; height: 40px; background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; color: #fff; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); }
+        .hero-section { position: relative; width: 100%; height: 60vh; background: #000; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
+        .hero-img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-overlay { position: absolute; bottom: 0; width: 100%; height: 60%; background: linear-gradient(to bottom, transparent, #000); z-index: 2; }
+        .content-container { position: relative; margin-top: -70px; padding: 0 24px; z-index: 10; background: #000; min-height: 100vh; }
+        .art-tag { display: inline-block; background: #ff3b30; color: #fff; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; margin: 50px 0 15px 0; }
+        .art-headline { font-size: 34px; font-weight: 800; line-height: 1.1; margin-bottom: 25px; }
+        .article-body { font-size: 19px; line-height: 1.8; color: #d1d1d6; }
+        .share-trigger { background: #fff; color: #000; padding: 15px 45px; border-radius: 35px; font-weight: 700; cursor: pointer; display: inline-block; margin: 20px 0; }
+    </style>
+</head>
+<body> 
+    <div id="dynamic-article"></div>
+    <a href="index.html" class="close-btn">✕</a>
+
+    <script>
+        async function fetchArticle() {
+            // 2. YAHAN APNI JSON WALI ID BADLO
+            const artId = 106; 
+            
+            try {
+                const response = await fetch('data.json?v=' + new Date().getTime());
+                const data = await response.json();
+                const article = data.find(item => item.id == artId);
+                
+                if (article) {
+                    document.getElementById('dynamic-article').innerHTML = `
+                        <div class="hero-section">
+                            <img src="${article.img}" class="hero-img">
+                            <div class="hero-overlay"></div>
+                        </div>
+                        <div class="content-container">
+                            <span class="art-tag">${article.tag || 'TRENDING'}</span>
+                            <h1 class="art-headline">${article.headline}</h1>
+                            <div class="article-body">${article.content}</div>
+                            <div style="text-align:center;"><div class="share-trigger" onclick="hShare('${article.headline}')">Share Story</div></div>
+                            <div style="text-align:center; padding: 40px 0; color:#333; font-size:12px;">CASINInet • 2026</div>
+                        </div>
+                    `;
+                }
+            } catch (err) { console.error("Error loading news"); }
+        }
+
+        function hShare(t) { if (navigator.share) { navigator.share({ title: t, url: window.location.href }); } }
+        fetchArticle();
+    </script>
+</body>
+</html>
