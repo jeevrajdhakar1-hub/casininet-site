@@ -90,26 +90,14 @@
 
     // Share karne ka function (Fix: Isme cache problem nahi aayegi)
     async function share(e, title, id) {
-        e.stopPropagation(); 
-        h();
-        const shareUrl = window.location.origin + window.location.pathname.replace('index.html', '') + 'article.html?id=' + id;
-        try { 
-            await navigator.share({ title: 'CASINInet', text: '🔥 ' + title, url: shareUrl }); 
-        } catch (err) { console.log("Cancelled"); }
-    }
-function go(id) { 
-    h(); 
-    document.body.style.opacity = "0";
-    
-    // Ye line hamesha kaam karegi
-    let link = `news-${id}.html`; 
-    
-    setTimeout(() => { 
-        window.location.href = link; 
-    }, 250); 
+    e.stopPropagation(); 
+    h();
+    // Ye line ab sahi link (news-107.html) banayegi
+    const shareUrl = window.location.origin + '/news-' + id + '.html?v=' + Math.floor(Math.random() * 100);
+    try { 
+        await navigator.share({ title: 'CASINInet', text: '🔥 ' + title, url: shareUrl }); 
+    } catch (err) { console.log("Cancelled"); }
         }
-
-
         async function load() {
         try {
             // v= lagane se hamesha NAYI data fetch hogi (Cache clear)
