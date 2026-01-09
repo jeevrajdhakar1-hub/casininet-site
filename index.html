@@ -100,11 +100,15 @@
 function go(id) { 
     h(); 
     document.body.style.opacity = "0";
-    // Agar id 106 hai (Virat wali), toh virat-news.html pe bhejo
-    let link = (id == 106) ? 'virat-news.html' : `article.html?id=${id}`;
-    setTimeout(() => { window.location.href = link; }, 250); 
+    
+    // Ye line hamesha kaam karegi
+    let link = `news-${id}.html`; 
+    
+    setTimeout(() => { 
+        window.location.href = link; 
+    }, 250); 
+        }
 
-    }
 
         async function load() {
         try {
