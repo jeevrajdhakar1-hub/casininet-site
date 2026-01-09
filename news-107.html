@@ -115,19 +115,19 @@
             }
         };
 
-    async function share(e, title, id) {
-    e.stopPropagation(); 
-    h();
-    // Ye line ensure karegi ki link hamesha news-ID.html bane
-    const shareUrl = window.location.origin + '/news-' + id + '.html?v=' + Math.floor(Math.random() * 100);
-    
-    try { 
-        await navigator.share({ 
-            title: 'CASINInet', 
-            text: '🔥 ' + title, 
-            url: shareUrl 
-        }); 
-    } catch (err) { console.log("Cancelled"); }
+    async function hShare(t) { 
+    h(); 
+    if (navigator.share) {
+        try {
+            // Ye khud hi apna link (news-107.html) bana lega
+            const shareUrl = window.location.origin + window.location.pathname + "?v=" + Math.floor(Math.random() * 100);
+            await navigator.share({ 
+                title: t, 
+                text: '🔥 ' + t + '\n\nRead more on CASINInet:',
+                url: shareUrl 
+            });
+        } catch (err) { console.log("Share failed"); }
+    }
         }
         
         
