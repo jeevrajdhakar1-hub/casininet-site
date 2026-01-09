@@ -119,8 +119,26 @@
                 window.location.href = "whatsapp://send?text=" + encodeURIComponent(sData.text + " " + sData.url);
             }
         }
+        
+window.onscroll = () => {
+    const img = document.querySelector('.hero-img');
+    if (img) {
+        let s = window.pageYOffset;
+        
+        // s/500 karne se zoom bahut tez aur saaf dikhega
+        let zoom = 1 + (s / 500); 
+        let stretch = 1 + (s / 400); 
 
+        // Apply effect
+        img.style.transform = `scale(${zoom}, ${stretch})`;
+        
+        // Thoda shadow effect
+        img.style.opacity = `${1 - s/900}`;
+    }
+};
+        
         fetchArticle();
+        
     </script>
 </body>
 </html>
