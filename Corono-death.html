@@ -6,10 +6,12 @@
     <title>CASINInet | korono death</title>
 
     <meta property="og:type" content="article">
-    <meta property="og:title" content="CASINInet | korono death">
-    <meta property="og:description" content="Click here to read the full trending story on CASINInet.">
-    <meta property="og:image" content="https://i.postimg.cc/9MRZtwhJ/Screenshot-2026-01-09-19-56-41-48-40deb401b9ffe8e1df2f1cc5ba480b12.jpg">
-    <meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="CASINInet | korono death">
+<meta property="og:description" content="Click here to read the full trending story on CASINInet.">
+<meta property="og:image" content="https://i.postimg.cc/x842gB9f/IMG-20260107-WA0000.jpg">
+<meta property="og:url" content="https://casininet.com/Corono-death.html">
+<meta name="twitter:card" content="summary_large_image">
+
 
     <style>
         * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; }
@@ -113,19 +115,21 @@
             }
         };
 
-        // Share Function
-        async function hShare(t) { 
-            h(); 
-            if (navigator.share) {
-                try {
-                    await navigator.share({ 
-                        title: t, 
-                        text: '🔥 ' + t + '\n\nRead more on CASINInet:',
-                        url: window.location.href 
-                    });
-                } catch (err) {}
-            }
+    async function hShare(t) { 
+    h(); 
+    if (navigator.share) {
+        try {
+            // Humne link ke aage ?v=1 joda hai taaki WhatsApp ise naya page samjhe
+            const shareUrl = window.location.origin + window.location.pathname + "?v=" + Math.floor(Math.random() * 100);
+            await navigator.share({ 
+                title: t, 
+                text: '🔥 ' + t + '\n\nRead more on CASINInet:',
+                url: shareUrl 
+            });
+        } catch (err) { console.log("Share failed"); }
+    }
         }
+        
     </script>
 </body>
 </html>
