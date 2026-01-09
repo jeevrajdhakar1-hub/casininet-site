@@ -59,8 +59,18 @@
             } catch (err) { console.error("Error loading news"); }
         }
 
-        function hShare(t) { if (navigator.share) { navigator.share({ title: t, url: window.location.href }); } }
-        fetchArticle();
+        function hShare(t) { 
+    if (navigator.share) { 
+        navigator.share({ 
+            title: t, 
+            text: '🔥 ' + t, // Headline bhi jayegi
+            url: window.location.href // Pura page link jayega
+        }).catch(e => console.log("Share cancel ho gaya"));
+    } else {
+        // Agar browser purana hai toh link copy ho jaye
+        alert("Link copied! Ab aap kahin bhi paste kar sakte hain.");
+        navigator.clipboard.writeText(window.location.href);
+
     </script>
 </body>
 </html>
