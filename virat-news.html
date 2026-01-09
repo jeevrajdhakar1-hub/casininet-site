@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
     <title>Virat Kohli News | CASINInet</title>
-    <meta property="og:title" content="🔥 Virat Kohli's New Look Goes Viral!">
+    <meta property="og:title" content="Virat Kohli News | Exclusive">
     <meta property="og:description" content="Read the full story on CASINInet.">
     <meta property="og:image" content="https://i.postimg.cc/gcsbjyHN/Screenshot-2026-01-09-09-17-12-67-40deb401b9ffe8e1df2f1cc5ba480b12.jpg"> 
     <meta property="og:url" content="https://casininet.com/virat-news.html">
@@ -18,10 +18,22 @@
         .close-btn { position: fixed; top: 20px; right: 20px; width: 40px; height: 40px; background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; color: #fff; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); }
         .hero-section { position: relative; width: 100%; height: 60vh; background: #000; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }
         .hero-img { width: 100%; height: 100%; object-fit: cover; }
+            .share-trigger:active {
+    transform: scale(0.95); 
+    background: #e0e0e0;   
+    transition: 0.1s;      
+            }
+            
         .hero-overlay { position: absolute; bottom: 0; width: 100%; height: 60%; background: linear-gradient(to bottom, transparent, #000); z-index: 2; }
         .content-container { position: relative; margin-top: -70px; padding: 0 24px; z-index: 10; background: #000; min-height: 100vh; }
         .art-tag { display: inline-block; background: #ff3b30; color: #fff; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; margin: 50px 0 15px 0; }
-        .art-headline { font-size: 34px; font-weight: 800; line-height: 1.1; margin-bottom: 25px; }
+        .art-headline { 
+    font-size: 38px; 
+    font-weight: 900; 
+    letter-spacing: -1.5px; 
+    margin-bottom: 20px;
+        }
+            
         .article-body { font-size: 19px; line-height: 1.8; color: #d1d1d6; }
         .share-trigger { background: #fff; color: #000; padding: 15px 45px; border-radius: 35px; font-weight: 700; cursor: pointer; display: inline-block; margin: 20px 0; }
     </style>
@@ -62,10 +74,10 @@ async function fetchArticle() {
 
 function hShare(t) {
     const sData = {
-        title: t,
-        text: '🔥 ' + t,
-        url: 'https://casininet.com/virat-news.html' 
-    };
+    title: t,
+    text: 'Check out the full story here:', // Isse double heading nahi dikhegi
+    url: 'https://casininet.com/virat-news.html' 
+};
 
     if (navigator.share) {
         navigator.share(sData).catch(() => {
