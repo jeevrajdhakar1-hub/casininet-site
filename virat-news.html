@@ -40,7 +40,6 @@ async function fetchArticle() {
         const article = data.find(item => item.id == artId);
         
         if (article) {
-            // Headline ko ek variable mein save karo taaki syntax error na ho
             const safeTitle = article.headline.replace(/'/g, "\\'"); 
 
             document.getElementById('dynamic-article').innerHTML = `
@@ -61,11 +60,11 @@ async function fetchArticle() {
         }
     } catch (err) { console.error("Error loading news"); }
 }
+
 function hShare(t) {
     const sData = {
         title: t,
         text: '🔥 ' + t,
-        // Yahan link bilkul sahi wala dalo
         url: 'https://casininet.com/virat-news.html' 
     };
 
@@ -73,14 +72,14 @@ function hShare(t) {
         navigator.share(sData).catch(() => {
             window.location.href = "whatsapp://send?text=" + encodeURIComponent(sData.text + " " + sData.url);
         });
-    } // ... baaki saara hShare function ka code ...
     } else {
         window.location.href = "whatsapp://send?text=" + encodeURIComponent(sData.text + " " + sData.url);
     }
-        
-}
- fetchArticle(); 
-                                            
-    </script>
+} 
+
+fetchArticle(); 
+            </script>
+    
+
 </body>
 </html>
