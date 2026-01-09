@@ -88,16 +88,20 @@
     // Vibration effect ke liye
     const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
 
-    // Share karne ka function (Fix: Isme cache problem nahi aayegi)
     async function share(e, title, id) {
     e.stopPropagation(); 
     h();
-    // Ye line ab sahi link (news-107.html) banayegi
+    // Index page par humein batana padta hai ki kaunsi news (ID) share karni hai
     const shareUrl = window.location.origin + '/news-' + id + '.html?v=' + Math.floor(Math.random() * 100);
     try { 
-        await navigator.share({ title: 'CASINInet', text: '🔥 ' + title, url: shareUrl }); 
+        await navigator.share({ 
+            title: 'CASINInet', 
+            text: '🔥 ' + title, 
+            url: shareUrl 
+        }); 
     } catch (err) { console.log("Cancelled"); }
         }
+        
         async function load() {
         try {
             // v= lagane se hamesha NAYI data fetch hogi (Cache clear)
