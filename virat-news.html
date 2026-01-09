@@ -73,9 +73,14 @@ function hShare(t) {
         navigator.share(sData).catch(() => {
             window.location.href = "whatsapp://send?text=" + encodeURIComponent(sData.text + " " + sData.url);
         });
+    } // ... baaki saara hShare function ka code ...
     } else {
         window.location.href = "whatsapp://send?text=" + encodeURIComponent(sData.text + " " + sData.url);
     }
+}
+
+fetchArticle(); 
+        
 }
                                             
     </script>
