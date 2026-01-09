@@ -19,15 +19,14 @@
 
         /* 1. SEAMLESS BLEND & ZOOM EFFECT */
         .hero-section { 
-            position: relative; 
-            width: 100%; 
-            height: 65vh; 
-            background: #000; 
-            overflow: hidden; 
-            /* Photo ko niche se gayab (fade) karne ke liye */
-            -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%); 
-            mask-image: linear-gradient(to bottom, black 70%, transparent 100%); 
+    height: 50vh; /* 65 se ghatakar 50 karein, mobile ke liye best hai */
+    min-height: 350px;
+    background: #000;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
         }
+    
 
         .hero-img { 
             width: 100%; 
@@ -49,18 +48,16 @@
             z-index: 2; 
         }
 
-        /* 2. CONTENT CONTAINER - LINE MITANE KE LIYE */
         .content-container { 
-            position: relative; 
-            margin-top: -80px; 
-            padding: 0 24px; 
-            z-index: 10; 
-            background: #000; 
-            min-height: 100vh; 
-            /* Ye shadow line ko puri tarah mita degi */
-            box-shadow: 0 -40px 60px 10px #000; 
+    position: relative; 
+    margin-top: -50px; /* Isse thoda kam (-50px) karein */
+    padding: 0 24px; 
+    z-index: 10; 
+    background: #000; 
+    border-radius: 30px 30px 0 0; /* Corner round karne se layout clean dikhega */
+    box-shadow: 0 -20px 40px rgba(0,0,0,0.9); 
         }
-
+        
         .close-btn { position: fixed; top: 20px; right: 20px; width: 40px; height: 40px; background: rgba(0, 0, 0, 0.5); -webkit-backdrop-filter: blur(15px); backdrop-filter: blur(15px); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; color: #fff; text-decoration: none; font-size: 20px; border: 1px solid rgba(255,255,255,0.1); }
 
         .art-tag { display: inline-block; background: #ff3b30; color: #fff; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin: 50px 0 15px 0; }
@@ -99,47 +96,35 @@
         const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
 
         async function fetchArticle() {
-            const artId = 106; // Apni ID check kar lena
-            try {
-                const response = await fetch('data.json');
-                const data = await response.json();
-                const article = data.find(item => item.id == artId);
+    const artId = 106;
+    try {
+        const response = await fetch('data.json');
+        const data = await response.json();
+        const article = Array.isArray(data) ? data.find(item => item.id == artId) : data;
 
-                if (article) {
-                    document.getElementById('dynamic-article').innerHTML = `
-                        <div class="hero-section">
-                            <img src="${article.img}" class="hero-img">
-                            <div class="hero-overlay"></div>
-                        </div>
-                        <div class="content-container">
-                            <span class="art-tag">${article.tag || 'TRENDING'}</span>
-                            <h1 class="art-headline">${article.headline}</h1>
-                            
-                            <div class="premium-ad">ADVERTISEMENT</div>
+        if (article) {
+            document.getElementById('dynamic-article').innerHTML = `
+                <div class="hero-section">
+                    <img src="${article.img}" class="hero-img" style="width:100%; height:100%; object-fit:cover;">
+                    <div class="hero-overlay"></div>
+                </div>
+                <div class="content-container">
+                    <span class="art-tag">${article.tag || 'VIRAL'}</span>
+                    <h1 class="art-headline">${article.headline}</h1>
+                    
+                    <div class="article-body">${article.content}</div>
+                    
+                    <div class="premium-ad">ADVERTISEMENT</div>
 
-                            <div class="article-body">${article.content}</div>
-                            
-                            <div style="text-align: center; margin: 40px 0;">
-                                <div class="share-trigger" onclick="hShare('${article.headline.replace(/'/g, "\\'")}')">Share Story</div>
-                            </div>
-                            
-                            <div class="premium-ad">SPONSORED</div>
-                            <div style="text-align: center; padding: 40px 0; font-size: 12px; font-weight: 700; color: #333;">CASINInet • 2026</div>
-                        </div>
-                    `;
-                }
-            } catch (err) { console.error("Error"); }
+                    <div style="text-align: center; margin: 40px 0;">
+                        <div class="share-trigger" onclick="hShare('${article.headline.replace(/'/g, "\\'")}')">Share Story</div>
+                    </div>
+                </div>
+            `;
         }
-
-        function hShare(t) { 
-            h(); 
-            const sData = { title: t, text: '🔥 ' + t, url: window.location.href };
-            if (navigator.share) {
-                navigator.share(sData).catch(() => {});
-            } else {
-                window.location.href = "whatsapp://send?text=" + encodeURIComponent(sData.text + " " + sData.url);
-            }
+    } catch (err) { console.error("Data load nahi hua"); }
         }
+        
 
         // Apple style Parallax Zoom
         window.onscroll = () => {
