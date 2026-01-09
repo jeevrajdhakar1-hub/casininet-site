@@ -85,35 +85,41 @@
     </div>
 
     <script>
-    // 1. Vibration effect (Ise rehne dein)
+    // 1. Vibration effect
     const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
 
-    // 2. Share Function (Update kiya hua)
+    // 2. Share Function (Index page ke liye sahi link banata hai)
     async function share(e, title, id) {
         e.stopPropagation(); 
         h();
         const shareUrl = window.location.origin + '/news-' + id + '.html?v=' + Math.floor(Math.random() * 100);
         try { 
-            await navigator.share({ title: 'CASINInet', text: '🔥 ' + title, url: shareUrl }); 
+            await navigator.share({ 
+                title: 'CASINInet', 
+                text: '🔥 ' + title, 
+                url: shareUrl 
+            }); 
         } catch (err) { console.log("Cancelled"); }
     }
 
-    // 3. GO FUNCTION (Jo pehle missing tha)
+    // 3. GO FUNCTION (Yahi missing tha - ise ab click karne par news khulegi)
     function go(id) { 
         h(); 
         document.body.style.opacity = "0";
+        // news-107.html jaisa link banayega
         let link = `news-${id}.html`; 
         setTimeout(() => { 
             window.location.href = link; 
         }, 250); 
     }
 
-    // 4. LOAD FUNCTION (Ise mat badalna, ye aapka original wala hai)
+    // 4. Load Function (Aapka original JSON loading logic)
     async function load() {
         try {
             const r = await fetch('data.json?v=' + new Date().getTime()); 
             const d = await r.json();
 
+            // Trending stories
             const trending = d.filter(x => x.type === "trending");
             document.getElementById('s').innerHTML = trending.map(n => `
                 <div class="round-card" onclick="go(${n.id})">
@@ -121,6 +127,7 @@
                     <div style="font-size:9px; color:#777; font-weight:600; margin-top:8px;">${n.headline.substring(0,10)}..</div>
                 </div>`).join('');
 
+            // Main news cards
             const main = d.filter(x => x.type === "main").reverse();
             document.getElementById('m').innerHTML = main.map((n, i) => {
                 let html = `
