@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
@@ -8,12 +8,11 @@
     <meta property="og:title" content="🔥 Virat Kohli's New Look Goes Viral!">
     <meta property="og:description" content="Read the full story on CASINInet.">
     <meta property="og:image" content="https://i.postimg.cc/gcsbjyHN/Screenshot-2026-01-09-09-17-12-67-40deb401b9ffe8e1df2f1cc5ba480b12.jpg"> 
-    <meta property="og:url" content="https://casininet.com/virat.html">
+    <meta property="og:url" content="https://casininet.com/virat-news.html">
     <meta property="og:type" content="article">
     <meta name="twitter:card" content="summary_large_image">
 
     <style>
-        /* Tera Original Design (Vahi CSS jo tune pehle di thi) */
         * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; }
         body { background: #000; color: #fff; font-family: -apple-system, sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
         .close-btn { position: fixed; top: 20px; right: 20px; width: 40px; height: 40px; background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100; color: #fff; text-decoration: none; border: 1px solid rgba(255,255,255,0.1); }
@@ -58,7 +57,7 @@ async function fetchArticle() {
                 </div>
             `;
         }
-    } catch (err) { console.error("Error loading news"); }
+    } catch (err) { console.error("Error loading news", err); }
 }
 
 function hShare(t) {
@@ -75,11 +74,9 @@ function hShare(t) {
     } else {
         window.location.href = "whatsapp://send?text=" + encodeURIComponent(sData.text + " " + sData.url);
     }
-} 
+}
 
 fetchArticle(); 
-            </script>
-    
-
+    </script>
 </body>
 </html>
