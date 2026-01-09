@@ -32,51 +32,51 @@
     <a href="index.html" class="close-btn">✕</a>
 
     <script>
-        async function fetchArticle() {
-            // 2. YAHAN APNI JSON WALI ID BADLO
-            const artId = 106; 
-            
-            try {
-                const response = await fetch('data.json?v=' + new Date().getTime());
-                const data = await response.json();
-                const article = data.find(item => item.id == artId);
-                
-                if (article) {
-                    document.getElementById('dynamic-article').innerHTML = `
-                        <div class="hero-section">
-                            <img src="${article.img}" class="hero-img">
-                            <div class="hero-overlay"></div>
-                        </div>
-                        <div class="content-container">
-                            <span class="art-tag">${article.tag || 'TRENDING'}</span>
-                            <h1 class="art-headline">${article.headline}</h1>
-                            <div class="article-body">${article.content}</div>
-                            <div style="text-align:center;"><div class="share-trigger" onclick="hShare('${article.headline}')">Share Story</div></div>
-                            <div style="text-align:center; padding: 40px 0; color:#333; font-size:12px;">CASINInet • 2026</div>
-                        </div>
-                    `;
-                }
-            } catch (err) { console.error("Error loading news"); }
-        }
-function hShare(t) {
-    // 1. Data ko seedha function ke andar rakhein
-    const sData = {
-        title: 'CASINInet News',
-        text: '🔥 ' + t,
-        url: window.location.href
-    };
+async function fetchArticle() {
+    const artId = 106; 
+    try {
+        const response = await fetch('data.json?v=' + new Date().getTime());
+        const data = await response.json();
+        const article = data.find(item => item.id == artId);
+        
+        if (article) {
+            // Headline ko ek variable mein save karo taaki syntax error na ho
+            const safeTitle = article.headline.replace(/'/g, "\\'"); 
 
-    // 2. Sirf simple share call karein
+            document.getElementById('dynamic-article').innerHTML = `
+                <div class="hero-section">
+                    <img src="${article.img}" class="hero-img">
+                    <div class="hero-overlay"></div>
+                </div>
+                <div class="content-container">
+                    <span class="art-tag">${article.tag || 'TRENDING'}</span>
+                    <h1 class="art-headline">${article.headline}</h1>
+                    <div class="article-body">${article.content}</div>
+                    <div style="text-align:center;">
+                        <div class="share-trigger" onclick="hShare('${safeTitle}')">Share Story</div>
+                    </div>
+                    <div style="text-align:center; padding: 40px 0; color:#333; font-size:12px;">CASINInet • 2026</div>
+                </div>
+            `;
+        }
+    } catch (err) { console.error("Error loading news"); }
+}
+
+// Ye hShare function Safari aur Android dono pe chalega
+function hShare(t) {
     if (navigator.share) {
-        navigator.share(sData)
-            .then(() => console.log('Shared'))
-            .catch((e) => {
-                // Agar button kaam na kare toh ye niche wala tareeka chalega
-                window.location.href = "whatsapp://send?text=" + encodeURIComponent('🔥 ' + t + " " + window.location.href);
-            });
+        navigator.share({
+            title: t,
+            text: '🔥 ' + t,
+            url: window.location.href
+        }).catch(() => {
+            window.location.href = "whatsapp://send?text=" + encodeURIComponent('🔥 ' + t + " " + window.location.href);
+        });
     } else {
-        // Fallback for browsers that don't support share
         window.location.href = "whatsapp://send?text=" + encodeURIComponent('🔥 ' + t + " " + window.location.href);
+    }
+        }
+            
     </script>
 </body>
 </html>
