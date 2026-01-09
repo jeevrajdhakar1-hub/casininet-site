@@ -59,17 +59,34 @@
             } catch (err) { console.error("Error loading news"); }
         }
 
-        function hShare(t) { 
-    if (navigator.share) { 
-        navigator.share({ 
-            title: t, 
-            text: '🔥 ' + t, // Headline bhi jayegi
-            url: window.location.href // Pura page link jayega
-        }).catch(e => console.log("Share cancel ho gaya"));
+        function hShare(t) {
+    // 1. Vibration turant trigger karo (Android/Chrome ke liye)
+    if (navigator.vibrate) navigator.vibrate(15);
+
+    // 2. Data tayyar karo
+    const shareData = {
+        title: 'CASINInet',
+        text: '🔥 ' + t,
+        url: window.location.href
+    };
+
+    // 3. Share API call (Bina kisi delay ke)
+    if (navigator.share) {
+        navigator.share(shareData)
+            .then(() => console.log('Successful share'))
+            .catch((error) => console.log('Error sharing', error));
     } else {
-        // Agar browser purana hai toh link copy ho jaye
-        alert("Link copied! Ab aap kahin bhi paste kar sakte hain.");
-        navigator.clipboard.writeText(window.location.href);
+        // Fallback: Agar browser support na kare
+        const dummy = document.createElement('input');
+        document.body.appendChild(dummy);
+        dummy.value = window.location.href;
+        dummy.select();
+        document.execCommand('copy');
+        document.body.removeChild(dummy);
+        alert("Link Copy Ho Gaya! Ab aap kahin bhi paste kar sakte hain.");
+    
+        
+        
 
     </script>
 </body>
