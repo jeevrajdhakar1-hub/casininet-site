@@ -7,38 +7,6 @@
     "tag": "TECH",
     "content": "unable to show data , site is on maintenance."
   },
-  {
-    "id": 2,
-    "type": "trending",
-    "img": "https://picsum.photos/200/200?random=2",
-    "headline": "Cricket World Cup Updates",
-    "tag": "SPORTS",
-    "content": "The Cricket World Cup 2026 preparations are in full swing. Teams are focusing on heavy data analytics and new training regimes. Experts predict this year to be one of the most competitive seasons in history, with several underdog teams showing remarkable performance in the warm-up matches held recently."
-  },
-  {
-    "id": 3,
-    "type": "trending",
-    "img": "https://picsum.photos/200/200?random=3",
-    "headline": "New Marvel Movie Trailer",
-    "tag": "MOVIES",
-    "content": "Marvel Studios has finally dropped the teaser for its most anticipated film of the year. The trailer suggests a deep dive into the multiverse lore, bringing back several fan-favorite characters. The cinematic visuals and the background score have already broken internet records within hours of the release."
-  },
-  {
-    "id": 4,
-    "type": "trending",
-    "img": "https://picsum.photos/200/200?random=4",
-    "headline": "Stock Market Records High",
-    "tag": "FINANCE",
-    "content": "The global stock market has reached an all-time high this quarter. Investors are showing great confidence in emerging tech and green energy sectors. Financial analysts suggest that the steady growth is a result of improved trade policies and significant breakthroughs in automation technology."
-  },
-  {
-    "id": 5,
-    "type": "trending",
-    "img": "https://picsum.photos/200/200?random=5",
-    "headline": "Global Warming Report 2026",
-    "tag": "NEWS",
-    "content": "The 2026 environmental report highlights urgent challenges as global temperatures continue to fluctuate. Scientists are calling for immediate action from world leaders to implement stricter carbon emission laws. On a positive note, the adoption of renewable energy has seen a 40% increase compared to the previous year."
-  },
     {
     "id": 107,
     "type": "main",
