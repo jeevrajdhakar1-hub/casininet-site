@@ -1,13 +1,21 @@
 [
   {
-    "id": 1,
+    "id": 107,
     "type": "trending",
-    "img": "https://picsum.photos/200/200?random=1",
-    "headline": "under maintenance!",
-    "tag": "TECH",
-    "content": "unable to show data , site is on maintenance."
+    "tag": "Entertainment",
+    "headline": "Kartik Aaryan Goa Photo Viral",
+    "img": "https://i.postimg.cc/9MRZtwhJ/image.jpg",
+    "content": "<p>Bollywood star Kartik Aaryan is once again in the spotlight after a Goa vacation photo went viral.</p><p>The photo shows him with a mystery woman, sparking huge curiosity on social media. <b>Kartik has not commented yet.</b></p>"
   },
-    {
+  {
+    "id": 108,
+    "type": "trending",
+    "tag": "Technology",
+    "headline": "New AI Update 2026",
+    "img": "https://picsum.photos/400/400?random=12",
+    "content": "<p>2026 mein AI technology ne ek naya mod liya hai. Naye features se ab mobile users ko aur zyada help milegi.</p>"
+  },
+  {
     "id": 107,
     "type": "main",
     "img":"https://i.postimg.cc/9MRZtwhJ/Screenshot-2026-01-09-19-56-41-48-40deb401b9ffe8e1df2f1cc5ba480b12.jpg",
