@@ -12,18 +12,28 @@
         /* Image Blend Effect */
         .hero-section { position: relative; width: 100%; height: 420px; background: #000; overflow: hidden; }
         .hero-img { width: 100%; height: 100%; object-fit: cover; }
-        .hero-section::after { 
+        
+/* Hero section ko thoda lamba aur seamless blend dein */
+.hero-section::after { 
     content: ''; 
     position: absolute; 
-    bottom: 0; 
+    bottom: -2px; /* Gap khatam karne ke liye */
     left: 0; 
     width: 100%; 
-    height: 200px; /* Blend area badha diya */
-    background: linear-gradient(to bottom, transparent, var(--bg) 90%);
-        }
+    height: 250px; /* Lamba gradient taaki transition smooth ho */
+    background: linear-gradient(to bottom, transparent, #000 90%); 
+}
 
-        /* Content Area */
-        .content-container { position: relative; z-index: 2; margin-top: -50px; background: var(--bg); padding: 25px; border-radius: 35px 35px 0 0; }
+/* Content ko card look dein jo image ke upar overlap ho */
+.content-container { 
+    position: relative; 
+    z-index: 2; 
+    margin-top: -100px; /* Image ke upar overlap karega */
+    background: #000; 
+    padding: 30px 25px; 
+    border-radius: 40px 40px 0 0; /* Premium rounded look */
+}
+        
         .art-tag { color: #ff3e3e; font-size: 12px; font-weight: 800; text-transform: uppercase; }
         .art-headline { font-size: 32px; margin: 15px 0; line-height: 1.2; font-weight: 800; }
         .article-body { font-size: 18px; line-height: 1.7; color: var(--dim); }
