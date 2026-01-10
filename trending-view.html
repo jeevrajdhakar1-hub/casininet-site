@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>CASINInet | korono death</title>
+    <title>CASINInet | Trending stories</title>
 
     <style>
         body { margin: 0; padding: 0; font-family: sans-serif; background: #f4f4f4; color: #1a1a1a; }
@@ -27,22 +27,52 @@
     </div>
 
     <div class="content-container">
-        <span class="art-tag">Entertainment</span>
-        <h1 class="art-headline">korono death</h1>
-        
-        <div class="article-body">
-            <p>Bollywood star Kartik Aaryan is once again in the spotlight — this time after a Goa vacation photo went viral, sparking massive social media buzz and online speculation.</p>
-            <p>While no official statement or allegation has surfaced, the image quickly drew public attention, placing the actor under intense online scrutiny.</p>
-            <p><b>The Photo That Set Social Media Abuzz</b><br>
-            A photo circulating online shows Kartik Aaryan spending time in Goa alongside a woman, instantly igniting curiosity across social platforms.</p>
-        </div>
-        
-        <div class="share-container">
-            <button class="share-trigger" onclick="hShare('korono death')">Share Story</button>
-        </div>
-        
-        <div class="micro-footer">CASINInet • 2026</div>
+    <span class="art-tag">Loading...</span>
+    <h1 class="art-headline" id="main-headline"></h1>
+    
+    <div class="article-body" id="main-content">
+        <p>Please wait, loading news...</p>
     </div>
+    
+    <div class="share-container">
+        <button class="share-trigger">Share Story</button>
+    </div>
+</div>
+
+<script>
+    async function loadTrendingStory() {
+        const params = new URLSearchParams(window.location.search);
+        const newsId = params.get('id');
+        if(!newsId) return;
+
+        try {
+            // v parameter cache refresh karne ke liye hai
+            const r = await fetch('data.json?v=' + new Date().getTime());
+            const d = await r.json();
+            
+            // Yahan check karein ki data.json mein 'id' string hai ya number
+            const n = d.find(x => x.id == newsId);
+
+            if (n) {
+                document.title = "CASINInet | " + n.headline;
+                document.getElementById('parallax-img').src = n.img;
+                document.querySelector('.art-tag').innerText = n.tag || "Trending";
+                document.getElementById('main-headline').innerText = n.headline;
+                document.getElementById('main-content').innerHTML = n.content;
+                
+                // Share button update
+                document.querySelector('.share-trigger').onclick = () => hShare(n.headline);
+            } else {
+                document.getElementById('main-content').innerHTML = "News not found! ID: " + newsId;
+            }
+        } catch (e) {
+            console.error("JSON Load Error:", e);
+            document.getElementById('main-content').innerHTML = "Error loading data.";
+        }
+    }
+    loadTrendingStory();
+</script>
+    
 
     <script>
         // Haptic feedback
