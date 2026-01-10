@@ -131,7 +131,7 @@ function go(id, type) {
             // Trending stories
             const trending = d.filter(x => x.type === "trending");
             document.getElementById('s').innerHTML = trending.map(n => `
-                <div class="round-card" onclick="go(${n.id})">
+                <div class="round-card" onclick="go(${n.id}, 'trending')"> 
                     <img src="${n.img}" class="round-img">
                     <div style="font-size:9px; color:#777; font-weight:600; margin-top:8px;">${n.headline.substring(0,10)}..</div>
                 </div>`).join('');
