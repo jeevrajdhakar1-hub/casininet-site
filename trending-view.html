@@ -5,220 +5,163 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>CASINInet | Trending</title>
 
+
     <style>
-        :root {
-            --bg-color: #000000;
-            --card-bg: #121212;
-            --accent: #ff3e3e;
-            --text-main: #ffffff;
-            --text-dim: #b0b0b0;
-        }
+    :root {
+        --bg: #000000;
+        --card: #121212;
+        --text: #ffffff;
+        --dim: #b0b0b0;
+    }
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, system-ui, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            overflow-x: hidden;
-        }
+    body {
+        margin: 0; padding: 0;
+        background-color: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, sans-serif;
+    }
 
-        /* Close Button */
-        .close-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            color: white;
-            text-decoration: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            border: 1px dashed rgba(255,255,255,0.2);
-        }
+    /* Hero Section with Blend Effect */
+    .hero-section {
+        position: relative;
+        width: 100%;
+        height: 420px;
+        background: #000;
+        overflow: hidden;
+    }
 
-        /* Image & Blend Effect */
-        .hero-section {
-            width: 100%;
-            height: 450px;
-            position: fixed; /* Parallax effect ke liye fixed rakha hai */
-            top: 0;
-            z-index: 1;
-        }
+    .hero-img {
+        width: 100%; height: 100%;
+        object-fit: cover;
+    }
 
-        .hero-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    /* The "Blend" Gradient */
+    .hero-section::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0;
+        width: 100%; height: 160px;
+        background: linear-gradient(to bottom, transparent, var(--bg));
+    }
 
-        /* Bottom Blend Shadow */
-        .hero-section::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 150px;
-            background: linear-gradient(transparent, var(--bg-color));
-        }
+    /* Content Area */
+    .content-container {
+        position: relative;
+        z-index: 2;
+        margin-top: -50px;
+        background: var(--bg);
+        padding: 25px;
+        border-radius: 35px 35px 0 0;
+    }
 
-        /* Content Container */
-        .content-container {
-            position: relative;
-            z-index: 2;
-            margin-top: 380px; /* Image ke upar overlap karega */
-            background: var(--bg-color);
-            padding: 25px;
-            border-radius: 30px 30px 0 0;
-            min-height: 100vh;
-        }
+    .art-tag {
+        color: #ff3e3e;
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
 
-        .art-tag {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-        }
+    .art-headline {
+        font-size: 32px;
+        margin: 15px 0;
+        line-height: 1.2;
+    }
 
-        .art-headline {
-            font-size: 32px;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            letter-spacing: -0.5px;
-        }
+    .article-body {
+        font-size: 18px;
+        line-height: 1.7;
+        color: var(--dim);
+    }
 
-        .article-body {
-            font-size: 18px;
-            line-height: 1.7;
-            color: var(--text-dim);
-        }
-
-        .article-body b {
-            color: var(--text-main);
-        }
-
-        /* Premium Share Button */
-        .share-container {
-            margin: 40px 0;
-        }
-
-        .share-trigger {
-            width: 100%;
-            background: #fff;
-            color: #000;
-            border: none;
-            padding: 18px;
-            border-radius: 15px;
-            font-size: 18px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: transform 0.2s;
-        }
-
-        .share-trigger:active {
-            transform: scale(0.96);
-        }
-
-        .micro-footer {
-            text-align: center;
-            color: #444;
-            font-size: 12px;
-            padding: 30px 0;
-            border-top: 1px solid #1a1a1a;
-        }
-    </style>
-</head>
-<body>
+    /* Premium Share Button */
+    .share-container { margin-top: 40px; }
     
-    <a href="index.html" class="close-btn">✕</a>
+    .share-trigger {
+        width: 100%;
+        background: #ffffff;
+        color: #000000;
+        border: none;
+        padding: 18px;
+        border-radius: 18px;
+        font-size: 18px;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        cursor: pointer;
+        box-shadow: 0 10px 25px rgba(255,255,255,0.05);
+        transition: 0.2s;
+    }
 
-    <div class="hero-section">
-        <img src="" class="hero-img" id="parallax-img">
-    </div>
+    .share-trigger:active { transform: scale(0.95); }
 
-    <div class="content-container">
-        <span class="art-tag" id="main-tag">Loading...</span>
-        <h1 class="art-headline" id="main-headline"></h1>
-        
-        <div class="article-body" id="main-content">
-            </div>
-        
-        <div class="share-container">
-            <button class="share-trigger" id="shareBtn">
-                <span>📤</span> Share This Story
-            </button>
-        </div>
-        
-        <div class="micro-footer">CASINInet • 2026</div>
-    </div>
+    .close-btn {
+        position: fixed; top: 20px; right: 20px; z-index: 99;
+        background: rgba(255,255,255,0.1);
+        color: white; width: 40px; height: 40px;
+        border-radius: 50%; display: flex;
+        align-items: center; justify-content: center;
+        text-decoration: none; backdrop-filter: blur(10px);
+    }
+</style>
 
-    <script>
-        const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
+<script>
+    // 1. Haptic Vibration
+    const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
 
-        // Parallax scroll effect
-        window.onscroll = () => {
-            const img = document.getElementById('parallax-img');
-            let s = window.pageYOffset;
-            if (s <= 450) {
-                img.style.transform = `translateY(${s * 0.4}px) scale(${1 + (s/2000)})`;
+    // 2. Load Content from JSON
+    async function loadTrendingStory() {
+        const params = new URLSearchParams(window.location.search);
+        const newsId = params.get('id');
+        if(!newsId) return;
+
+        try {
+            const r = await fetch('data.json?v=' + Date.now());
+            const d = await r.json();
+            const n = d.find(x => x.id == newsId);
+
+            if (n) {
+                // Update Page Data
+                document.title = "CASINInet | " + n.headline;
+                document.getElementById('parallax-img').src = n.img;
+                document.getElementById('main-tag').innerText = n.tag || "Trending";
+                document.getElementById('main-headline').innerText = n.headline;
+                document.getElementById('main-content').innerHTML = n.content;
+                
+                // Set Share Click
+                document.getElementById('shareBtn').onclick = () => hShare(n.headline);
             }
-        };
+        } catch (e) { console.error("Data Error"); }
+    }
 
-        async function loadTrendingStory() {
-            const params = new URLSearchParams(window.location.search);
-            const newsId = params.get('id');
-
+    // 3. Share Function
+    async function hShare(t) { 
+        h(); 
+        if (navigator.share) {
             try {
-                const r = await fetch('data.json?v=' + Date.now());
-                const d = await r.json();
-                const n = d.find(x => x.id == newsId);
-
-                if (n) {
-                    document.title = "CASINInet | " + n.headline;
-                    document.getElementById('parallax-img').src = n.img;
-                    document.getElementById('main-tag').innerText = n.tag || "Trending";
-                    document.getElementById('main-headline').innerText = n.headline;
-                    document.getElementById('main-content').innerHTML = n.content;
-                    
-                    document.getElementById('shareBtn').onclick = () => hShare(n.headline);
-                } else {
-                    document.getElementById('main-content').innerHTML = "<h2>Story Not Found</h2>";
-                }
-            } catch (e) {
-                console.log("Error loading data");
-            }
+                await navigator.share({ 
+                    title: t, 
+                    text: '🔥 ' + t + '\n\nRead on CASINInet:',
+                    url: window.location.href 
+                });
+            } catch (err) { console.log("Share failed"); }
         }
+    }
 
-        async function hShare(t) { 
-            h(); 
-            if (navigator.share) {
-                try {
-                    await navigator.share({ 
-                        title: t, 
-                        text: '🔥 ' + t + '\n\nRead full story here:',
-                        url: window.location.href 
-                    });
-                } catch (err) { console.log("Share failed"); }
-            }
+    // 4. Parallax Effect
+    window.onscroll = () => {
+        const img = document.getElementById('parallax-img');
+        let s = window.pageYOffset;
+        if (s <= 400) {
+            img.style.transform = `translateY(${s * 0.3}px)`;
         }
+    };
 
-        loadTrendingStory();
-    </script>
+    // Run on start
+    loadTrendingStory();
+</script>
+    
 </body>
 </html>
