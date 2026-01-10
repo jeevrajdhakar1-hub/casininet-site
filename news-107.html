@@ -62,65 +62,46 @@
 
         .micro-footer { text-align: center; padding: 40px 0; border-top: 1px solid #1c1c1e; margin-top: 30px; font-size: 12px; color: #48484a; }
         
+/* --- PREMIUM AD SLOT START --- */
 .ad-container {
-    margin: 40px 0;
+    margin: 40px auto;
+    width: 92%; /* Screen se thoda side gap rakhega */
     text-align: center;
-    padding: 10px;
-    background: linear-gradient(145deg, #111, #080808); /* Premium depth effect */
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: #111111;
+    padding: 12px;
+    border-radius: 20px; /* Isse premium look aayega */
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .ad-label {
     display: block;
     font-size: 10px;
-    color: #666;
-    margin-bottom: 12px;
+    color: #555;
+    margin-bottom: 10px;
     letter-spacing: 2px;
-    font-weight: 600;
+    font-weight: bold;
 }
 
 .ad-placeholder {
-    min-height: 280px; /* Height badha di gayi hai */
+    height: 300px; /* Height ko fix kar diya taaki chhota na dikhe */
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 1px dashed rgba(255, 59, 48, 0.3); /* Soft red border */
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 12px;
+    background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
+    border-radius: 14px;
+    border: 1px dashed rgba(255, 59, 48, 0.4);
     position: relative;
     overflow: hidden;
-    transition: all 0.3s ease;
 }
 
-/* Premium Glow Effect */
-.ad-placeholder::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 59, 48, 0.05) 0%, transparent 70%);
-    animation: rotate 10s linear infinite;
+/* Slot ke andar ka text styling */
+.ad-placeholder p {
+    color: #444 !important;
+    font-size: 14px !important;
+    margin: 0 !important;
 }
 
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-.ad-text {
-    color: #48484a;
-    font-size: 14px;
-    font-weight: 500;
-    z-index: 1;
-    background: rgba(0,0,0,0.3);
-    padding: 8px 16px;
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.05);
-        }
+                       
         
                 
     </style>
