@@ -61,31 +61,67 @@
         .share-trigger:active { transform: scale(0.95); }
 
         .micro-footer { text-align: center; padding: 40px 0; border-top: 1px solid #1c1c1e; margin-top: 30px; font-size: 12px; color: #48484a; }
-        /* Ad Slot Styling */
+        
 .ad-container {
-    margin: 30px 0;
+    margin: 40px 0;
     text-align: center;
-    background: #111; /* Thoda alag dikhne ke liye */
-    padding: 15px;
-    border-radius: 8px;
+    padding: 10px;
+    background: linear-gradient(145deg, #111, #080808); /* Premium depth effect */
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .ad-label {
     display: block;
     font-size: 10px;
-    color: #48484a;
-    margin-bottom: 10px;
-    letter-spacing: 1px;
+    color: #666;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+    font-weight: 600;
 }
 
 .ad-placeholder {
-    min-height: 250px; 
+    min-height: 280px; /* Height badha di gayi hai */
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 2px dashed #ff3b30; /* Red color taaki door se dikhe */
-    background: #1a1a1a;
+    border: 1px dashed rgba(255, 59, 48, 0.3); /* Soft red border */
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+/* Premium Glow Effect */
+.ad-placeholder::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 59, 48, 0.05) 0%, transparent 70%);
+    animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.ad-text {
+    color: #48484a;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 1;
+    background: rgba(0,0,0,0.3);
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.05);
         }
+        
                 
     </style>
 </head>
@@ -105,12 +141,12 @@
             <p>Bollywood star Kartik Aaryan is once again in the spotlight — this time after a Goa vacation photo went viral, sparking massive social media buzz and online speculation.</p>
 
             <p>While no official statement or allegation has surfaced, the image quickly drew public attention, placing the actor under intense online scrutiny.</p>
-            
 <div class="ad-container">
-        <span class="ad-label">ADVERTISEMENT</span>
-        <div class="ad-placeholder">
-            <p style="color: #48484a; font-size: 14px;">Ad Slot (Paste Code Here)</p>
-        </div>
+    <span class="ad-label">ADVERTISEMENT</span>
+    <div class="ad-placeholder">
+        <div class="ad-text">Premium Ad Space</div>
+        <p style="color: #333; font-size: 11px; margin-top: 10px; z-index: 1;">Your ad code will appear here</p>
+    </div>
 </div>
             <p><b>The Photo That Set Social Media Abuzz</b><br>
             A photo circulating online shows Kartik Aaryan spending time in Goa alongside a woman, instantly igniting curiosity across social platforms.</p>
