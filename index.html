@@ -102,16 +102,25 @@
         } catch (err) { console.log("Cancelled"); }
     }
 
-    // 3. GO FUNCTION (Yahi missing tha - ise ab click karne par news khulegi)
-    function go(id) { 
-        h(); 
-        document.body.style.opacity = "0";
-        // news-107.html jaisa link banayega
-        let link = `news-${id}.html`; 
-        setTimeout(() => { 
-            window.location.href = link; 
-        }, 250); 
+function go(id, type) { 
+    h(); 
+    document.body.style.opacity = "0";
+    
+    let link;
+    if (type === "trending") {
+        // Trending ke liye dynamic page par bhejega
+        link = `trending-view.html?id=${id}`; 
+    } else {
+        // Main news ke liye purana system (alag HTML files)
+        link = `news-${id}.html`; 
     }
+
+    setTimeout(() => { 
+        window.location.href = link; 
+    }, 250); 
+        }
+        
+        
 
     // 4. Load Function (Aapka original JSON loading logic)
     async function load() {
