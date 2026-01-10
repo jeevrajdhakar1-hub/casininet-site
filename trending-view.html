@@ -5,15 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>CASINInet | korono death</title>
 
-    <meta property="og:type" content="article">
-<meta property="og:title" content="CASINInet | korono death">
-<meta property="og:description" content="Click here to read the full trending story on CASINInet.">
-<meta property="og:image" content="https://i.postimg.cc/9MRZtwhJ/Screenshot-2026-01-09-19-56-41-48-40deb401b9ffe8e1df2f1cc5ba480b12.jpg">
-<meta property="og:url" content="https://casininet.com/news-107.html">
-<meta name="twitter:card" content="summary_large_image">
-
-
-    
+    <style>
+        body { margin: 0; padding: 0; font-family: sans-serif; background: #f4f4f4; color: #1a1a1a; }
+        .close-btn { position: fixed; top: 15px; right: 15px; z-index: 100; color: white; text-decoration: none; background: rgba(0,0,0,0.5); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .hero-section { width: 100%; height: 380px; overflow: hidden; position: relative; background: #000; }
+        .hero-img { width: 100%; height: 100%; object-fit: cover; }
+        .content-container { padding: 25px; margin-top: -40px; background: white; border-radius: 35px 35px 0 0; position: relative; min-height: 500px; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); }
+        .art-tag { color: #d32f2f; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .art-headline { font-size: 30px; font-weight: 800; margin: 12px 0; line-height: 1.2; }
+        .article-body p { margin-bottom: 18px; font-size: 17px; line-height: 1.6; color: #333; }
+        .share-trigger { background: #000; color: #fff; border: none; padding: 16px; width: 100%; border-radius: 12px; font-size: 18px; font-weight: bold; margin: 25px 0; cursor: pointer; }
+        .micro-footer { text-align: center; color: #999; font-size: 12px; padding: 20px 0; border-top: 1px solid #eee; }
+    </style>
 </head>
 <body>
     
@@ -29,22 +32,9 @@
         
         <div class="article-body">
             <p>Bollywood star Kartik Aaryan is once again in the spotlight — this time after a Goa vacation photo went viral, sparking massive social media buzz and online speculation.</p>
-
             <p>While no official statement or allegation has surfaced, the image quickly drew public attention, placing the actor under intense online scrutiny.</p>
-
             <p><b>The Photo That Set Social Media Abuzz</b><br>
             A photo circulating online shows Kartik Aaryan spending time in Goa alongside a woman, instantly igniting curiosity across social platforms.</p>
-
-            <p>Several social media users speculated about the woman’s identity; however, no official confirmation has been made. Multiple unverified claims soon followed, further amplifying the online chatter.</p>
-
-            <p><b>Age Speculation Adds Fuel to the Fire</b><br>
-            Online discussions intensified after unverified speculation regarding the woman’s age began circulating. It is important to clarify that these claims remain unverified, and no credible source has confirmed any such details.</p>
-
-            <p><b>Woman Linked to Online Rumours Responds</b><br>
-            As speculation gained momentum, the woman linked to the rumours addressed the situation indirectly through social media activity. She reportedly updated her Instagram bio to indicate that she does not know Kartik Aaryan.</p>
-
-            <p><b>Kartik Aaryan Maintains Silence</b><br>
-            So far, Kartik Aaryan has not issued any official clarification regarding the viral image or the surrounding rumours.</p>
         </div>
         
         <div class="share-container">
@@ -63,83 +53,25 @@
             const img = document.getElementById('parallax-img');
             let s = window.pageYOffset;
             if (s >= 0) { 
-                img.style.transform = `scale(${1 + (s / 2500)}) translateY(${s/5}px)`; 
+                img.style.transform = `scale(${1 + (s / 3000)}) translateY(${s/6}px)`; 
             }
         };
 
-    async function hShare(t) { 
-    h(); 
-    if (navigator.share) {
-        try {
-            // Ye khud hi apna link (news-107.html) bana lega
-            const shareUrl = window.location.origin + window.location.pathname + "?v=" + Math.floor(Math.random() * 100);
-            await navigator.share({ 
-                title: t, 
-                text: '🔥 ' + t + '\n\nRead more on CASINInet:',
-                url: shareUrl 
-            });
-        } catch (err) { console.log("Share failed"); }
-    }
-        }
-        <script>
-    // 1. Vibration effect
-    const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
-
-    // 2. Parallax Effect
-    window.onscroll = () => {
-        const img = document.getElementById('parallax-img');
-        let s = window.pageYOffset;
-        if (s >= 0) { 
-            img.style.transform = `scale(${1 + (s / 2500)}) translateY(${s/5}px)`; 
-        }
-    };
-
-    // 3. Dynamic News Loading (YE ZAROORI HAI)
-    async function loadTrendingStory() {
-        const params = new URLSearchParams(window.location.search);
-        const newsId = params.get('id');
-
-        try {
-            const r = await fetch('data.json?v=' + new Date().getTime());
-            const d = await r.json();
-            
-            // JSON mein se sahi news dhoondna
-            const n = d.find(x => x.id == newsId);
-
-            if (n) {
-                // Page ka content badalna
-                document.title = "CASINInet | " + n.headline;
-                document.getElementById('parallax-img').src = n.img;
-                document.querySelector('.art-tag').innerText = n.tag || "Trending";
-                document.querySelector('.art-headline').innerText = n.headline;
-                document.querySelector('.article-body').innerHTML = n.content || `<p>${n.headline}</p>`;
-                
-                // Share button update karna
-                document.querySelector('.share-trigger').setAttribute("onclick", `hShare('${n.headline.replace(/'/g, "\\'")}')`);
+        // Share Function
+        async function hShare(t) { 
+            h(); 
+            if (navigator.share) {
+                try {
+                    await navigator.share({ 
+                        title: t, 
+                        text: '🔥 ' + t + '\n\nRead more on CASINInet:',
+                        url: window.location.href 
+                    });
+                } catch (err) { console.log("Share failed"); }
+            } else {
+                alert("Sharing not supported on this browser");
             }
-        } catch (e) {
-            console.log("Error loading trending data");
         }
-    }
-
-    // Share Function
-    async function hShare(t) { 
-        h(); 
-        if (navigator.share) {
-            try {
-                const shareUrl = window.location.href;
-                await navigator.share({ 
-                    title: t, 
-                    text: '🔥 ' + t + '\n\nRead more on CASINInet:',
-                    url: shareUrl 
-                });
-            } catch (err) { console.log("Share failed"); }
-        }
-    }
-
-    // Load news on start
-    loadTrendingStory();
-</script>
-    
+    </script>
 </body>
 </html>
