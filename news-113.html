@@ -105,6 +105,28 @@
     display: inline-block;
     width: 80px; 
         }
+        /* Footer Style */
+.micro-footer {
+  text-align: center;
+  padding: 30px 20px;
+  border-top: 1px solid #1c1c1e;
+  margin-top: 40px;
+  font-size: 12px;
+  color: #48484a;
+  background: #000;
+}
+
+.micro-footer a {
+  color: #8e8e93;
+  text-decoration: none;
+  margin: 0 8px;
+  font-weight: 600;
+}
+
+.micro-footer a:hover {
+  color: #ffffff;
+}
+
     </style>
 </head>
 <body>
@@ -149,9 +171,7 @@
             <button class="share-trigger" onclick="hShare('खेत खाली और जेब भी... बिजोलिया का मक्का किसान इस बार बेबस क्यों? पढ़िए ये खास रिपोर्ट')">Share Story</button>
         </div>
         
-        <div class="micro-footer">CASINInet • 2026</div>
-    </div>
-
+   
     <script>
         // Haptic feedback
         const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
@@ -186,11 +206,15 @@
     <script src="https://pl28419044.effectivegatecpm.com/b5/9a/de/b59ade8f82a6eaab152ca14bb09b363e.js"></script>
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7d934cc8d13140b6bce32a76bb018c5c"}'></script>
     
-  <footer>
-    <a href="about.html">About Us</a> |
-    <a href="editorial-policy.html">Editorial Policy</a> |
-    <a href="editorial-team.html">Editorial Team</a> |
-    <a href="contact.html">Contact</a>
-  </footer>
+<footer class="micro-footer">
+  <a href="about.html">About Us</a> |
+  <a href="editorial-policy.html">Editorial Policy</a> |
+  <a href="editorial-team.html">Editorial Team</a> |
+  <a href="contact.html">Contact</a>
+  <div style="margin-top:10px;">
+    © 2026 CASINInet News
+  </div>
+</footer>
+
 </body>
   </html>
