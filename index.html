@@ -58,6 +58,32 @@
         .about-sec { background: #0a0a0a; border-radius: 12px; padding: 20px; margin: 40px 5px 20px 5px; border: 1px solid #1a1a1a; text-align: center; }
         .footer { padding: 30px 0 50px 0; text-align: center; border-top: 1px solid #111; }
         .footer-logo { font-weight: 800; color: #444; font-size: 12px; letter-spacing: 1px; }
+
+    .footer-logo { font-weight: 800; color: #444; font-size: 12px; letter-spacing: 1px; }
+
+    .skeleton {
+        background: linear-gradient(90deg, #111 25%, #222 50%, #111 75%);
+        background-size: 200% 100%;
+        animation: skeleton-loading 1.5s infinite;
+        border-radius: 12px;
+    }
+    @keyframes skeleton-loading {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+    }
+    .skeleton-card {
+        height: 300px;
+        margin-bottom: 25px;
+        width: 100%;
+        background: #111;
+        border-radius: 16px;
+        padding: 15px;
+    }
+    .skeleton-img { height: 180px; width: 100%; margin-bottom: 15px; }
+    .skeleton-text { height: 20px; width: 80%; margin-bottom: 10px; }
+    .skeleton-text.short { height: 20px; width: 50%; }
+  
+
     </style>
 </head>
 
@@ -83,12 +109,16 @@
     <div class="footer">
         <div class="footer-logo">CASINInet • 2026</div>
     </div>
+<script>
+    let allMainNews = [];     
+    let visibleCount = 10;    
+    const step = 8;            
+    let isLoading = false;     
 
-    <script>
-    // 1. Vibration effect
+   
     const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
 
-    // 2. Share Function (Index page ke liye sahi link banata hai)
+    
     async function share(e, title, id) {
         e.stopPropagation(); 
         h();
@@ -102,66 +132,94 @@
         } catch (err) { console.log("Cancelled"); }
     }
 
-function go(id, type) { 
-    h(); 
-    document.body.style.opacity = "0";
-    
-    let link;
-    if (type === "trending") {
-        // Trending ke liye dynamic page par bhejega
-        link = `trending-view.html?id=${id}`; 
-    } else {
-        // Main news ke liye purana system (alag HTML files)
-        link = `news-${id}.html`; 
+    function go(id, type) { 
+        h(); 
+        document.body.style.opacity = "0";
+        let link = (type === "trending") ? `trending-view.html?id=${id}` : `news-${id}.html`;
+        setTimeout(() => { window.location.href = link; }, 250); 
     }
 
-    setTimeout(() => { 
-        window.location.href = link; 
-    }, 250); 
+    function showSkeletons() {
+        const container = document.getElementById('m');
+        let skeletonHtml = '';
+        for (let i = 0; i < 4; i++) { 
+            skeletonHtml += `
+                <div class="skeleton-card">
+                    <div class="skeleton skeleton-img" style="width:100%; height:180px; border-radius:12px; margin-bottom:15px;"></div>
+                    <div class="skeleton skeleton-text" style="width:90%; height:20px; margin-bottom:10px; border-radius:4px;"></div>
+                    <div class="skeleton skeleton-text short" style="width:60%; height:20px; border-radius:4px;"></div>
+                </div>`;
         }
-        
-        
+        container.innerHTML = skeletonHtml;
+    }
 
-    // 4. Load Function (Aapka original JSON loading logic)
+   
+    function renderNews() {
+        const container = document.getElementById('m');
+        const newsToShow = allMainNews.slice(0, visibleCount);
+        
+        container.innerHTML = newsToShow.map((n, i) => {
+            let html = `
+            <div class="card-link" onclick="go(${n.id})">
+                <div class="main-card">
+                    <img src="${n.img}" class="main-img" loading="lazy">
+                    <div class="main-text">
+                        <span class="tag">${n.tag}</span>
+                        <span class="main-title">${n.headline}</span>
+                    </div>
+                </div>
+                <div class="share-btn" onclick="share(event, '${n.headline.replace(/'/g, "\\'")}', ${n.id})">
+                    <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
+                </div>
+            </div>`;
+    
+            if ((i + 1) % 2 === 0) html += `<div class="ad-box">Advertisement Slot</div>`;
+            return html;
+        }).join('');
+    }
+
     async function load() {
+        showSkeletons(); 
         try {
             const r = await fetch('data.json?v=' + new Date().getTime()); 
             const d = await r.json();
 
-            // Trending stories
             const trending = d.filter(x => x.type === "trending");
             document.getElementById('s').innerHTML = trending.map(n => `
                 <div class="round-card" onclick="go(${n.id}, 'trending')"> 
-                    <img src="${n.img}" class="round-img">
+                    <img src="${n.img}" class="round-img" loading="lazy">
                     <div style="font-size:9px; color:#777; font-weight:600; margin-top:8px;">${n.headline.substring(0,10)}..</div>
                 </div>`).join('');
 
-            // Main news cards
-            const main = d.filter(x => x.type === "main").reverse();
-            document.getElementById('m').innerHTML = main.map((n, i) => {
-                let html = `
-                <div class="card-link" onclick="go(${n.id})">
-                    <div class="main-card">
-                        <img src="${n.img}" class="main-img">
-                        <div class="main-text">
-                            <span class="tag">${n.tag}</span>
-                            <span class="main-title">${n.headline}</span>
-                        </div>
-                    </div>
-                    <div class="share-btn" onclick="share(event, '${n.headline.replace(/'/g, "\\'")}', ${n.id})">
-                        <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
-                    </div>
-                </div>`;
-                if ((i + 1) % 2 === 0) html += `<div class="ad-box">Advertisement Slot</div>`;
-                return html;
-            }).join('');
-        } catch (e) { console.log("Error loading JSON"); }
+            // Main news logic
+            allMainNews = d.filter(x => x.type === "main").reverse();
+            
+            // 600ms ka buffer taaki smooth transition ho
+            setTimeout(() => { renderNews(); }, 600);
+
+        } catch (e) { 
+            console.error("Data Load Error"); 
+            document.getElementById('m').innerHTML = "<p style='text-align:center;color:#444;'>Network error. Please refresh.</p>";
+        }
     }
 
+    // 8. Infinite Scroll Logic
+    window.onscroll = function() {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 800) {
+            if (visibleCount < allMainNews.length && !isLoading) {
+                isLoading = true;
+                visibleCount += step;
+                renderNews();
+                setTimeout(() => { isLoading = false; }, 500); 
+            }
+        }
+    };
+
+    // 9. Initial Execution
     window.addEventListener("pageshow", () => { document.body.style.opacity = "1"; });
     document.body.style.opacity = "1";
     load();
-    </script>
+</script>
     
 <script src="https://pl28419044.effectivegatecpm.com/b5/9a/de/b59ade8f82a6eaab152ca14bb09b363e.js"></script>
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7d934cc8d13140b6bce32a76bb018c5c"}'></script>
