@@ -80,6 +80,14 @@
     "tag": "news",
       "content": "venezuela deal"
   
-  }
+  },
+    {
+    "id": 115,
+    "type": "main",
+    "img": "https://i.postimg.cc/k4Jwfw6n/Screenshot-2026-01-20-11-40-54-75-99c04817c0de5652397fc8b56c3b3817.jpg",
+    "headline":"बिजोलिया स्पेशल रिपोर्ट: सैंडस्टोन माइनिंग की चमक या बुझता भविष्य? ज़मीनी हकीकत जो फाइलों में दर्ज नहीं है।",
+    "tag": "news",
+      "content": "mining "
+    }
 
 ]
