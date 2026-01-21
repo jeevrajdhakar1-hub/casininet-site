@@ -217,89 +217,6 @@
     50% { transform: scale(1.1); } 
 }
 
-.reveal-image-container.revealed .reveal-img {
-    filter: blur(0) brightness(1);
-}
-
-.reveal-image-container.revealed .blur-overlay {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.reveal-image-container.revealed {
-    border-style: solid;
-    border-color: rgba(255,149,0,0.5);
-}
-
-/* 2. PROGRESSIVE LOADING IMAGE */
-.progressive-img-container {
-    margin: 35px 0;
-    border-radius: 15px;
-    overflow: hidden;
-    position: relative;
-    background: #1c1c1e;
-    min-height: 220px;
-}
-
-.loading-bar-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    z-index: 3;
-    text-align: center;
-}
-
-.loading-bar {
-    width: 0%;
-    height: 8px;
-    background: linear-gradient(90deg, #ff3b30, #ff9500);
-    border-radius: 10px;
-    margin-bottom: 15px;
-    transition: width 0.3s ease;
-    box-shadow: 0 0 20px rgba(255,59,48,0.8);
-}
-
-.loading-text {
-    color: #fff;
-    font-weight: bold;
-    font-size: 14px;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-}
-
-.progressive-img {
-    width: 100%;
-    height: auto;
-    display: block;
-    aspect-ratio: 16/9;
-    object-fit: cover;
-    transition: opacity 0.6s ease;
-}
-
-.reward-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    background: linear-gradient(135deg, #ff3b30, #ff9500);
-    padding: 25px 45px;
-    border-radius: 20px;
-    font-size: 22px;
-    font-weight: 900;
-    z-index: 10002;
-    box-shadow: 0 20px 60px rgba(255, 59, 48, 0.7);
-    text-align: center;
-    pointer-events: none;
-}
-
-@keyframes rewardPop {
-    0% { transform: translate(-50%, -50%) scale(0) rotate(-180deg); opacity: 0; }
-    40% { transform: translate(-50%, -50%) scale(1.2) rotate(10deg); opacity: 1; }
-    60% { transform: translate(-50%, -50%) scale(0.9) rotate(-5deg); }
-    75% { transform: translate(-50%, -50%) scale(1.05); }
-    100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-            }
  
     </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YF8S99238"></script>
@@ -327,14 +244,12 @@
             <p>WASHINGTON / CARACAS — While the world’s attention is fractured by global conflicts, a high-stakes "shadow game" is unfolding between two of the unlikeliest allies: the United States and Venezuela.</p>
 
             <p><b>The "Enemy of My Enemy" Strategy</b><br>
-                <div class="reveal-image-container" id="revealImg1">
-    <div class="blur-overlay">
-        <div class="reveal-hint">👆 TAP TO REVEAL</div>
-    </div>
-    <img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=800" 
-         alt="Secret deal evidence" 
-         class="reveal-img">
-    <span class="img-caption">🔒(Tap to unlock)</span>
+                <div class="article-image-container">
+    <img src="https://i.postimg.cc/xyz123/tanker.jpg" 
+         alt="Venezuelan oil tanker" 
+         class="inline-article-img"
+         loading="lazy">
+    <span class="img-caption">Venezuelan oil tankers could soon be heading to U.S. ports</span>
                 </div>
 
 For years, Venezuela has been under heavy U.S. sanctions, labeled as a pariah state. However, as global oil supplies tighten, Washington is reportedly reconsidering its stance. Insiders suggest that the Biden administration is quietly weighing a deal with Nicolas Maduro’s government to bring Venezuelan crude back to Western markets </p>
@@ -346,17 +261,13 @@ For years, Venezuela has been under heavy U.S. sanctions, labeled as a pariah st
 
    Fuel Prices: A successful deal could flood the market with cheap oil, potentially slashing prices at the pump within months.
 The Power Shift:                 <div class="progressive-img-container">
-    <div class="loading-bar-container">
-        <div class="loading-bar" id="loadBar1"></div>
-        <div class="loading-text">🔄 Loading exclusive image... <span id="loadPercent">0%</span></div>
+    <div class="article-image-container">
+    <img src="https://i.postimg.cc/xyz123/tanker.jpg" 
+         alt="Venezuelan oil tanker" 
+         class="inline-article-img"
+         loading="lazy">
+    <span class="img-caption">Venezuelan oil tankers could soon be heading to U.S. ports</span>
     </div>
-    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800" 
-         alt="Venezuela oil infrastructure" 
-         class="progressive-img"
-         id="progImg1"
-         style="opacity: 0;">
-    <span class="img-caption">📡(Exclusive access)</span>
-</div>
             This isn't just about oil; it’s about breaking Russia's grip on energy influence.
 The Hidden Risk: If the deal fails, or if it's leaked prematurely, we could see a sudden spike in market volatility that will hit every consumer's pocket. </p>
 
@@ -402,50 +313,8 @@ The Hidden Risk: If the deal fails, or if it's leaked prematurely, we could see 
         } catch (err) { console.log("Share failed"); }
     }
         }
-function showReward(text) {
-    const reward = document.createElement('div');
-    reward.className = 'reward-popup';
-    reward.textContent = text;
-    reward.style.animation = 'rewardPop 2s ease-out forwards';
-    document.body.appendChild(reward);
-    if (navigator.vibrate) navigator.vibrate([20, 10, 30]);
-    setTimeout(() => reward.remove(), 2000);
-}
 
-// === 1. BLURRED REVEAL IMAGE ===
-document.querySelectorAll('.reveal-image-container').forEach(container => {
-    container.addEventListener('click', function() {
-        if (!this.classList.contains('revealed')) {
-            this.classList.add('revealed');
-            h(); // Existing haptic function use kar rahe
-            showReward('🔓 Insider evidence unlocked!');
-        }
-    });
-});
 
-// === 2. PROGRESSIVE LOADING IMAGE ===
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        let progress = 0;
-        const interval = setInterval(() => {
-            progress += Math.random() * 15;
-            if (progress >= 100) {
-                progress = 100;
-                clearInterval(interval);
-                // Image reveal
-                document.getElementById('progImg1').style.opacity = '1';
-                document.querySelector('.loading-bar-container').style.opacity = '0';
-                showReward('✅ Exclusive satellite image loaded!');
-                h();
-            }
-            document.getElementById('loadBar1').style.width = progress + '%';
-            document.getElementById('loadPercent').textContent = Math.floor(progress) + '%';
-        }, 200);
-    }, 2000); 
-});
-
-        
-        
     </script>
     <script src="https://pl28419044.effectivegatecpm.com/b5/9a/de/b59ade8f82a6eaab152ca14bb09b363e.js"></script>
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7d934cc8d13140b6bce32a76bb018c5c"}'></script>
