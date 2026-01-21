@@ -312,8 +312,33 @@ The Hidden Risk: If the deal fails, or if it's leaked prematurely, we could see 
             });
         } catch (err) { console.log("Share failed"); }
     }
-        }
+        } 
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Ye line 1500ms (1.5s) aur 3000ms (3s) ke beech ka random waqt chunti hai
+                const randomDelay = Math.floor(Math.random() * (3000 - 1500 + 1)) + 1500;
 
+                setTimeout(() => {
+                    entry.target.classList.add('reveal');
+                }, randomDelay);
+                
+                // Ek baar reveal hone ke baad nazar hatane ke liye
+                imageObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.article-image-container').forEach(container => {
+        // Shimmer loader add karna
+        if (!container.querySelector('.loading-shimmer')) {
+            const shimmer = document.createElement('div');
+            shimmer.className = 'loading-shimmer';
+            container.prepend(shimmer);
+        }
+        imageObserver.observe(container);
+    });
+            
 
     </script>
     <script src="https://pl28419044.effectivegatecpm.com/b5/9a/de/b59ade8f82a6eaab152ca14bb09b363e.js"></script>
