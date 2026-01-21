@@ -307,7 +307,7 @@ const imageObserver = new IntersectionObserver((entries) => {
             // Random Delay (2s to 4s) taaki user ko "Asli Content" ka feel aaye
             const delay = Math.floor(Math.random() * (4000 - 2000 + 1)) + 2000;
             setTimeout(() => {
-                entry.target.classList.add('reveal');
+                entry.target.classList.add('revealed');
             }, delay);
             imageObserver.unobserve(entry.target);
         }
