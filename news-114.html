@@ -164,6 +164,46 @@
     50% { opacity: 1; }
     100% { opacity: 0.6; }
  }
+        /* Naya system jo purane ko override karega */
+.article-image-container.reveal-ready {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0d0d0d;
+}
+
+.article-image-container.reveal-ready .inline-article-img {
+    filter: blur(35px);
+    opacity: 0;
+    transition: filter 1.5s ease, opacity 1.2s ease;
+}
+
+/* Spinner jo photo ke upar dikhega */
+.loader-circle {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(255,255,255,0.1);
+    border-top: 3px solid #ff3b30;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    z-index: 5;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Jab reveal hoga tab photo saaf hogi */
+.article-image-container.revealed .inline-article-img {
+    filter: blur(0) !important;
+    opacity: 1 !important;
+}
+
+.article-image-container.revealed .loader-circle {
+    display: none;
+        }
+    
  
     </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YF8S99238"></script>
@@ -260,6 +300,28 @@ The Hidden Risk: If the deal fails, or if it's leaked prematurely, we could see 
         } catch (err) { console.log("Share failed"); }
     }
         } 
+        // --- Dopamine Timer Script ---
+const imageObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            // Random Delay (2s to 4s) taaki user ko "Asli Content" ka feel aaye
+            const delay = Math.floor(Math.random() * (4000 - 2000 + 1)) + 2000;
+            setTimeout(() => {
+                entry.target.classList.add('reveal');
+            }, delay);
+            imageObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.article-image-container').forEach(el => {
+    // Spinner add karna
+    const loader = document.createElement('div');
+    loader.className = 'loader-circle';
+    el.prepend(loader);
+    imageObserver.observe(el);
+});
+
     
             
 
