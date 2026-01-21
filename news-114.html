@@ -125,10 +125,13 @@
 .micro-footer a:hover {
   color: #ffffff;
 }
- .article-image-container {
+        .article-image-container {
     margin: 30px 0;
     border-radius: 12px;
     overflow: hidden;
+    position: relative;
+    background: #1c1c1e;
+    min-height: 200px;
 }
 
 .inline-article-img {
@@ -136,6 +139,13 @@
     height: auto;
     display: block;
     border-radius: 12px;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    background: #1c1c1e;
+}
+
+.inline-article-img:not([complete]) {
+    animation: shimmer 2s infinite;
 }
 
 .img-caption {
@@ -145,24 +155,16 @@
     margin-top: 10px;
     font-style: italic;
     text-align: center;
-    }
-        .inline-article-img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 12px;
-    background: #1c1c1e;
-    /* Loading animation */
-    animation: shimmer 2s infinite;
+    padding: 0 10px;
+    line-height: 1.4;
 }
 
 @keyframes shimmer {
     0% { opacity: 0.6; }
     50% { opacity: 1; }
     100% { opacity: 0.6; }
-    }
-        
-
+                        }
+ 
     </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YF8S99238"></script>
 <script>
