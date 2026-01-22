@@ -226,6 +226,23 @@
 .article-image-container.revealed .loader-circle {
     display: none;
         }
+        #progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1); /* Bar ka pichla hissa halka dikhega */
+    z-index: 9999; /* Taaki ye sabse upar rahe */
+}
+
+#progress-bar {
+    height: 100%;
+    width: 0%; /* Shuruat mein 0 rahega */
+    background: #ff3b30; /* Aapka brand color */
+    box-shadow: 0 0 10px rgba(255, 59, 48, 0.5); /* Glow effect */
+    transition: width 0.15s ease-out;
+}
     
  
     </style>
@@ -239,6 +256,9 @@
 </script>
 </head>
 <body>
+    <div id="progress-container">
+    <div id="progress-bar"></div>
+    </div>
     
     <a href="index.html" class="close-btn">✕</a>
 
@@ -299,14 +319,24 @@ The Hidden Risk: If the deal fails, or if it's leaked prematurely, we could see 
         // Haptic feedback
         const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
 
-        // Parallax Effect
         window.onscroll = () => {
-            const img = document.getElementById('parallax-img');
-            let s = window.pageYOffset;
-            if (s >= 0) { 
-                img.style.transform = `scale(${1 + (s / 2500)}) translateY(${s/5}px)`; 
-            }
-        };
+    // 1. Progress Bar Logic
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    
+    const pBar = document.getElementById("progress-bar");
+    if (pBar) {
+        pBar.style.width = scrolled + "%";
+    }
+
+    // 2. Parallax Logic (Purana logic naye variable ke saath)
+    const img = document.getElementById('parallax-img');
+    if (winScroll >= 0 && img) { 
+        img.style.transform = `scale(${1 + (winScroll / 2500)}) translateY(${winScroll/5}px)`; 
+    }
+};
+        
 
     async function hShare(t) { 
     h(); 
