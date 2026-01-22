@@ -17,6 +17,14 @@
         * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; }
         body { background: #000; color: #fff; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
         .header {
+            position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px; /* Ek fixed height dena zaroori hai */
+    z-index: 1000;
+    margin: 0;
+    display: flex;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -25,10 +33,19 @@
     border-bottom: 1px solid #222; /* Neeche ek patli line */
     position: sticky; /* Ise fix karne ke liye */
     top: 4px; /* Progress bar ke theek neeche */
-    z-index: 1000;
     width: 100%;
     margin: 0; /* Gaps khatam karne ke liye */
 }
+        #progress-container {
+    position: fixed;
+    top: 60px; 
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 999;
+        }
+        
 
 /* Logo mein 'net' ko red karne ke liye */
 .logo { 
@@ -261,15 +278,6 @@
 .article-image-container.revealed .loader-circle {
     display: none;
         }
-        #progress-container {
-    position: fixed;
-    top: 60px; 
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.1);
-    z-index: 999;
-    }
     
 
 #progress-bar {
