@@ -301,11 +301,12 @@
 </script>
 </head>
 
+    <body>
+        
 <div class="header">
     <a href="#" class="logo">CASINI<span>net</span></a>
     <div class="live"><div class="dot"></div> LIVE</div>
 </div>
-    <body>
     <div id="progress-container">
     <div id="progress-bar"></div>
     </div>
@@ -411,14 +412,16 @@ const imageObserver = new IntersectionObserver((entries) => {
             // Random Delay (2s to 4s)
             const delay = Math.floor(Math.random() * (4000 - 2000 + 1)) + 2000;
             
-            setTimeout(() => {
-                entry.target.classList.add('revealed'); // CSS ke '.revealed' se match karega
-            }, delay);
             
-            imageObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.3 });
+setTimeout(() => {
+    const img = entry.target.querySelector('.inline-article-img');
+    if (img.complete) {
+        entry.target.classList.add('revealed');
+    } else {
+        img.onload = () => entry.target.classList.add('revealed');
+    }
+}, delay);
+        
 
 document.querySelectorAll('.article-image-container').forEach(el => {
     // Spinner add karna
