@@ -243,6 +243,63 @@
     box-shadow: 0 0 10px rgba(255, 59, 48, 0.5); /* Glow effect */
     transition: width 0.15s ease-out;
 }
+        .main-header {
+    background: #000;
+    padding: 12px 16px;
+    border-bottom: 1px solid #1c1c1e; /* Patli professional line */
+    position: sticky;
+    top: 4px; /* Progress bar ke theek neeche */
+    z-index: 1000;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #111;
+    padding: 10px 15px;
+    border-radius: 6px; /* balanced rounding: na zyada na kam */
+    border: 1px solid #222;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 900;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: -1px;
+}
+
+.red-text {
+    color: #ff3b30;
+}
+
+.live-indicator {
+    color: #ff3b30;
+    font-size: 10px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 59, 48, 0.1);
+    padding: 5px 10px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    background: #ff3b30;
+    border-radius: 50%;
+    animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.8); }
+            }
+        
     
  
     </style>
@@ -259,6 +316,16 @@
     <div id="progress-container">
     <div id="progress-bar"></div>
     </div>
+    <header class="main-header">
+    <div class="header-container">
+        <a href="index.html" class="logo">CASINI<span class="red-text">net</span></a>
+        <div class="live-indicator">
+            <span class="dot"></span>
+            LIVE NEWS
+        </div>
+    </div>
+    </header>
+    
     
     <a href="index.html" class="close-btn">✕</a>
 
