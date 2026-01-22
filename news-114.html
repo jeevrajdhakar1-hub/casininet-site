@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>CASINInet | Trending news</title>
-
+    <meta name="color-scheme" content="dark">
     <meta property="og:type" content="article">
 <meta property="og:title" content="Beyond the Headlines: The Secret US-Venezuela Oil Pact That World Leaders Aren't Talking About Yet."> 
 <meta property="og:description" content="A secret U.S.-Venezuela oil deal is unfolding behind closed doors. While the world is distracted, global energy prices are about to shift. See how this hidden pact will hit your pocket and rewrite the rules of 2026. Read the inside story before it's official.">
@@ -15,7 +15,7 @@
 
     <style>
         * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; }
-        body {  background: #121212; color: #fff; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        body {  background: #121212 !important; color: #fff; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 .header {
     position: fixed;
     top: 0;
@@ -27,11 +27,19 @@
     justify-content: flex-start; 
     align-items: center;
     padding: 0 15px;
-    background: #080808 !important; 
-    border-bottom: 1px solid #1f1f1f; 
-    backdrop-filter: none !important;
+    
+    background-color: #050505 !important;
+    background: #050505 !important;
+    
+    /* Safari aur iOS ke liye extra safety */
+    -webkit-appearance: none;
     -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    
+    /* Niche ki line ko thoda aur halka (dim) kiya taaki zyada blend ho */
+    border-bottom: 1px solid #161616; 
 }
+        
 
 .close-btn { 
     background: #1a1a1a; 
