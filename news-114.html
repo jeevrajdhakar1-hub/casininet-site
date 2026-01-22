@@ -15,7 +15,7 @@
 
     <style>
         * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; }
-        body { background: #000; color: #fff; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        body {  background: #121212; color: #fff; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 .header {
     position: fixed;
     top: 0;
@@ -27,24 +27,25 @@
     justify-content: flex-start; 
     align-items: center;
     padding: 0 15px;
-    
-    background: #121212; 
-    
-    border-bottom: 1px solid #2c2c2e; 
-    
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    background: #080808 !important; 
+    border-bottom: 1px solid #1f1f1f; 
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
 }
 
-.close-btn {
-    /* Button ko thoda aur clean dikhane ke liye */
-    background: #1c1c1e;
-    border: 1px solid #3a3a3c;
-    color: #ffffff;
+.close-btn { 
+    background: #1a1a1a; 
+    border: 1px solid #333;
+    color: #fff;
     width: 28px;
     height: 28px;
-    border-radius: 6px; /* Circle ki jagah Rounded Square zyada modern lagta hai */
-    font-size: 14px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-right: 12px;
+    text-decoration: none;
+    font-size: 14px;
 }
         
         
@@ -85,24 +86,8 @@
         .dot { width: 7px; height: 7px; background: #ff0000; border-radius: 50%; animation: blink 1s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
     
-        .close-btn { 
-    position: relative; 
-    width: 30px; 
-    height: 30px; 
-    margin-right: 12px; 
-    background: rgba(255, 255, 255, 0.1); 
-    border-radius: 50%; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    color: #fff; 
-    text-decoration: none; 
-    font-size: 16px; 
-    border: 1px solid rgba(255,255,255,0.1);
-    flex-shrink: 0;
-}
-
-        /* Hero Section */
+        
+    /* Hero Section */
         .hero-section { 
             margin-top: 0 !important;
             position: relative; 
@@ -121,15 +106,18 @@
             filter: brightness(0.9); 
             will-change: transform;
         }
+.content-container { 
+    position: relative; 
+    /* Hero image ke upar chadhne ke liye */
+    margin-top: -80px; 
+    padding: 20px 24px; 
+    z-index: 10; 
+    /* Ab ye body ke naye color (#121212) se match karega */
+    background: #121212 !important; 
+    /* Shadow ko bhi naye color se match kiya taaki blend smooth ho */
+    box-shadow: 0px -40px 40px 30px #121212 !important; 
+}
         
-        .content-container { 
-            position: relative; 
-            margin-top: -80px; /* Blend seamless karne ke liye */
-            padding: 20px 24px; 
-            z-index: 10; 
-            background: #000; 
-            box-shadow: 0px -40px 40px 30px #000; /* Beech ki line chhupane ke liye shadow */
-        }
 
         .art-tag { display: inline-block; background: #ff3b30; color: #fff; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
         .art-headline { font-size: 32px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 25px; }
