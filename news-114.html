@@ -131,14 +131,31 @@
     overflow: hidden;
     position: relative;
     background: #0d0d0d;
-    min-height: 220px;
+    min-height: 250px;
     
-    display: flex !important; 
-    flex-direction: column !important;
-    
+
+    display: flex !important;
+    flex-direction: column !important; 
     align-items: center;
-    justify-content: center;
+}
+
+.inline-article-img {
+    width: 100%;
+    height: auto;
+    /* Baki purana blur wala code yahan rehne dein */
+}
+
+.img-caption {
+    width: 100%;
+    background: #1c1c1e; /* Caption ke peeche halka sa background taaki photo se juda lage */
+    padding: 12px 10px;
+    margin-top: 0 !important; /* Photo se gap khatam karne ke liye */
+    font-size: 13px;
+    color: #8e8e93;
+    text-align: center;
+    border-top: 1px solid #2c2c2e; /* Ek patli line photo aur text ke beech */
             }
+        
         
 .inline-article-img {
     width: 100%;
@@ -236,12 +253,11 @@
         <div class="article-body">
             <p>WASHINGTON / CARACAS — While the world’s attention is fractured by global conflicts, a high-stakes "shadow game" is unfolding between two of the unlikeliest allies: the United States and Venezuela.</p>
 <div class="article-image-container">
-    <img src="https://i.postimg.cc/xyz123/tanker.jpg" 
-         alt="Venezuelan oil tanker" 
-         class="inline-article-img" 
-         loading="lazy">
-    </div>
-<span class="img-caption">Venezuelan oil tankers could soon be heading to U.S. ports</span>
+    <img src="https://i.postimg.cc/xyz123/tanker.jpg" class="inline-article-img" loading="lazy">
+    
+    <span class="img-caption">Venezuelan oil tankers could soon be heading to U.S. ports</span>
+</div>
+            
     
             <p><b>The "Enemy of My Enemy" Strategy</b><br>
             
@@ -256,12 +272,10 @@ For years, Venezuela has been under heavy U.S. sanctions, labeled as a pariah st
    Fuel Prices: A successful deal could flood the market with cheap oil, potentially slashing prices at the pump within months.
 The Power Shift:  
                 <div class="article-image-container">
-    <img src="https://i.postimg.cc/xyz123/tanker.jpg" 
-         alt="Venezuelan oil tanker" 
-         class="inline-article-img" 
-         loading="lazy">
-    </div>
-<span class="img-caption">Venezuelan oil tankers could soon be heading to U.S. ports</span>
+    <img src="https://i.postimg.cc/xyz123/tanker.jpg" class="inline-article-img" loading="lazy">
+    
+    <span class="img-caption">Venezuelan oil tankers could soon be heading to U.S. ports</span>
+                </div>
             
             This isn't just about oil; it’s about breaking Russia's grip on energy influence.
 The Hidden Risk: If the deal fails, or if it's leaked prematurely, we could see a sudden spike in market volatility that will hit every consumer's pocket. </p>
