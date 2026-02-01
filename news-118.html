@@ -512,38 +512,57 @@ animation: none !important ;
     }
 };
         
+// Haptic feedback function (ensure karein ki ye aapke code mein upar ho)
+const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
 
 async function hShare(platform) { 
-    h(); // Vibration (Haptic)
+    h(); // Vibration trigger
     
-    // Title aur URL set karna
-    const shareTitle = document.title;
     const shareUrl = window.location.origin + window.location.pathname;
+    const shareTitle = document.title;
     const fullMessage = encodeURIComponent(shareTitle + "\n" + shareUrl);
 
-    // 1. Agar WhatsApp icon par click kiya
+    // 1. WhatsApp: Direct App Protocol (Sabse Fast)
     if (platform === 'wa') {
-        window.open(`https://api.whatsapp.com/send?text=${fullMessage}`, '_blank');
+        const waUrl = `whatsapp://send?text=${fullMessage}`;
+        const waWeb = `https://api.whatsapp.com/send?text=${fullMessage}`;
+        
+        // App kholne ki koshish
+        window.location.href = waUrl;
+        
+        // Fallback: Agar app nahi khula toh 500ms baad web browser use karega
+        setTimeout(() => {
+            if (document.hasFocus()) window.open(waWeb, '_blank');
+        }, 500);
     } 
     
-    // 2. Agar Facebook icon par click kiya
+    // 2. Facebook: Standard Browser Share
     else if (platform === 'fb') {
         window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank');
     } 
     
-    // 3. Agar Instagram icon par click kiya (Sirf link copy hoga)
+    // 3. Instagram: English Copy Logic (Chrome/Mobile fix ke saath)
     else if (platform === 'ig') {
-        try {
-            await navigator.clipboard.writeText(shareUrl);
-            alert("link copied");
-        } catch (err) { console.log("Copy failed"); }
+        const successMsg = "Link copied! Now paste it on Instagram.";
+        
+        if (navigator.clipboard && window.isSecureContext) {
+            try {
+                await navigator.clipboard.writeText(shareUrl);
+                alert(successMsg);
+            } catch (err) {
+                fallbackCopy(shareUrl, successMsg);
+            }
+        } else {
+            fallbackCopy(shareUrl, successMsg);
+        }
     } 
     
-    // 4. Agar neeche wala "Share Story" button dabaya (Aapka purana logic)
+    // 4. MAIN SHARE BUTTON (Jo page ke neeche white color mein hai)
     else {
         if (navigator.share) {
+            // Aapka original random URL logic barqarar hai
+            const randomUrl = shareUrl + "?v=" + Math.floor(Math.random() * 100);
             try {
-                const randomUrl = shareUrl + "?v=" + Math.floor(Math.random() * 100);
                 await navigator.share({ 
                     title: shareTitle, 
                     text: '🔥 Exclusive: Read the full story here:', 
@@ -553,6 +572,22 @@ async function hShare(platform) {
         }
     }
 }
+
+
+function fallbackCopy(text, msg) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+        document.execCommand('copy');
+        alert(msg);
+    } catch (err) {
+        prompt("Copy link:", text);
+    }
+    document.body.removeChild(textArea);
+}
+
 const imageObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
