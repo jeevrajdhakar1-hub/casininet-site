@@ -13,64 +13,15 @@
 <meta property="og:image" content="https://i.postimg.cc/151Ntmms/IMG-20260129-WA0005.jpg">
 <meta property="og:url" content="https://casininet.com/news-118.html">
 <meta name="twitter:card" content="summary_large_image">
-  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+ <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>
   window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(function(oneSignal) {
-    oneSignal.init({
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
       appId: "a4f8421b-31f2-4648-8dbe-1d416f375d77",
-      safari_web_id: "YOUR-SAFARI-ID-HERE", // Safari setup ke baad mili ID yahan dalein
-      notifyButton: {
-        enable: true, // Ye chota bell icon dikhayega jo design mein bura nahi lagta
-        displayPredicate: function() {
-            return OneSignal.isPushNotificationsEnabled().then(function(isEnabled) {
-                return !isEnabled; // Subscribe karne ke baad gayab ho jayega
-            });
-        },
-        colors: { 
-            'circle.background': '#ff3b30', // Aapki site ka red color
-            'circle.foreground': 'white',
-            'badge.background': '#ff3b30',
-            'badge.foreground': 'white',
-            'badge.bordercolor': 'white',
-            'pulse.color': 'white',
-            'dialog.button.background.hover': '#ff3b30',
-            'dialog.button.background.active': '#ff3b30',
-            'dialog.button.background': '#ff3b30',
-            'dialog.accent.color': '#ff3b30',
-        },
-        text: {
-            'tip.state.unsubscribed': 'खबरों के अलर्ट चालू करें',
-            'tip.state.subscribed': 'आप सब्सक्राइब कर चुके हैं',
-            'tip.state.blocked': 'आपने नोटिफिकेशन ब्लॉक किया है',
-            'message.prenotify': 'ताज़ा खबरों के लिए क्लिक करें',
-            'action.subscribe': 'सब्सक्राइब',
-            'action.unsubscribe': 'अनसब्सक्राइब',
-        }
-      },
-      promptOptions: {
-        slidedown: {
-          prompts: [
-            {
-              type: "push",
-              autoPrompt: true,
-              text: {
-                actionMessage: "क्या आप  ताज़ा खबरें सबसे पहले पाना चाहते हैं?", 
-                acceptButton: "हाँ, ज़रूर",
-                cancelButton: "अभी नहीं"
-              },
-              delay: {
-                pageViews: 1,
-                timeDelay: 5
-              }
-            }
-          ]
-        }
-      }
     });
   });
 </script>
-
 
     <style>
         * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; }
