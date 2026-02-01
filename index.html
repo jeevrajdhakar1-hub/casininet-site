@@ -15,16 +15,17 @@
   OneSignalDeferred.push(function(oneSignal) {
     oneSignal.init({
       appId: "a4f8421b-31f2-4648-8dbe-1d416f375d77",
-      safari_web_id: "YOUR-SAFARI-ID-HERE", // Safari setup ke baad mili ID yahan dalein
+     
       notifyButton: {
-        enable: true, // Ye chota bell icon dikhayega jo design mein bura nahi lagta
+        enable: true,
         displayPredicate: function() {
-            return OneSignal.isPushNotificationsEnabled().then(function(isEnabled) {
-                return !isEnabled; // Subscribe karne ke baad gayab ho jayega
+            // "OneSignal" ki jagah "oneSignal" use karein
+            return oneSignal.isPushNotificationsEnabled().then(function(isEnabled) {
+                return !isEnabled; 
             });
         },
         colors: { 
-            'circle.background': '#ff3b30', // Aapki site ka red color
+            'circle.background': '#ff3b30',
             'circle.foreground': 'white',
             'badge.background': '#ff3b30',
             'badge.foreground': 'white',
@@ -51,7 +52,7 @@
               type: "push",
               autoPrompt: true,
               text: {
-                actionMessage: "क्या आप  ताज़ा खबरें सबसे पहले पाना चाहते हैं?", 
+                actionMessage: "क्या आप ताज़ा खबरें सबसे पहले पाना चाहते हैं?", 
                 acceptButton: "हाँ, ज़रूर",
                 cancelButton: "अभी नहीं"
               },
