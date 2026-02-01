@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -104,7 +105,8 @@
     height: 43vh; 
     background: #000; 
     overflow: hidden;
-linear-gradient(to bottom, black 70%, transparent 100%);
+    background: linear-gradient(to bottom, black 70%, transparent 100%);
+
     mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
         }
         .hero-img { 
@@ -113,6 +115,9 @@ linear-gradient(to bottom, black 70%, transparent 100%);
             object-fit: cover; 
             filter: brightness(0.9); 
             will-change: transform;
+            -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+ 
         }
 .content-container { 
     position: relative; 
@@ -126,6 +131,32 @@ linear-gradient(to bottom, black 70%, transparent 100%);
         
 
         .art-tag { display: inline-block; background: #ff3b30; color: #fff; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; margin-top: 0; }
+        .share-label {
+    font-size: 12px;
+    color: #7b7878; /* Dull grey color */
+    font-weight: 500;
+    margin-right: 2px; /* Icons se halki doori */
+}
+        .s-icon img {
+   
+    opacity: 1; 
+    filter: saturate(0.7) brightness( -0.2 ); 
+    transition: all 0.2s ease;
+}
+.meta-row {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    margin-bottom: 15px;
+    width: 100%; 
+}
+
+/* Jab koi touch karega tab thoda sa saaf dikhega */
+.s-icon:active img {
+    opacity: 0.9;
+    filter: saturate(1) brightness(1);
+    transform: scale(0.9);
+}
         .art-headline { font-size: 32px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 5px; margin-top: 0 !important;text-align: left; }
         
         .article-body { font-size: 18px; line-height: 1.7; color: #e5e5ea; }
@@ -231,8 +262,8 @@ linear-gradient(to bottom, black 70%, transparent 100%);
     font-size: 13px;
     color: #8e8e93;
     text-align: center;
-    border-top: 1px solid #2c2c2e; /* Ek patli line photo aur text ke beech */
-            }
+    border-top: 1px solid #2c2c2e;
+    line-height: 1.4; }
         
         
 .inline-article-img {
@@ -249,16 +280,6 @@ linear-gradient(to bottom, black 70%, transparent 100%);
 animation: none !important ;
 }
 
-.img-caption {
-    display: block;
-    font-size: 13px;
-    color: #8e8e93;
-    margin-top: 10px;
-    font-style: italic;
-    text-align: center;
-    padding: 0 10px;
-    line-height: 1.4;
-}
 .article-image-container.reveal-ready {
     display: flex;
     align-items: center;
@@ -406,12 +427,20 @@ animation: none !important ;
     </div>
 
     <div class="content-container">
-        <span class="art-tag"> Bijoliya news</span>
+        <div class="meta-row">
+            <span class="art-tag">Bijoliya news</span>
+            <div class="share-icons">
+                <span class="share-label">शेयर</span>
+                <a href="javascript:void(0)" onclick="hShare('wa')" class="s-icon"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="18"></a>
+                <a href="javascript:void(0)" onclick="hShare('fb')" class="s-icon"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" width="18"></a>
+                <a href="javascript:void(0)" onclick="hShare('ig')" class="s-icon"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="18"></a>
+            </div>
+        </div>
         <h1 class="art-headline">मांझी साहब का खेड़ा: अवैध खनन से सरकार को लाखों का चूना, ग्रामीणों ने मौके पर पहुंचकर रुकवाया काम</h1>
         
         <div class="article-body">
             <p> बिजोलिया (भीलवाड़ा):
-मांझी साहब का खेड़ा (गोपालपुरा) में अवैध खनन के जरिए सरकारी राजस्व को चूना लगाने का बड़ा मामला सामने आया है। ग्रामीणों का आरोप है कि स्थानीय खननकर्ता ने नियमों को ताक पर रखकर सरकारी भूमि से भारी मात्रा में पत्थर की अवैध निकासी की है। ग्रामीणों के अनुसार, अब तक लगभग ₹50 से ₹80 लाख का पत्थर अवैध रूप से निकाला जा चुका है।</p></p>
+मांझी साहब का खेड़ा (गोपालपुरा) में अवैध खनन के जरिए सरकारी राजस्व को चूना लगाने का बड़ा मामला सामने आया है। ग्रामीणों का आरोप है कि स्थानीय खननकर्ता ने नियमों को ताक पर रखकर सरकारी भूमि से भारी मात्रा में पत्थर की अवैध निकासी की है। ग्रामीणों के अनुसार, अब तक लगभग ₹50 से ₹80 लाख का पत्थर अवैध रूप से निकाला जा चुका है।</p>
             <p><b>क्वारी लाइसेंस की आड़ में मनमानी</b><br>
 प्राप्त जानकारी के अनुसार, मौजा ग्राम गोपालपुरा के खाता संख्या 1 में अंकित आराजी संख्या 17 एवं 264 पर स्थित बिलानाम भूमि में यह खेल चल रहा है।
               <div class="article-image-container">
@@ -422,7 +451,8 @@ animation: none !important ;
 मुख्य आरोपी: ग्रामीणों ने क्वारी लाइसेंस संख्या 12/2021 के धारक सुनील धाकड़ (पिता पन्नालाल जी धाकड़) पर अवैध गतिविधियों के गंभीर आरोप लगाए हैं।
 नियमों का उल्लंघन: लाइसेंस की शर्तों के विपरीत जाकर निर्धारित सीमा से बाहर पत्थर की निकासी की जा रही है।</p>
 <div class="content-promo">
-    <span class="promo-label">advertisement</script> <div id="container-1dd72f211aefd488e56f759ff509152a"></div></span>
+    <span class="promo-label">advertisement</span>
+    <div id="container-1dd72f211aefd488e56f759ff509152a"></div>
 </div>
 
             <p><b>प्रशासन की चुप्पी और जन-आक्रोश</b><br>
@@ -483,20 +513,46 @@ animation: none !important ;
 };
         
 
-    async function hShare(t) { 
-    h(); 
-    if (navigator.share) {
-        try {
-            const shareUrl = window.location.origin + window.location.pathname + "?v=" + Math.floor(Math.random() * 100);
-            await navigator.share({ 
-                title: t, 
+async function hShare(platform) { 
+    h(); // Vibration (Haptic)
+    
+    // Title aur URL set karna
+    const shareTitle = document.title;
+    const shareUrl = window.location.origin + window.location.pathname;
+    const fullMessage = encodeURIComponent(shareTitle + "\n" + shareUrl);
 
-                text: '🔥 Exclusive: Read the full story here:', 
-                url: shareUrl 
-            });
-        } catch (err) { console.log("Share failed"); }
-    }
+    // 1. Agar WhatsApp icon par click kiya
+    if (platform === 'wa') {
+        window.open(`https://api.whatsapp.com/send?text=${fullMessage}`, '_blank');
+    } 
+    
+    // 2. Agar Facebook icon par click kiya
+    else if (platform === 'fb') {
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank');
+    } 
+    
+    // 3. Agar Instagram icon par click kiya (Sirf link copy hoga)
+    else if (platform === 'ig') {
+        try {
+            await navigator.clipboard.writeText(shareUrl);
+            alert("link copied");
+        } catch (err) { console.log("Copy failed"); }
+    } 
+    
+    // 4. Agar neeche wala "Share Story" button dabaya (Aapka purana logic)
+    else {
+        if (navigator.share) {
+            try {
+                const randomUrl = shareUrl + "?v=" + Math.floor(Math.random() * 100);
+                await navigator.share({ 
+                    title: shareTitle, 
+                    text: '🔥 Exclusive: Read the full story here:', 
+                    url: randomUrl 
+                });
+            } catch (err) { console.log("Share failed"); }
         }
+    }
+}
 const imageObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
