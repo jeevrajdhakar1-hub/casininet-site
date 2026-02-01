@@ -491,7 +491,6 @@ animation: none !important ;
         
    
     <script>
-        // Haptic feedback
         const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
 
         window.onscroll = () => {
@@ -512,53 +511,38 @@ animation: none !important ;
     }
 };
         
-// 1. Haptic feedback function (Sirf ek baar)
-const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
 
-// 2. Scroll Logic (Progress bar aur Parallax)
-window.onscroll = () => {
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-    
-    const pBar = document.getElementById("progress-bar");
-    if (pBar) { pBar.style.width = scrolled + "%"; }
-
-    const img = document.getElementById('parallax-img');
-    if (winScroll >= 0 && img) { 
-        img.style.transform = `scale(${1 + (winScroll / 2500)}) translateY(${winScroll/5}px)`; 
-    }
-};
-
-// 3. Share Function (Direct App + Copy Fix)
 async function hShare(platform) { 
-    h(); 
-    const shareUrl = window.location.origin + window.location.pathname;
+    h(); // Vibration (Haptic)
+    
+    // Title aur URL set karna
     const shareTitle = document.title;
+    const shareUrl = window.location.origin + window.location.pathname;
     const fullMessage = encodeURIComponent(shareTitle + "\n" + shareUrl);
 
+    // 1. Agar WhatsApp icon par click kiya
     if (platform === 'wa') {
-        const waUrl = `whatsapp://send?text=${fullMessage}`;
-        const waWeb = `https://api.whatsapp.com/send?text=${fullMessage}`;
-        window.location.href = waUrl;
-        setTimeout(() => { if (document.hasFocus()) window.open(waWeb, '_blank'); }, 500);
+        window.open(`https://api.whatsapp.com/send?text=${fullMessage}`, '_blank');
     } 
+    
+    // 2. Agar Facebook icon par click kiya
     else if (platform === 'fb') {
         window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank');
     } 
+    
+    // 3. Agar Instagram icon par click kiya (Sirf link copy hoga)
     else if (platform === 'ig') {
-        const successMsg = "Link copied! Now paste it on Instagram.";
-        if (navigator.clipboard && window.isSecureContext) {
-            try {
-                await navigator.clipboard.writeText(shareUrl);
-                alert(successMsg);
-            } catch (err) { fallbackCopy(shareUrl, successMsg); }
-        } else { fallbackCopy(shareUrl, successMsg); }
+        try {
+            await navigator.clipboard.writeText(shareUrl);
+            alert("link copied");
+        } catch (err) { console.log("Copy failed"); }
     } 
+    
+    // 4. Agar neeche wala "Share Story" button dabaya (Aapka purana logic)
     else {
         if (navigator.share) {
-            const randomUrl = shareUrl + "?v=" + Math.floor(Math.random() * 100);
             try {
+                const randomUrl = shareUrl + "?v=" + Math.floor(Math.random() * 100);
                 await navigator.share({ 
                     title: shareTitle, 
                     text: '🔥 Exclusive: Read the full story here:', 
@@ -568,33 +552,26 @@ async function hShare(platform) {
         }
     }
 }
-
-// 4. Helper function for Instagram
-function fallbackCopy(text, msg) {
-    const textArea = document.createElement("textarea");
-    textArea.value = text;
-    document.body.appendChild(textArea);
-    textArea.select();
-    try {
-        document.execCommand('copy');
-        alert(msg);
-    } catch (err) { prompt("Copy link:", text); }
-    document.body.removeChild(textArea);
-}
-
-// 5. Image Reveal Logic
 const imageObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
+            // Container ko "Ready" state mein dalo taaki blur dikhe
             entry.target.classList.add('reveal-ready');
+
+            // Random Delay (2s to 4s)
             const delay = Math.floor(Math.random() * (4000 - 2000 + 1)) + 2000;
-            setTimeout(() => { entry.target.classList.add('revealed'); }, delay);
+            
+            setTimeout(() => {
+                entry.target.classList.add('revealed'); // CSS ke '.revealed' se match karega
+            }, delay);
+            
             imageObserver.unobserve(entry.target);
         }
     });
 }, { threshold: 0.3 });
 
 document.querySelectorAll('.article-image-container').forEach(el => {
+    // Spinner add karna
     if(!el.querySelector('.loader-circle')){
         const loader = document.createElement('div');
         loader.className = 'loader-circle';
@@ -602,7 +579,6 @@ document.querySelectorAll('.article-image-container').forEach(el => {
     }
     imageObserver.observe(el);
 });
-
 
     </script>
    
