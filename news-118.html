@@ -512,55 +512,51 @@ animation: none !important ;
     }
 };
         
-// Haptic feedback function (ensure karein ki ye aapke code mein upar ho)
+// 1. Haptic feedback function (Sirf ek baar)
 const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
 
-async function hShare(platform) { 
-    h(); // Vibration trigger
+// 2. Scroll Logic (Progress bar aur Parallax)
+window.onscroll = () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
     
+    const pBar = document.getElementById("progress-bar");
+    if (pBar) { pBar.style.width = scrolled + "%"; }
+
+    const img = document.getElementById('parallax-img');
+    if (winScroll >= 0 && img) { 
+        img.style.transform = `scale(${1 + (winScroll / 2500)}) translateY(${winScroll/5}px)`; 
+    }
+};
+
+// 3. Share Function (Direct App + Copy Fix)
+async function hShare(platform) { 
+    h(); 
     const shareUrl = window.location.origin + window.location.pathname;
     const shareTitle = document.title;
     const fullMessage = encodeURIComponent(shareTitle + "\n" + shareUrl);
 
-    // 1. WhatsApp: Direct App Protocol (Sabse Fast)
     if (platform === 'wa') {
         const waUrl = `whatsapp://send?text=${fullMessage}`;
         const waWeb = `https://api.whatsapp.com/send?text=${fullMessage}`;
-        
-        // App kholne ki koshish
         window.location.href = waUrl;
-        
-        // Fallback: Agar app nahi khula toh 500ms baad web browser use karega
-        setTimeout(() => {
-            if (document.hasFocus()) window.open(waWeb, '_blank');
-        }, 500);
+        setTimeout(() => { if (document.hasFocus()) window.open(waWeb, '_blank'); }, 500);
     } 
-    
-    // 2. Facebook: Standard Browser Share
     else if (platform === 'fb') {
         window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank');
     } 
-    
-    // 3. Instagram: English Copy Logic (Chrome/Mobile fix ke saath)
     else if (platform === 'ig') {
         const successMsg = "Link copied! Now paste it on Instagram.";
-        
         if (navigator.clipboard && window.isSecureContext) {
             try {
                 await navigator.clipboard.writeText(shareUrl);
                 alert(successMsg);
-            } catch (err) {
-                fallbackCopy(shareUrl, successMsg);
-            }
-        } else {
-            fallbackCopy(shareUrl, successMsg);
-        }
+            } catch (err) { fallbackCopy(shareUrl, successMsg); }
+        } else { fallbackCopy(shareUrl, successMsg); }
     } 
-    
-    // 4. MAIN SHARE BUTTON (Jo page ke neeche white color mein hai)
     else {
         if (navigator.share) {
-            // Aapka original random URL logic barqarar hai
             const randomUrl = shareUrl + "?v=" + Math.floor(Math.random() * 100);
             try {
                 await navigator.share({ 
@@ -573,7 +569,7 @@ async function hShare(platform) {
     }
 }
 
-
+// 4. Helper function for Instagram
 function fallbackCopy(text, msg) {
     const textArea = document.createElement("textarea");
     textArea.value = text;
@@ -582,32 +578,23 @@ function fallbackCopy(text, msg) {
     try {
         document.execCommand('copy');
         alert(msg);
-    } catch (err) {
-        prompt("Copy link:", text);
-    }
+    } catch (err) { prompt("Copy link:", text); }
     document.body.removeChild(textArea);
 }
 
+// 5. Image Reveal Logic
 const imageObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            // Container ko "Ready" state mein dalo taaki blur dikhe
             entry.target.classList.add('reveal-ready');
-
-            // Random Delay (2s to 4s)
             const delay = Math.floor(Math.random() * (4000 - 2000 + 1)) + 2000;
-            
-            setTimeout(() => {
-                entry.target.classList.add('revealed'); // CSS ke '.revealed' se match karega
-            }, delay);
-            
+            setTimeout(() => { entry.target.classList.add('revealed'); }, delay);
             imageObserver.unobserve(entry.target);
         }
     });
 }, { threshold: 0.3 });
 
 document.querySelectorAll('.article-image-container').forEach(el => {
-    // Spinner add karna
     if(!el.querySelector('.loader-circle')){
         const loader = document.createElement('div');
         loader.className = 'loader-circle';
@@ -615,6 +602,8 @@ document.querySelectorAll('.article-image-container').forEach(el => {
     }
     imageObserver.observe(el);
 });
+
+
     </script>
    
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7d934cc8d13140b6bce32a76bb018c5c"}'></script>
