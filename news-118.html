@@ -433,7 +433,6 @@ animation: none !important ;
                 <span class="share-label">शेयर</span>
                 <a href="javascript:void(0)" onclick="hShare('wa')" class="s-icon"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="18"></a>
                 <a href="javascript:void(0)" onclick="hShare('fb')" class="s-icon"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" width="18"></a>
-                <a href="javascript:void(0)" onclick="hShare('ig')" class="s-icon"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="18"></a>
             </div>
         </div>
         <h1 class="art-headline">मांझी साहब का खेड़ा: अवैध खनन से सरकार को लाखों का चूना, ग्रामीणों ने मौके पर पहुंचकर रुकवाया काम</h1>
@@ -530,15 +529,6 @@ async function hShare(platform) {
         window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank');
     } 
     
-    // 3. Agar Instagram icon par click kiya (Sirf link copy hoga)
-    else if (platform === 'ig') {
-        try {
-            await navigator.clipboard.writeText(shareUrl);
-            alert("link copied");
-        } catch (err) { console.log("Copy failed"); }
-    } 
-    
-    // 4. Agar neeche wala "Share Story" button dabaya (Aapka purana logic)
     else {
         if (navigator.share) {
             try {
