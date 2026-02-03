@@ -127,6 +127,44 @@
 .micro-footer a:hover {
   color: #ffffff;
 }
+        /* --- Desktop Ke Liye Special Styling --- */
+@media screen and (min-width: 768px) {
+    body {
+        max-width: 1100px;
+        margin: 0 auto;   
+        padding: 20px;
+    }
+
+   
+    .round-card { flex: 0 0 110px; }
+    .round-img { width: 100px; height: 100px; }
+
+   
+    #m {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 25px;
+        align-items: start;
+    }
+
+
+    .ad-box {
+        grid-column: 1 / -1; 
+        min-height: 150px;
+        margin: 10px 0;
+    }
+
+
+    .main-img { height: 170px; }
+
+    /* Headline ka font thoda manage karne ke liye */
+    .main-title { font-size: 17px; }
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    #m { grid-template-columns: repeat(2, 1fr); }
+}
 
     </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YF8S99238"></script>
