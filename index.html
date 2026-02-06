@@ -354,38 +354,7 @@
     const newsToShow = allMainNews.slice(start, visibleCount);
     
     let newHtml = newsToShow.map((n, i) => {
-        // 1. ये आपका नॉर्मल न्यूज़ कार्ड है
-        let html = `
-        <div class="card-link" onclick="go(${n.id})">
-            <div class="main-card">
-                <img src="${n.img}" class="main-img" loading="lazy" style="height:135px;">
-                <div class="main-text">
-                    <span class="tag">${n.tag}</span>
-                    <span class="main-title">${n.headline}</span>
-                </div>
-            </div>
-        </div>`;
-
-        // 2. विज्ञापन का लॉजिक: हर 7 खबरों के बाद एक Ad Box
-        if ((start + i + 1) % 7 === 0) {
-            html += `
-            <div class="card-link" onclick="window.location.href='contact.html'">
-                <div class="main-card ad-premium">
-                    <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG_0945.png" class="main-img" style="height:135px;">
-                    <div class="main-text">
-                        <span class="ad-tag">Sponsored</span>
-                        <span class="main-title">अपना विज्ञापन यहाँ दिखाएँ। लाखों लोगों तक अपनी पहुँच बनाएँ!</span>
-                        <div class="ad-btn">अभी संपर्क करें</div>
-                    </div>
-                </div>
-            </div>`;
-        }
-        return html;
-    }).join('');
-
-    if (isInitial) { container.innerHTML = newHtml; } 
-    else { container.insertAdjacentHTML('beforeend', newHtml); }
-}
+      
 </script>
     
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7d934cc8d13140b6bce32a76bb018c5c"}'></script>
