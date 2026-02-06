@@ -232,15 +232,13 @@
     <div id="m"></div>
 <div id="container-1dd72f211aefd488e56f759ff509152a"></div>
 <script>
-    let allMainNews = [];     
+  let allMainNews = [];     
     let visibleCount = 10;    
     const step = 8;            
     let isLoading = false;     
 
-   
     const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
 
-    
     async function share(e, title, id) {
         e.stopPropagation(); 
         h();
@@ -275,37 +273,48 @@
         container.innerHTML = skeletonHtml;
     }
 
-   function renderNews(isInitial = false) {
-    const container = document.getElementById('m');
-    const start = isInitial ? 0 : visibleCount - step;
-    const newsToShow = allMainNews.slice(start, visibleCount);
-    
-    let newHtml = newsToShow.map((n, i) => {
-        let html = `
-        <div class="card-link" onclick="go(${n.id})">
-            <div class="main-card">
-                <img src="${n.img}" class="main-img" loading="lazy">
-                <div class="main-text">
-                    <span class="tag">${n.tag}</span>
-                    <span class="main-title">${n.headline}</span>
+    // केवल एक बार renderNews फंक्शन (Share Button और Ad Box के साथ)
+    function renderNews(isInitial = false) {
+        const container = document.getElementById('m');
+        const start = isInitial ? 0 : visibleCount - step;
+        const newsToShow = allMainNews.slice(start, visibleCount);
+        
+        let newHtml = newsToShow.map((n, i) => {
+            // न्यूज़ कार्ड + शेयर बटन
+            let html = `
+            <div class="card-link" onclick="go(${n.id})">
+                <div class="main-card">
+                    <img src="${n.img}" class="main-img" loading="lazy" style="height:135px;">
+                    <div class="main-text">
+                        <span class="tag">${n.tag}</span>
+                        <span class="main-title">${n.headline}</span>
+                    </div>
                 </div>
-            </div>
-            <div class="share-btn" onclick="share(event, '${n.headline.replace(/'/g, "\\'")}', ${n.id})">
-                <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
-            </div>
-        </div>`;
-        if ((start + i + 1) % 7 === 0) html += `<div class="ad-box">Advertisement Slot</div>`;
-        return html;
-    }).join('');
+                <div class="share-btn" onclick="share(event, '${n.headline.replace(/'/g, "\\'")}', ${n.id})">
+                    <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
+                </div>
+            </div>`;
 
-    if (isInitial) {
-        container.innerHTML = newHtml; 
-    } else {
-        container.insertAdjacentHTML('beforeend', newHtml); 
-    }
-    }
+            // विज्ञापन (7वीं न्यूज़ के बाद)
+            if ((start + i + 1) % 7 === 0) {
+                html += `
+                <div class="card-link" onclick="window.location.href='contact.html'">
+                    <div class="main-card ad-premium">
+                        <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG_0945.png" class="main-img" style="height:135px;">
+                        <div class="main-text">
+                            <span class="ad-tag">Sponsored</span>
+                            <span class="main-title">CN न्यूज़ के साथ अपने ब्रांड को प्रमोट करें। आज ही विज्ञापन के लिए संपर्क करें!</span>
+                            <div class="ad-btn">Contact Us</div>
+                        </div>
+                    </div>
+                </div>`;
+            }
+            return html;
+        }).join('');
 
-    
+        if (isInitial) { container.innerHTML = newHtml; } 
+        else { container.insertAdjacentHTML('beforeend', newHtml); }
+    }
 
     async function load() {
         showSkeletons(); 
@@ -320,19 +329,14 @@
                     <div style="font-size:9px; color:#777; font-weight:600; margin-top:8px;">${n.headline.substring(0,10)}..</div>
                 </div>`).join('');
 
-            // Main news logic
             allMainNews = d.filter(x => x.type === "main").reverse();
-            
-         setTimeout(() => { renderNews(true); }, 600);
-    
-
+            setTimeout(() => { renderNews(true); }, 600);
         } catch (e) { 
             console.error("Data Load Error"); 
             document.getElementById('m').innerHTML = "<p style='text-align:center;color:#444;'>Network error. Please refresh.</p>";
         }
     }
 
-    // 8. Infinite Scroll Logic
     window.onscroll = function() {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1200) {
             if (visibleCount < allMainNews.length && !isLoading) {
@@ -344,50 +348,10 @@
         }
     };
 
-   function renderNews(isInitial = false) {
-    const container = document.getElementById('m');
-    const start = isInitial ? 0 : visibleCount - step;
-    const newsToShow = allMainNews.slice(start, visibleCount);
-    
-    let newHtml = newsToShow.map((n, i) => {
-     
-        let html = `
-        <div class="card-link" onclick="go(${n.id})">
-            <div class="main-card">
-                <img src="${n.img}" class="main-img" loading="lazy" style="height:135px;">
-                <div class="main-text">
-                    <span class="tag">${n.tag}</span>
-                    <span class="main-title">${n.headline}</span>
-                </div>
-            </div>
-            <div class="share-btn" onclick="share(event, '${n.headline.replace(/'/g, "\\'")}', ${n.id})">
-                <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
-            </div>
-        </div>`;
-
-        // 2. विज्ञापन का लॉजिक: हर 7 खबरों के बाद
-        if ((start + i + 1) % 7 === 0) {
-            html += `
-            <div class="card-link" onclick="window.location.href='contact.html'">
-                <div class="main-card ad-premium">
-                    <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG_0945.png" class="main-img" style="height:135px;">
-                    <div class="main-text">
-                        <span class="ad-tag">Sponsored</span>
-                        <span class="main-title">अपना विज्ञापन यहाँ दिखाएँ। लाखों लोगों तक अपनी पहुँच बनाएँ!</span>
-                        <div class="ad-btn">अभी संपर्क करें</div>
-                    </div>
-                </div>
-            </div>`;
-        }
-        return html;
-    }).join('');
-
-    if (isInitial) { 
-        container.innerHTML = newHtml; 
-    } else { 
-        container.insertAdjacentHTML('beforeend', newHtml); 
-    }
-}
+    window.addEventListener("pageshow", () => { document.body.style.opacity = "1"; });
+    document.body.style.opacity = "1";
+    load();     
+   
       
 </script>
     
