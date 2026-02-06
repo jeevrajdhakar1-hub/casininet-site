@@ -142,8 +142,6 @@
 .micro-footer a:hover {
   color: #ffffff;
 }
-
-        /* --- Mobile Mein 2 Columns --- */
         #m {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -151,11 +149,10 @@
             align-items: start;
         }
 
-        /* Ad box ko dono columns mein spread karne ke liye */
+  
         .ad-box {
             grid-column: 1 / -1;
         }
-        /* --- Desktop Ke Liye Special Styling --- */
 @media screen and (min-width: 768px) {
     body {
         max-width: 1100px;
@@ -167,9 +164,8 @@
     .round-img { width: 100px; height: 100px; }
 
     #m {
-        /* सुनिश्चित करें कि display grid यहाँ मौजूद है */
         display: grid; 
-        grid-template-columns: repeat(3, 1fr); /* 3 कॉलम लेआउट */
+        grid-template-columns: repeat(3, 1fr); 
         gap: 25px;
         align-items: start;
     }
@@ -180,10 +176,7 @@
         margin: 10px 0;
     }
 
-    .main-img { 
-        height: 190px; 
-    }
-
+ 
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
     #m { grid-template-columns: repeat(2, 1fr); }
