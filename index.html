@@ -64,18 +64,33 @@
         .round-card:active { transform: scale(0.85); } 
         .round-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ff0000; padding: 2px; }
 
-        .card-link { display: block; margin-bottom: 25px; text-decoration: none; position: relative; transition: transform 0.2s; }
+        .card-link { display: block; margin-bottom: 0; text-decoration: none; position: relative; transition: transform 0.2s; height: 100%; }
         .card-link:active { transform: scale(0.96); } 
         
-        .main-card { background: #111; border-radius: 16px; overflow: hidden; border: 1px solid #222; }
-        .main-img { width: 100%; height: 210px; object-fit: cover; }
-        .main-text { padding: 18px; position: relative; }
-        .main-title { font-size: 19px; font-weight: 700; color: #fff; line-height: 1.35; display: block; padding-right: 45px; }
-        .tag { color: #ff0000; font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 6px; display: block; }
+        .main-card { background: #111; border-radius: 16px; overflow: hidden; border: 1px solid #222; display: flex; flex-direction: column; height: 100%; }
+        .main-img { width: 100%; height: 160px; object-fit: cover; flex-shrink: 0; }
+        .main-text { 
+    padding: 12px 12px 20px 12px;
+    position: relative; 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+}
+        .main-title { 
+    font-size: 12px; 
+    font-weight: 600; 
+    color: #fff; 
+    line-height: 1.2; 
+    display: -webkit-box; 
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical; 
+    overflow: hidden; 
+    padding-right: 35px; 
+}       .tag { color: #ff0000; font-size: 9px; font-weight: 800; text-transform: uppercase; margin-bottom: 5px; display: block; }
 
-        .share-btn { position: absolute; right: 15px; bottom: 18px; background: #fff; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; transition: transform 0.2s; }
+        .share-btn { position: absolute; right: 10px; bottom: 10px; background: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; transition: transform 0.2s; }
         .share-btn:active { transform: scale(1.2); }
-        .share-btn svg { width: 18px; height: 18px; fill: #000; }
+        .share-btn svg { width: 16px; height: 16px; fill: #000; }
 
         .ad-box { background: #080808; border: 1px dashed #222; border-radius: 12px; margin-bottom: 30px; padding: 15px; text-align: center; min-height: 250px; display: flex; align-items: center; justify-content: center; color: #333; font-size: 10px; letter-spacing: 2px; }
 
@@ -127,6 +142,19 @@
 .micro-footer a:hover {
   color: #ffffff;
 }
+
+        /* --- Mobile Mein 2 Columns --- */
+        #m {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            align-items: start;
+        }
+
+        /* Ad box ko dono columns mein spread karne ke liye */
+        .ad-box {
+            grid-column: 1 / -1;
+        }
         /* --- Desktop Ke Liye Special Styling --- */
 @media screen and (min-width: 768px) {
     body {
@@ -135,18 +163,16 @@
         padding: 20px;
     }
 
-   
     .round-card { flex: 0 0 110px; }
     .round-img { width: 100px; height: 100px; }
 
-   
     #m {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); 
+        /* सुनिश्चित करें कि display grid यहाँ मौजूद है */
+        display: grid; 
+        grid-template-columns: repeat(3, 1fr); /* 3 कॉलम लेआउट */
         gap: 25px;
         align-items: start;
     }
-
 
     .ad-box {
         grid-column: 1 / -1; 
@@ -154,18 +180,21 @@
         margin: 10px 0;
     }
 
+    .main-img { 
+        height: 190px; 
+    }
 
-    .main-img { height: 170px; }
-
-    /* Headline ka font thoda manage karne ke liye */
-    .main-title { font-size: 17px; }
+    .main-title { 
+        font-size: 16px; 
+        -webkit-line-clamp: 3; 
+    }
 }
 
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
     #m { grid-template-columns: repeat(2, 1fr); }
 }
-
+      
     </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YF8S99238"></script>
 <script>
@@ -324,4 +353,3 @@
 
 </body>
  </html>
-                                                     
