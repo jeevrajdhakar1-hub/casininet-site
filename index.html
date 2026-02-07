@@ -339,15 +339,12 @@ function go(id) {
             container.insertAdjacentHTML('beforeend', cardHtml);
 
           
-            if (isInitial && index === 3) {
+          if (isInitial && index === 3) {
                 let myCustomBox = `
-                <div style="grid-column: 1 / -1; margin: 20px 0; width: 100%;">
-                    <a href="your-link.html" style="text-decoration: none;">
-                        <img src="your-image.jpg" style="width: 100%; border-radius: 12px; border: 1px solid #222;">
-                        <div style="padding: 10px 5px;">
-                            <h2 style="color: white; font-size: 20px; margin: 5px 0;">Headline Here</h2>
-                            <p style="color: #aaa; font-size: 14px;">Description here...</p>
-                        </div>
+                <div style="grid-column: 1 / -1; margin: 15px 0; width: 100%;">
+                    <a href="your-link.html" style="display: block;">
+                        <img src="your-image.jpg" 
+                             style="width: 100%; height: auto; border-radius: 12px; display: block; border: 1px solid #222;">
                     </a>
                 </div>`;
                 container.insertAdjacentHTML('beforeend', myCustomBox);
