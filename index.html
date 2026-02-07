@@ -254,14 +254,14 @@
         container.innerHTML = skeletonHtml;
     }
 
-    // Single Main Render Function (NEWS + AD + SHARE BUTTON)
+    
     function renderNews(isInitial = false) {
         const container = document.getElementById('m');
         const start = isInitial ? 0 : visibleCount - step;
         const newsToShow = allMainNews.slice(start, visibleCount);
         
-        let newHtml = newsToShow.map((n, i) => {
-            // 1. Regular News Card with Share Button
+        let newHtml = newsToShow.map((n) => {
+           
             let html = `
             <div class="card-link" onclick="go(${n.id})">
                 <div class="main-card">
