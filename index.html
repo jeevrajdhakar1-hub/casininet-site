@@ -318,14 +318,14 @@
     }
 
     
-    function renderNews(isInitial = false) {
+  function renderNews(isInitial = false) {
         const container = document.getElementById('m');
         const start = isInitial ? 0 : visibleCount - step;
         const newsToShow = allMainNews.slice(start, visibleCount);
         
-        let newHtml = newsToShow.map((n) => {
+        newsToShow.forEach((n, index) => {
            
-            let html = `
+            let cardHtml = `
             <div class="card-link" onclick="go(${n.id})">
                 <div class="main-card">
                     <img src="${n.img}" class="main-img" loading="lazy" style="height:135px;">
@@ -339,11 +339,25 @@
                 </div>
             </div>`;
 
-            return html;
-        }).join('');
+           
+            container.insertAdjacentHTML('beforeend', cardHtml);
 
-        if (isInitial) { container.innerHTML = newHtml; } 
-        else { container.insertAdjacentHTML('beforeend', newHtml); }
+          
+            if (isInitial && index === 3) {
+                let myCustomBox = `
+                <div style="grid-column: 1 / -1; margin: 20px 0; width: 100%;">
+                    <a href="your-link.html" style="text-decoration: none;">
+                        <img src="your-image.jpg" style="width: 100%; border-radius: 12px; border: 1px solid #222;">
+                        <div style="padding: 10px 5px;">
+                            <h2 style="color: white; font-size: 20px; margin: 5px 0;">Headline Here</h2>
+                            <p style="color: #aaa; font-size: 14px;">Description here...</p>
+                        </div>
+                    </a>
+                </div>`;
+                container.insertAdjacentHTML('beforeend', myCustomBox);
+            }
+        });
+        // Yahan par function khatam, koi extra if-else nahi chahiye!
     }
 
     // Load Data from JSON
