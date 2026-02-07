@@ -250,9 +250,6 @@
     <div class="dot"></div> LIVE
   </div>
 </div>
-
-    <div class="t-label">Trending Stories</div>
-    <div class="slider-box" id="s"></div>
    <div class="featured-section"> <div class="featured-label">WEEKEND READS</div>
     
     <div class="featured-card static-content">
@@ -294,14 +291,13 @@
         } catch (err) { console.log("Share cancelled"); }
     }
 
-    // Navigation Function
-    function go(id, type) { 
-        h(); 
-        document.body.style.opacity = "0";
-        let link = (type === "trending") ? `trending-view.html?id=${id}` : `news-${id}.html`;
-        setTimeout(() => { window.location.href = link; }, 250); 
-    }
-
+   // Naya aur saaf function (Trending hatane ke baad)
+function go(id) { 
+    h(); 
+    document.body.style.opacity = "0";
+    setTimeout(() => { window.location.href = `news-${id}.html`; }, 250); 
+}
+  
     // Skeleton Loader
     function showSkeletons() {
         const container = document.getElementById('m');
@@ -360,26 +356,18 @@
         // Yahan par function khatam, koi extra if-else nahi chahiye!
     }
 
-    // Load Data from JSON
-    async function load() {
+ async function load() {
     showSkeletons(); 
     try {
         const r = await fetch('data.json?v=' + new Date().getTime()); 
         const d = await r.json();
 
-        // Trending stories vala part (ise mat chhedna)
-        const trending = d.filter(x => x.type === "trending");
-        document.getElementById('s').innerHTML = trending.map(n => `
-            <div class="round-card" onclick="go(${n.id}, 'trending')"> 
-                <img src="${n.img}" class="round-img" loading="lazy">
-                <div style="font-size:9px; color:#777; font-weight:600; margin-top:8px;">${n.headline.substring(0,10)}..</div>
-            </div>`).join('');
+        // --- TRENDING WALA BLOCK YAHAN SE HATA DIYA GAYA HAI ---
 
-        // Sabse zaroori: News render karne se pehle Skeletons ko saaf (Clear) karein
         allMainNews = d.filter(x => x.type === "main").reverse();
         
         setTimeout(() => { 
-            document.getElementById('m').innerHTML = ""; // <--- YE LINE ADD KAREIN (Skeleton hatane ke liye)
+            document.getElementById('m').innerHTML = ""; 
             renderNews(true); 
         }, 600);
 
@@ -387,8 +375,7 @@
         console.error("Data Load Error"); 
         document.getElementById('m').innerHTML = "<p style='text-align:center;color:#444;'>Network error. Please refresh.</p>";
     }
-}
-    // Infinite Scroll
+} // Infinite Scroll
     window.onscroll = function() {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1200) {
             if (visibleCount < allMainNews.length && !isLoading) {
