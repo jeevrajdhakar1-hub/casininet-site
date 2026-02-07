@@ -362,28 +362,32 @@
 
     // Load Data from JSON
     async function load() {
-        showSkeletons(); 
-        try {
-            const r = await fetch('data.json?v=' + new Date().getTime()); 
-            const d = await r.json();
+    showSkeletons(); 
+    try {
+        const r = await fetch('data.json?v=' + new Date().getTime()); 
+        const d = await r.json();
 
-            // Trending stories
-            const trending = d.filter(x => x.type === "trending");
-            document.getElementById('s').innerHTML = trending.map(n => `
-                <div class="round-card" onclick="go(${n.id}, 'trending')"> 
-                    <img src="${n.img}" class="round-img" loading="lazy">
-                    <div style="font-size:9px; color:#777; font-weight:600; margin-top:8px;">${n.headline.substring(0,10)}..</div>
-                </div>`).join('');
+        // Trending stories vala part (ise mat chhedna)
+        const trending = d.filter(x => x.type === "trending");
+        document.getElementById('s').innerHTML = trending.map(n => `
+            <div class="round-card" onclick="go(${n.id}, 'trending')"> 
+                <img src="${n.img}" class="round-img" loading="lazy">
+                <div style="font-size:9px; color:#777; font-weight:600; margin-top:8px;">${n.headline.substring(0,10)}..</div>
+            </div>`).join('');
 
-            // Main news list
-            allMainNews = d.filter(x => x.type === "main").reverse();
-            setTimeout(() => { renderNews(true); }, 600);
-        } catch (e) { 
-            console.error("Data Load Error"); 
-            document.getElementById('m').innerHTML = "<p style='text-align:center;color:#444;'>Network error. Please refresh.</p>";
-        }
+        // Sabse zaroori: News render karne se pehle Skeletons ko saaf (Clear) karein
+        allMainNews = d.filter(x => x.type === "main").reverse();
+        
+        setTimeout(() => { 
+            document.getElementById('m').innerHTML = ""; // <--- YE LINE ADD KAREIN (Skeleton hatane ke liye)
+            renderNews(true); 
+        }, 600);
+
+    } catch (e) { 
+        console.error("Data Load Error"); 
+        document.getElementById('m').innerHTML = "<p style='text-align:center;color:#444;'>Network error. Please refresh.</p>";
     }
-
+}
     // Infinite Scroll
     window.onscroll = function() {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1200) {
