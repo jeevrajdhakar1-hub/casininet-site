@@ -370,71 +370,7 @@ animation: none !important ;
     margin-top: 5px;
     display: block;
         }
-        /* --- Desktop Layout (Jab screen 1024px se badi ho) --- */
-@media screen and (min-width: 1024px) {
-    
-    /* 1. Poore page ko center mein lana */
-    body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: #080808 !important; /* Side ka background thoda aur dark */
-    }
-
-    /* 2. Content ki width fix karna (Reading Mode) */
-    .header, 
-    .hero-section, 
-    .content-container, 
-    .micro-footer,
-    #progress-container {
-        width: 700px !important; /* Desktop par content itna hi chauda dikhega */
-        margin: 0 auto !important;
-        position: relative;
-        left: unset !important;
-        transform: unset !important;
-    }
-
-    /* 3. Header ko desktop par fix rakhne ke liye */
-    .header {
-        position: fixed !important;
-        top: 0;
-        z-index: 1000;
-        border-left: 1px solid #1f1f1f;
-        border-right: 1px solid #1f1f1f;
-    }
-
-    /* 4. Hero image ko thoda bada aur professional dikhana */
-    .hero-section {
-        height: 500px !important;
-        margin-top: 47px !important; /* Header ke niche se shuru ho */
-    }
-
-    /* 5. Text aur margins ko desktop ke liye set karna */
-    .content-container {
-        padding: 50px 60px !important; /* Side mein zyada gap */
-        border-left: 1px solid #1f1f1f;
-        border-right: 1px solid #1f1f1f;
-        box-shadow: 0 0 50px rgba(0,0,0,0.5) !important;
-    }
-
-    .art-headline {
-        font-size: 40px !important; /* Badi screen par bada heading */
-        text-align: center;
-        margin-bottom: 30px !important;
-    }
-
-    .article-body {
-        font-size: 20px !important; /* Padhne mein aasani ho */
-        line-height: 1.8 !important;
-    }
-
-    /* 6. Ad box (Promo) ko desktop par set karna */
-    .content-promo {
-        min-height: 250px !important;
-        width: 100% !important;
-    }
-}
-        
+       
     
  
     </style>
