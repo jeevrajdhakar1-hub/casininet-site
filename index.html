@@ -149,32 +149,8 @@
             align-items: start;
         }
 
-  
-        .ad-box {
-            grid-column: 1 / -1;
-        }
+
         
-.ad-premium {
-    border: 1px solid #332b00 !important; 
-    background: #0a0a05 !important;
-}
-.ad-tag {
-    color: #ffcc00 !important;
-    font-size: 10px;
-    font-weight: 800;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 5px;
-}
-.ad-btn {
-    margin-top: 10px;
-    background: #ffcc00;
-    color: #000;
-    padding: 8px;
-    border-radius: 6px;
-    font-weight: 800;
-    text-align: center;
-    font-size: 11px;
 }
 @media screen and (min-width: 768px) {
     body {
@@ -300,20 +276,6 @@
                 </div>
             </div>`;
 
-            // 2. Add Ad Box after every 7th news
-            if ((start + i + 1) % 7 === 0) {
-                html += `
-                <div class="card-link" onclick="window.location.href='contact.html'">
-                    <div class="main-card ad-premium">
-                        <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG_0945.png" class="main-img" style="height:135px;">
-                        <div class="main-text">
-                            <span class="ad-tag">Sponsored</span>
-                            <span class="main-title">CN न्यूज़ के साथ अपने ब्रांड को प्रमोट करें। आज ही संपर्क करें!</span>
-                            <div class="ad-btn">Contact Us</div>
-                        </div>
-                    </div>
-                </div>`;
-            }
             return html;
         }).join('');
 
