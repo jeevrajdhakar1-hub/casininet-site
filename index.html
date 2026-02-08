@@ -259,16 +259,18 @@
     .round-card { flex: 0 0 110px; }
     .round-img { width: 100px; height: 100px; }
 
-    #m {
-        display: grid; 
-        grid-template-columns: repeat(3, 1fr); 
-        gap: 25px;
-        align-items: start;
-    } 
-} 
-@media screen and (min-width: 768px) and (max-width: 1024px) {
+  
+        #m { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 12px; 
+    align-items: stretch; /* Isse PC par cards line me rahenge */
+}
+
+@media screen and (min-width: 768px) {
     #m { 
-        grid-template-columns: repeat(2, 1fr); 
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 20px; 
     }
 }
       
