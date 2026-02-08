@@ -311,26 +311,12 @@
 
     <div id="m"></div>
 <div id="container-1dd72f211aefd488e56f759ff509152a"></div>
-     <div class="inline-related-box">
-    <span class="inline-label">Read more</span>
-              <a href="https://casininet.com/news-115.html" class="article-card">
-        <div class="card-img-container">
-            <img src="https://i.postimg.cc/k4Jwfw6n/Screenshot-2026-01-20-11-40-54-75-99c04817c0de5652397fc8b56c3b3817.jpg" alt="News Image">
-        </div>
-        <div class="card-content">
-            <div class="card-headline">बिजोलिया स्पेशल रिपोर्ट: सैंडस्टोन माइनिंग की चमक या बुझता भविष्य? ज़मीनी हकीकत जो फाइलों में दर्ज नहीं है।</div>
-            <span class="read-action">Read Full Story →</span>
-        </div>
-              </a>
-              </div>
-<script>
-
 <script>
     let allMainNews = [];     
-    let visibleCount = 12;    // PC ke liye 12 cards best hain (3 column grid)
+    let visibleCount = 12;    // PC grid fix karne ke liye 12 cards shuruat mein
     const step = 9;            
     let isLoading = false;     
-    let isRelatedBoxAdded = false; // Fix 1: Variable define kar diya
+    let isRelatedBoxAdded = false; // Fix: Variable defined here
 
     // Vibration on touch
     const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
@@ -363,9 +349,9 @@
         for (let i = 0; i < 6; i++) { 
             skeletonHtml += `
                 <div class="skeleton-card">
-                    <div class="skeleton skeleton-img"></div>
-                    <div class="skeleton skeleton-text"></div>
-                    <div class="skeleton skeleton-text short"></div>
+                    <div class="skeleton skeleton-img" style="height:140px; margin-bottom:10px;"></div>
+                    <div class="skeleton skeleton-text" style="height:20px; width:80%; margin-bottom:10px;"></div>
+                    <div class="skeleton skeleton-text short" style="height:20px; width:50%;"></div>
                 </div>`;
         }
         container.innerHTML = skeletonHtml;
@@ -377,7 +363,7 @@
         const newsToShow = allMainNews.slice(start, visibleCount);
         
         newsToShow.forEach((n, index) => {
-            // Normal News Card
+            // Normal Card HTML
             let cardHtml = `
             <div class="card-link" onclick="go(${n.id})">
                 <div class="main-card">
@@ -394,10 +380,8 @@
 
             container.insertAdjacentHTML('beforeend', cardHtml);
 
-            // Logic Check: Kitne cards render hue
+            // Related Box at 10th card position
             let currentTotal = container.querySelectorAll('.card-link').length;
-
-            // Related Box at 10th position
             if (currentTotal === 10 && !isRelatedBoxAdded) {
                 let relatedBox = `
                 <div class="inline-related-box" style="grid-column: 1 / -1; margin: 15px 0;">
@@ -413,20 +397,20 @@
                 isRelatedBoxAdded = true; 
             }
 
-            // Prcha GIF at 4th position
+            // Prcha GIF at 4th position (Initial load only)
             if (isInitial && index === 3) {
-                let myCustomBox = `
+                let prcha = `
                 <div style="grid-column: 1 / -1; margin: 15px 0; width: 100%;">
                     <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/prcha.gif" 
-                         style="width: 100%; height: 200px; border-radius: 12px; display: block; border: 1px solid #222; pointer-events: none; user-select: none;">
+                         style="width: 100%; height: 200px; border-radius: 12px; display: block; border: 1px solid #222;">
                 </div>`;
-                container.insertAdjacentHTML('beforeend', myCustomBox);
+                container.insertAdjacentHTML('beforeend', prcha);
             }
         });
     }
 
     async function load() {
-        isRelatedBoxAdded = false; // Reset on load
+        isRelatedBoxAdded = false; 
         showSkeletons(); 
         try {
             const r = await fetch('data.json?v=' + new Date().getTime()); 
@@ -434,9 +418,31 @@
             allMainNews = d.filter(x => x.type === "main").reverse();
             
             setTimeout(() => { 
-                document.getElementById('m').innerHTML =
+                document.getElementById('m').innerHTML = ""; 
+                renderNews(true); 
+            }, 600);
+        } catch (e) { 
+            console.error("Data Load Error"); 
+            document.getElementById('m').innerHTML = "<p style='text-align:center;color:#444;'>Network error. Please refresh.</p>";
+        }
+    }
+
+    // Infinite Scroll
+    window.onscroll = function() {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1200) {
+            if (visibleCount < allMainNews.length && !isLoading) {
+                isLoading = true;
+                visibleCount += step;
+                renderNews();
+                setTimeout(() => { isLoading = false; }, 500); 
+            }
+        }
+    };
+
+    window.addEventListener("pageshow", () => { document.body.style.opacity = "1"; });
+    load();
 </script>
-    
+
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7d934cc8d13140b6bce32a76bb018c5c"}'></script>
     <footer class="micro-footer">
   <a href="about.html">About Us</a> |
