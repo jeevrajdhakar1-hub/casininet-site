@@ -395,23 +395,23 @@ function renderNews(isInitial = false) {
 
             let currentTotal = container.querySelectorAll('.card-link').length;
             
-            if (currentTotal === 10 && !isRelatedBoxAdded) {
-                let relatedBox = `
-                <div class="inline-related-box" style="grid-column: 1 / -1; margin: 15px 0; border: 1px solid #222; border-radius: 12px; overflow: hidden; background: #111; width: 100%;">
-                    <span class="inline-label" style="display: block; font-size: 10px; color: #ff0000; font-weight: 800; padding: 10px 12px 0; text-transform: uppercase;">Read more</span>
-                    <a href="https://casininet.com/news-115.html" class="article-card" style="text-decoration: none; display: flex; align-items: center; padding: 12px;">
-                        <div class="card-img-container" style="width: 80px; height: 60px; flex-shrink: 0;">
-                            <img src="https://i.postimg.cc/k4Jwfw6n/Screenshot-2026-01-20-11-40-54-75-99c04817c0de5652397fc8b56c3b3817.jpg" alt="News Image" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
-                        </div>
-                        <div class="card-content" style="margin-left: 15px;">
-                            <div class="card-headline" style="font-size: 14px; color: #fff; font-weight: 600; line-height: 1.3;">बिजोलिया स्पेशल रिपोर्ट: सैंडस्टोन माइनिंग की चमक या बुझता भविष्य?</div>
-                            <span class="read-action" style="font-size: 11px; color: #888;">Read Full Story →</span>
-                        </div>
-                    </a>
-                </div>`;
-                container.insertAdjacentHTML('beforeend', relatedBox);
-                isRelatedBoxAdded = true; 
-            }
+           let currentTotal = container.querySelectorAll('.card-link').length;
+    
+    if (currentTotal === 10 && !isRelatedBoxAdded) {
+        let relatedBox = `
+        <div class="inline-related-box" style="grid-column: 1 / -1; margin: 15px 0;">
+            <a href="https://casininet.com/news-115.html" class="article-card" style="text-decoration:none; display:flex; align-items:center; gap:12px; background:#111; border:1px solid #222; border-radius:12px; padding:12px;">
+                <img src="https://i.postimg.cc/k4Jwfw6n/Screenshot-2026-01-20-11-40-54-75-99c04817c0de5652397fc8b56c3b3817.jpg" style="width:80px; height:60px; object-fit:cover; border-radius:6px;">
+                <div>
+                    <span style="color:red; font-size:10px; font-weight:bold; display:block;">READ MORE</span>
+                    <div style="font-size:14px; color:#fff; font-weight:600;">बिजोलिया स्पेशल रिपोर्ट: सैंडस्टोन माइनिंग की चमक या बुझता भविष्य?</div>
+                </div>
+            </a>
+        </div>`;
+        container.insertAdjacentHTML('beforeend', relatedBox);
+        isRelatedBoxAdded = true; // Taaki repeat na ho
+    }
+});
 
           
           if (isInitial && index === 3) {
@@ -423,7 +423,7 @@ function renderNews(isInitial = false) {
                 container.insertAdjacentHTML('beforeend', myCustomBox);
             }
         });
-        // Yahan par function khatam, koi extra if-else nahi chahiye!
+       
     }
 
  async function load() {
@@ -432,7 +432,7 @@ function renderNews(isInitial = false) {
         const r = await fetch('data.json?v=' + new Date().getTime()); 
         const d = await r.json();
 
-        // --- TRENDING WALA BLOCK YAHAN SE HATA DIYA GAYA HAI ---
+        
 
         allMainNews = d.filter(x => x.type === "main").reverse();
         
