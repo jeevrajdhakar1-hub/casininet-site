@@ -341,12 +341,10 @@ function go(id) {
           
           if (isInitial && index === 3) {
                 let myCustomBox = `
-                <div style="grid-column: 1 / -1; margin: 15px 0; width: 100%;">
-                    <a href="your-link.html" style="display: block;">
-                        <img src="your-image.jpg" 
-                             style="width: 100%; height: 200px; border-radius: 12px; display: block; border: 1px solid #222;">
-                    </a>
-                </div>`;
+<div style="grid-column: 1 / -1; margin: 15px 0; width: 100%;">
+    <img src="your-image.jpg" 
+         style="width: 100%; height: 200px; border-radius: 12px; display: block; border: 1px solid #222; pointer-events: none; user-select: none;">
+</div>`;
                 container.insertAdjacentHTML('beforeend', myCustomBox);
             }
         });
