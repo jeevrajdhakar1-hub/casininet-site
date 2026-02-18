@@ -131,6 +131,15 @@
     mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
  
         }
+        #parallax-img { 
+    width: 100%; 
+    height: 120%; /* हाइट को कंटेनर से थोड़ा बड़ा रखें ताकि Parallax के लिए जगह मिले */
+    object-fit: cover; 
+    position: absolute;
+    top: -10%; /* इमेज को थोड़ा ऊपर शिफ्ट करें */
+    filter: brightness(0.9); 
+    will-change: transform;
+        }
 .content-container { 
     position: relative; 
     /* Hero image ke upar chadhne ke liye */
@@ -390,6 +399,7 @@ animation: none !important ;
     margin-top: 5px;
     display: block;
         }
+        
         
     </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YF8S99238"></script>
