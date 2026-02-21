@@ -76,8 +76,6 @@
     text-decoration: none;
     font-size: 20px;
 }
-
-/* Logo mein 'net' ko red karne ke liye */
 .logo {
     flex-grow: 1;
     font-size: 20px;
@@ -132,21 +130,22 @@
         }
         #parallax-img { 
     width: 100%; 
-    height: auto; /* Height fix ho gayi */
-    position: relative; /* Ab ye text ko dhakke nahi marega */
+    height: auto;
+    position: relative; 
     top: 0; 
-    filter: brightness(1); /* Photo saaf dikhegi */
+    filter: brightness(1);
     will-change: auto; 
         }
         
 .content-container { 
     position: relative; 
     margin-top: 55px !important; 
-    padding: 8px 15px; 
+    padding: 8px 10px; 
     z-index: 10; 
     background: #121212 !important;
     box-shadow: none !important; 
-}
+        }
+        
         
 
         .art-tag { display: inline-block; background: #ff3b30; color: #fff; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; margin-top: 2px; }
@@ -170,29 +169,31 @@
     width: 100%; 
 }
 
-/* Jab koi touch karega tab thoda sa saaf dikhega */
 .s-icon:active img {
     opacity: 0.9;
     filter: saturate(1) brightness(1);
     transform: scale(0.9);
 }
     .art-headline { 
-    font-size: 30px; 
+    font-size: 32px; 
     font-weight: 800; 
     line-height: 1.2; 
-    letter-spacing: -0.5px; 
+    letter-spacing: -1px; 
     margin-bottom: 15px; 
-    margin-top: 10px !important; 
+    margin-top: 10px !important;
     text-align: left; 
-    margin-right: 0px; 
+    margin-left: 0 !important; 
+    margin-right: 0 !important;
+    padding-left: 0 !important; 
     }
+        
         
         .article-body { font-size: 18px; line-height: 1.7; color: #e5e5ea; }
         .article-body p { margin-bottom: 20px; margin-top: 0 !important;
     padding-top: 0 !important;}
         .article-body b { color: #fff; }
 
-        /* Share Button */
+    
         .share-container { margin: 40px 0; text-align: center; }
         .share-trigger { background: #fff; color: #000; padding: 16px 50px; border-radius: 50px; font-weight: 700; font-size: 16px; cursor: pointer; border: none; transition: 0.2s; }
         .share-trigger:active { transform: scale(0.95); }
