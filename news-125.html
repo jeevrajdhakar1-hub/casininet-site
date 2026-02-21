@@ -536,8 +536,7 @@ animation: none !important ;
         <div class="share-container">
             <button class="share-trigger" onclick="hShare('बिजोलिया बुजुर्ग महिला से दिनदहाड़े लूट का खुलासा, मेले की भीड़ से दबोचा शातिर लुटेरा')">Share Story</button>
         </div>
-   
-    <script>
+   <script>
         const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
 
         window.onscroll = () => {
@@ -604,4 +603,34 @@ const imageObserver = new IntersectionObserver((entries) => {
             }, delay);
             
             imageObserver.unobserve(entry.target);
-  
+        }
+    });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.article-image-container').forEach(el => {
+    // Spinner add karna
+    if(!el.querySelector('.loader-circle')){
+        const loader = document.createElement('div');
+        loader.className = 'loader-circle';
+        el.prepend(loader);
+    }
+    imageObserver.observe(el);
+});
+
+    </script>
+   
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7d934cc8d13140b6bce32a76bb018c5c"}'></script>
+
+<footer class="micro-footer">
+  <a href="about.html">About Us</a> |
+  <a href="editorial-policy.html">Editorial Policy</a> |
+  <a href="editorial-team.html">Editorial Team</a> |
+  <a href="contact.html">Contact</a>
+  <div style="margin-top:10px;">
+    © 2026 CASINInet News
+  </div>
+</footer>
+
+</body>
+  </html> 
+    
