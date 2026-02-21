@@ -139,12 +139,27 @@
         
 .content-container { 
     position: relative; 
+    /* Purana -90px hata kar ye daalein */
     margin-top: 55px !important; 
-    padding: 8px 10px; 
+    padding: 8px 15px; 
     z-index: 10; 
     background: #121212 !important;
+    /* Purani shadow hata di taaki look clean rahe */
     box-shadow: none !important; 
+}
+
+.art-headline { 
+    font-size: 30px; 
+    font-weight: 800; 
+    line-height: 1.2; 
+    letter-spacing: -0.5px; 
+    margin-bottom: 15px; 
+    /* Purana negative margin hata diya */
+    margin-top: 10px !important; 
+    text-align: left; 
+    margin-right: 0px; 
         }
+        
         
         
 
@@ -174,18 +189,6 @@
     filter: saturate(1) brightness(1);
     transform: scale(0.9);
 }
-    .art-headline { 
-    font-size: 32px; 
-    font-weight: 800; 
-    line-height: 1.2; 
-    letter-spacing: -1px; 
-    margin-bottom: 15px; 
-    margin-top: 10px !important;
-    text-align: left; 
-    margin-left: 0 !important; 
-    margin-right: 0 !important;
-    padding-left: 0 !important; 
-    }
         
         
         .article-body { font-size: 18px; line-height: 1.7; color: #e5e5ea; }
