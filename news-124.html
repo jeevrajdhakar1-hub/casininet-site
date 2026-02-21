@@ -427,20 +427,21 @@ animation: none !important ;
     </div>
     
 
-    <div class="hero-section">
-        <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG-20260219-WA0006.jpg" id="parallax-img">
+    <div class="content-container">
+    <h1 class="art-headline">तिलस्वां मार्ग बना 'खूनी राह': मेले के दौरान एक हफ्ते में तीसरा बड़ा हादसा, आज अल्टो और ओम्नी में हुई जोरदार भिड़ंत</h1>
+
+    <div class="meta-row">
+        <span class="art-tag">Bijoliya news</span>
+        <div class="share-icons">
+            <span class="share-label">शेयर</span>
+            <a href="javascript:void(0)" onclick="hShare('wa')" class="s-icon"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="18"></a>
+            <a href="javascript:void(0)" onclick="hShare('fb')" class="s-icon"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" width="18"></a>
+        </div>
     </div>
 
-    <div class="content-container">
-        <div class="meta-row">
-            <span class="art-tag">Bijoliya news</span>
-            <div class="share-icons">
-                <span class="share-label">शेयर</span>
-                <a href="javascript:void(0)" onclick="hShare('wa')" class="s-icon"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="18"></a>
-                <a href="javascript:void(0)" onclick="hShare('fb')" class="s-icon"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" width="18"></a>
-            </div>
-        </div>
-        <h1 class="art-headline">तिलस्वां मार्ग बना 'खूनी राह': मेले के दौरान एक हफ्ते में तीसरा बड़ा हादसा, आज अल्टो और ओम्नी में हुई जोरदार भिड़ंत</h1>
+    <div class="hero-section" style="height: auto; mask-image: none; -webkit-mask-image: none; margin-bottom: 20px;">
+        <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG-20260219-WA0006.jpg" id="parallax-img" style="position: relative; top: 0; height: auto; filter: brightness(1);">
+    </div>
         
         <div class="article-body">
             <p>तिलस्वां/सलवटिया: प्रसिद्ध तिलस्वां महादेव मेले की खुशियों के बीच क्षेत्र की सड़कों पर हादसों का साया गहराता जा रहा है। बीती रात एक श्रद्धालु की मौत के बाद आज फिर इसी मार्ग पर एक अल्टो और ओम्नी कार के बीच भीषण भिड़ंत हो गई। पिछले एक सप्ताह के भीतर यह तीसरा बड़ा हादसा है, जिससे स्थानीय लोगों और श्रद्धालुओं में भारी रोष और डर का माहौल है।</p>
@@ -501,8 +502,8 @@ animation: none !important ;
     <script>
         const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
 
-        window.onscroll = () => {
-    // 1. Progress Bar Logic
+window.onscroll = () => {
+    // 1. Sirf Progress Bar Logic rakhein
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrolled = (winScroll / height) * 100;
@@ -512,12 +513,9 @@ animation: none !important ;
         pBar.style.width = scrolled + "%";
     }
 
-    // 2. Parallax Logic (Purana logic naye variable ke saath)
-    const img = document.getElementById('parallax-img');
-    if (winScroll >= 0 && img) { 
-        img.style.transform = `scale(${1 + (winScroll / 2500)}) translateY(${winScroll/5}px)`; 
-    }
+
 };
+        
         
 
 async function hShare(platform) { 
