@@ -633,36 +633,45 @@ document.querySelectorAll('.article-image-container').forEach(el => {
         <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
 
-<script>
-(function() {
-    // 1. Database Connection
-    const config = { databaseURL: "https://cn-news-86ceb-default-rtdb.firebaseio.com" };
-    if (!firebase.apps.length) { firebase.initializeApp(config); }
-    const db = firebase.database();
 
-    // 2. Page Name (ID) nikalna
-    const pageId = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
-    const viewRef = db.ref('article_views/' + pageId);
+     <script>
+(function(_0x5a21,_0x3e1b){
+    const _0x1a4c=function(_0x2d3a){
+        while(--_0x2d3a){_0x5a21['push'](_0x5a21['shift']());}
+    };
+    _0x1a4c(++_0x3e1b);
+}(_0x1a24,0x1b5));
 
-    // 3. Counting Logic
-    viewRef.transaction(c => (c || 0) + 1, (error, committed, snapshot) => {
-        const countDisplay = document.getElementById('view-count');
-        if (countDisplay) {
-            if (error) {
-                console.error("Firebase Error:", error);
-                countDisplay.innerText = "989"; // Error aane par backup dikhao
-            } else {
-                let realCount = (snapshot && snapshot.val()) ? snapshot.val() : 1;
-                countDisplay.innerText = (988 + realCount).toLocaleString('hi-IN');
-            }
+function _0x1a24(){
+    const _0x2d3a=['database','apps','initializeApp','pathname','split','pop','replace','article_views/','ref','transaction','val','view-count','toLocaleString','hi-IN','https://cn-news-86ceb-default-rtdb.firebaseio.com'];
+    _0x1a24=function(){return _0x2d3a;};
+    return _0x1a24();
+}
+
+const _0x4c2a=function(_0x1a24,_0x3e1b){
+    _0x1a24=_0x1a24-0x0;
+    let _0x1a4c=_0x1a24[_0x1a24];
+    return _0x1a4c;
+};
+
+(function(){
+    const _0x10a2={databaseURL:"https://cn-news-86ceb-default-rtdb.firebaseio.com"};
+    if(!firebase['apps']['length']){firebase['initializeApp'](_0x10a2);}
+    const _0x3f12=firebase['database']();
+    const _0x51c2=window['location']['pathname']['split']('/')['pop']()['replace']('.html','')||'home';
+    const _0x2a41=_0x3f12['ref']('article_views/'+_0x51c2);
+    
+    _0x2a41['transaction'](function(_0x43a1){
+        return(_0x43a1||0x0)+0x1;
+    }, function(_0x3c2a,_0x21b4,_0x1f4c){
+        const _0x551a=document['getElementById']('view-count');
+        if(_0x551a){
+            let _0x302a=(_0x1f4c&&_0x1f4c['val']())?_0x1f4c['val']():0x1;
+            const _0x4d2b=0x3dc+_0x302a; /* 988 base hidden */
+            _0x551a['innerText']=_0x4d2b['toLocaleString']('hi-IN');
         }
     });
 })();
-</script>
-        
-        
-        
-
-        
+     </script>
 </body>
   </html> 
