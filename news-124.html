@@ -598,23 +598,30 @@ document.querySelectorAll('.article-image-container').forEach(el => {
     © 2026 CASINInet News
   </div>
 </footer>
-  <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-database-compat.js"></script>
 
 <script>
 (function() {
+    // 1. Firebase Setup
     const _c = { databaseURL: "https://cn-news-86ceb-default-rtdb.firebaseio.com" };
     firebase.initializeApp(_c);
     const _db = firebase.database();
     const _cont = document.getElementById('article-content');
 
+    
+    const _pageId = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
+    const _refPath = 'news_data/' + _pageId;
+
     _cont.style.display = 'flex';
     _cont.style.flexDirection = 'column';
 
+    
     const _obs = new IntersectionObserver((es) => {
         es.forEach(e => {
             if (e.isIntersecting && e.intersectionRatio > 0.7 && e.target.id) {
-                _db.ref('hits/' + e.target.id).transaction(c => (c || 0) + 1);
+
+                _db.ref(_refPath + '/' + e.target.id).transaction(c => (c || 0) + 1);
             }
         });
     }, { threshold: 0.7 });
@@ -622,16 +629,13 @@ document.querySelectorAll('.article-image-container').forEach(el => {
     _cont.querySelectorAll('p[id]').forEach(p => _obs.observe(p));
 
     const _reorder = () => {
-        _db.ref('hits').once('value', (s) => {
+        _db.ref(_refPath).once('value', (s) => {
             const data = s.val() || {};
             const keys = Object.keys(data);
             if (keys.length === 0) return;
 
             const top = keys.reduce((a, b) => data[a] > data[b] ? a : b);
             
-            const allPs = _cont.querySelectorAll('p');
-            if(allPs.length > 0) allPs[0].style.order = "-2"; 
-
             _cont.querySelectorAll('p[id]').forEach(p => {
                 p.style.order = (p.id === top) ? "-1" : "0";
                 p.style.transition = "order 0.6s ease-in-out";
@@ -639,10 +643,11 @@ document.querySelectorAll('.article-image-container').forEach(el => {
         });
     };
 
-    _reorder();
-    setInterval(_reorder, 600000); 
+    _reorder(); 
+    setInterval(_reorder, 600000); // 10 मिनट
 })();
-</script>
+                </script>
+        
  
 </body>
   </html> 
