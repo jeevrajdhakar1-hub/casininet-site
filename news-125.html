@@ -28,7 +28,7 @@
 
     <style>
         * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; }
-        body { background: #121212 !important; color: #fff;  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        body { background: #121212 !important; color: #fff;  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; overflow-x: hidden;touch-action: pan-y; }
 .header {
     position: fixed;
     top: 0;
@@ -140,14 +140,13 @@
     filter: brightness(0.9); 
     will-change: transform;
         }
-.content-container { 
+    content-container { 
     position: relative; 
-    /* Hero image ke upar chadhne ke liye */
     margin-top: -90px; 
-    padding: 8px 15px; 
+    padding: 8px 15px !important; 
     z-index: 10; 
     background: #121212 !important;
-    box-shadow: 0px -20px 30px 0px #121212 !important; 
+    width: 100%;
 }
         
 
@@ -178,7 +177,17 @@
     filter: saturate(1) brightness(1);
     transform: scale(0.9);
 }
-        .art-headline { font-size: 32px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 5px; margin-top:-12px ;text-align: left; margin-right:34px; }
+        .art-headline { 
+    font-size: 32px; 
+    font-weight: 800; 
+    line-height: 1.2; 
+    padding: 0 15px !important; 
+    margin-right: 0 !important; 
+    margin-bottom: 5px; 
+    margin-top: -12px; 
+    text-align: left; 
+    width: 100%;
+        }
         
         .article-body { font-size: 18px; line-height: 1.7; color: #e5e5ea; }
         .article-body p { margin-bottom: 20px; margin-top: 0 !important;
