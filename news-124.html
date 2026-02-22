@@ -355,12 +355,12 @@ animation: none !important ;
 .article-card {
     display: flex;
     gap: 12px;
-    text-decoration: none; /* Link underline hatane ke liye */
+    text-decoration: none; 
     align-items: center;
     cursor: pointer;
 }
 
-/* Click karne par halka sa dabne wala effect */
+
 .article-card:active {
     transform: scale(0.98);
     transition: 0.1s;
@@ -463,6 +463,8 @@ animation: none !important ;
 
     <div class="meta-row">
         <span class="art-tag">Bijoliya news</span>
+        <div class="view-count-container" style="font-size: 13px; font-weight: bold; color: #444; display: flex; align-items: center; gap: 4px; background: #f1f1f1; padding: 4px 10px; border-radius: 12px;">
+        <span style="color: #e74c3c; font-size: 16px;">👁️</span> 
         <div class="share-icons">
             <span class="share-label">शेयर</span>
             <a href="javascript:void(0)" onclick="hShare('wa')" class="s-icon"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="18"></a>
@@ -627,5 +629,40 @@ document.querySelectorAll('.article-image-container').forEach(el => {
     © 2026 CASINInet News
   </div>
 </footer>
+        <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+
+<script>
+(function() {
+    // Firebase Configuration
+    const firebaseConfig = { 
+        databaseURL: "https://cn-news-86ceb-default-rtdb.firebaseio.com" 
+    };
+
+    // Initialize Firebase
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    const db = firebase.database();
+
+    // Page ID extract karna (e.g., 'bijoliya-news')
+    const pageId = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
+    const viewRef = db.ref('article_views/' + pageId);
+
+    // View Update + Display Logic
+    viewRef.transaction(function(currentViews) {
+        return (currentViews || 0) + 1;
+    }, function(error, committed, snapshot) {
+        if (committed) {
+            const countDisplay = document.getElementById('view-count');
+            if (countDisplay) {
+                // Yahan 988 base number hai + Real Views
+                const totalViews = 988 + snapshot.val();
+                countDisplay.innerText = totalViews.toLocaleString('hi-IN');
+            }
+        }
+    });
+})();
+</script>
 </body>
   </html> 
