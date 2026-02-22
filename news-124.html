@@ -475,13 +475,13 @@ animation: none !important ;
     </div>
         
         <div class="article-body" id="article-content">
-            <p>तिलस्वां/सलवटिया: प्रसिद्ध तिलस्वां महादेव मेले की खुशियों के बीच क्षेत्र की सड़कों पर हादसों का साया गहराता जा रहा है। बीती रात एक श्रद्धालु की मौत के बाद आज फिर इसी मार्ग पर एक अल्टो और ओम्नी कार के बीच भीषण भिड़ंत हो गई। पिछले एक सप्ताह के भीतर यह तीसरा बड़ा हादसा है, जिससे स्थानीय लोगों और श्रद्धालुओं में भारी रोष और डर का माहौल है।</   <div class="article-image-container">
-    <div class="article-image-container">
+            <p>तिलस्वां/सलवटिया: प्रसिद्ध तिलस्वां महादेव मेले की खुशियों के बीच क्षेत्र की सड़कों पर हादसों का साया गहराता जा रहा है। बीती रात एक श्रद्धालु की मौत के बाद आज फिर इसी मार्ग पर एक अल्टो और ओम्नी कार के बीच भीषण भिड़ंत हो गई। पिछले एक सप्ताह के भीतर यह तीसरा बड़ा हादसा है, जिससे स्थानीय लोगों और श्रद्धालुओं में भारी रोष और डर का माहौल है।</p>
+             <div class="article-image-container">
     <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG_20260219_122658.jpg" class="inline-article-img" loading="lazy">
-    </div>
-             <p id="sec1"><b>अनियंत्रित रफ्तार का कहर:</b> आज तिलस्वां मार्ग पर विपरीत दिशा से आ रही अल्टो और ओम्नी कारें आपस में टकरा गईं। भिड़ंत इतनी तेज थी कि कारों के परखच्चे उड़ गए।</p>
+             </div>
+            <p><b>अनियंत्रित रफ्तार का कहर:</b> आज तिलस्वां मार्ग पर विपरीत दिशा से आ रही अल्टो और ओम्नी कारें आपस में टकरा गईं। भिड़ंत इतनी तेज थी कि कारों के परखच्चे उड़ गए।</p>
     
-    <p id="sec2"><b>घायलों की स्थिति:</b> मौके पर मौजूद लोगों ने घायलों को तुरंत निजी वाहनों की मदद से अस्पताल पहुंचाया। टक्कर की भयावहता को देखकर गंभीर चोटों की आशंका जताई जा रही है।</p>
+    <p ><b>घायलों की स्थिति:</b> मौके पर मौजूद लोगों ने घायलों को तुरंत निजी वाहनों की मदद से अस्पताल पहुंचाया। टक्कर की भयावहता को देखकर गंभीर चोटों की आशंका जताई जा रही है।</p>
  <div class="featured-media-container square-box yellow-theme">
     <div class="media-inner-wrapper">
         <a href="https://maps.app.goo.gl/VgJVqhpbrmyqB6E29" target="_blank">
@@ -493,9 +493,9 @@ animation: none !important ;
         </a>
     </div>
  </div>
-    <p id="sec3"><b>हादसों की वजह:</b> स्थानीय ग्रामीणों का कहना है कि मेले के दौरान वाहनों की संख्या बढ़ जाती है और पुलिस गश्त कम होने से चालक बेखौफ रफ्तार भरते हैं।</p>
+    <p ><b>हादसों की वजह:</b> स्थानीय ग्रामीणों का कहना है कि मेले के दौरान वाहनों की संख्या बढ़ जाती है और पुलिस गश्त कम होने से चालक बेखौफ रफ्तार भरते हैं।</p>
 
-    <p id="sec4"><b>ग्रामीणों की मांग:</b> स्थानीय निवासियों ने मांग की है कि मेले के दौरान इस मार्ग पर ट्रैफिक पुलिस की तैनाती की जाए और स्पीड ब्रेकर लगाए जाएं।</p>
+    <p><b>ग्रामीणों की मांग:</b> स्थानीय निवासियों ने मांग की है कि मेले के दौरान इस मार्ग पर ट्रैफिक पुलिस की तैनाती की जाए और स्पीड ब्रेकर लगाए जाएं।</p>
         </div>
    
                 <div class="inline-related-box">
@@ -627,73 +627,5 @@ document.querySelectorAll('.article-image-container').forEach(el => {
     © 2026 CASINInet News
   </div>
 </footer>
-<script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.1.3/firebase-database-compat.js"></script>
-
-<script>
-(function() {
-    // 1. Firebase Setup
-    const _c = { databaseURL: "https://cn-news-86ceb-default-rtdb.firebaseio.com" };
-    if (!firebase.apps.length) {
-        firebase.initializeApp(_c);
-    }
-    const _db = firebase.database();
-    const _cont = document.getElementById('article-content');
-
-    // Page ID extract karna (e.g., 'news-1')
-    const _pageId = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
-    const _refPath = 'news_data/' + _pageId;
-
-    // CSS setup taaki 'order' kaam kare
-    if (_cont) {
-        _cont.style.display = 'flex';
-        _cont.style.flexDirection = 'column';
-    }
-
-    // 2. Tracking Logic: Jab user 70% paragraph dekhega
-    const _obs = new IntersectionObserver((es) => {
-        es.forEach(e => {
-            if (e.isIntersecting && e.intersectionRatio > 0.7 && e.target.id) {
-                // Database mein +1 count karega
-                _db.ref(_refPath + '/' + e.target.id).transaction(c => (c || 0) + 1);
-            }
-        });
-    }, { threshold: 0.7 });
-
-    // Saare paragraphs ko observe karna jinme ID hai
-    const _ps = _cont.querySelectorAll('p[id]');
-    _ps.forEach(p => _obs.observe(p));
-
-    // 3. Reorder Logic: Popularity ke hisaab se sort karna
-    const _reorder = () => {
-        _db.ref(_refPath).once('value', (s) => {
-            const data = s.val() || {};
-            
-            // Paragraphs ko array mein convert karke sort karna
-            const paragraphsArray = Array.from(_ps);
-            
-            paragraphsArray.sort((a, b) => {
-                const countA = data[a.id] || 0;
-                const countB = data[b.id] || 0;
-                return countB - countA; // Zyada count wala pehle
-            });
-
-            // Naya order apply karna
-            paragraphsArray.forEach((p, index) => {
-                p.style.order = index;
-            });
-            
-            console.log("Order updated for " + _pageId);
-        });
-    };
-
-    // Pehli baar aur fir har 10 minute mein chalega
-    _reorder(); 
-    setInterval(_reorder, 600000); // 10 Minutes
-})();
-                </script>
-        
-        
- 
 </body>
   </html> 
