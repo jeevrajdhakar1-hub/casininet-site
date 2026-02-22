@@ -605,48 +605,65 @@ document.querySelectorAll('.article-image-container').forEach(el => {
 (function() {
     // 1. Firebase Setup
     const _c = { databaseURL: "https://cn-news-86ceb-default-rtdb.firebaseio.com" };
-    firebase.initializeApp(_c);
+    if (!firebase.apps.length) {
+        firebase.initializeApp(_c);
+    }
     const _db = firebase.database();
     const _cont = document.getElementById('article-content');
 
-    
+    // Page ID extract karna (e.g., 'news-1')
     const _pageId = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
     const _refPath = 'news_data/' + _pageId;
 
-    _cont.style.display = 'flex';
-    _cont.style.flexDirection = 'column';
+    // CSS setup taaki 'order' kaam kare
+    if (_cont) {
+        _cont.style.display = 'flex';
+        _cont.style.flexDirection = 'column';
+    }
 
-    
+    // 2. Tracking Logic: Jab user 70% paragraph dekhega
     const _obs = new IntersectionObserver((es) => {
         es.forEach(e => {
             if (e.isIntersecting && e.intersectionRatio > 0.7 && e.target.id) {
-
+                // Database mein +1 count karega
                 _db.ref(_refPath + '/' + e.target.id).transaction(c => (c || 0) + 1);
             }
         });
     }, { threshold: 0.7 });
 
-    _cont.querySelectorAll('p[id]').forEach(p => _obs.observe(p));
+    // Saare paragraphs ko observe karna jinme ID hai
+    const _ps = _cont.querySelectorAll('p[id]');
+    _ps.forEach(p => _obs.observe(p));
 
+    // 3. Reorder Logic: Popularity ke hisaab se sort karna
     const _reorder = () => {
         _db.ref(_refPath).once('value', (s) => {
             const data = s.val() || {};
-            const keys = Object.keys(data);
-            if (keys.length === 0) return;
-
-            const top = keys.reduce((a, b) => data[a] > data[b] ? a : b);
             
-            _cont.querySelectorAll('p[id]').forEach(p => {
-                p.style.order = (p.id === top) ? "-1" : "0";
-                p.style.transition = "order 0.6s ease-in-out";
+            // Paragraphs ko array mein convert karke sort karna
+            const paragraphsArray = Array.from(_ps);
+            
+            paragraphsArray.sort((a, b) => {
+                const countA = data[a.id] || 0;
+                const countB = data[b.id] || 0;
+                return countB - countA; // Zyada count wala pehle
             });
+
+            // Naya order apply karna
+            paragraphsArray.forEach((p, index) => {
+                p.style.order = index;
+            });
+            
+            console.log("Order updated for " + _pageId);
         });
     };
 
+    // Pehli baar aur fir har 10 minute mein chalega
     _reorder(); 
-    setInterval(_reorder, 600000); // 10 मिनट
+    setInterval(_reorder, 600000); // 10 Minutes
 })();
                 </script>
+        
         
  
 </body>
