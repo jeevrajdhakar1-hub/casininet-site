@@ -28,7 +28,7 @@
 
     <style>
         * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; }
-        body { background: #121212 !important; color: #fff;  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        body { background: #121212 !important; color: #fff;  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; touch-action: pan-y; overflow-x: hidden; }
     
     .header {
     position: fixed !important;
@@ -139,26 +139,29 @@
     will-change: auto; 
         }
         
-.content-container { 
-    position: relative; 
-    margin-top: 0; padding-top: 0;
-    padding: 8px 15px; 
-    z-index: 10; 
-    background: #121212 !important;
-
-    box-shadow: none !important; 
-}
 
 .art-headline { 
-    margin-top: 62px; margin-bottom: 0px; padding: 0 15px; line-height: 1.2;
-    font-size: 30px; 
+    font-size: 32px; 
     font-weight: 800; 
-    color: #FF8C00;
-    letter-spacing: -0.5px;   
+    line-height: 1.2; 
+    padding: 0 15px !important; 
+    margin-right: 0 !important; 
+    margin-bottom: 5px; 
+    margin-top: -12px; 
     text-align: left; 
-    margin-right: -10px; 
-         
-}       
+    width: 100%;
+}
+
+.content-container { 
+    position: relative; 
+    margin-top: -90px; 
+    
+    padding: 8px 15px !important; 
+    z-index: 10; 
+    background: #121212 !important;
+    width: 100%;
+}
+        
  
     .art-tag { display: inline-block; background: #ff3b30; color: #fff; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; margin-top: 2px; }
         .share-label {
