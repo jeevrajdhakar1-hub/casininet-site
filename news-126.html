@@ -634,4 +634,49 @@ document.querySelectorAll('.article-image-container').forEach(el => {
 
     </script>
    
-    <script defer src='https://static.cloudflareinsig
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7d934cc8d13140b6bce32a76bb018c5c"}'></script>
+
+<footer class="micro-footer">
+  <a href="about.html">About Us</a> |
+  <a href="editorial-policy.html">Editorial Policy</a> |
+  <a href="editorial-team.html">Editorial Team</a> |
+  <a href="contact.html">Contact</a>
+  <div style="margin-top:10px;">
+    © 2026 CASINInet News
+  </div>
+</footer>
+        <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+<script>
+(function() {
+    
+    const firebaseConfig = { 
+        databaseURL: "https://cn-news-86ceb-default-rtdb.firebaseio.com" 
+    };
+
+    if (!firebase.apps.length) { 
+        firebase.initializeApp(firebaseConfig); 
+    }
+    const database = firebase.database();
+
+
+    const pagePath = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
+    const viewRef = database.ref('article_views/' + pagePath);
+
+    
+    viewRef.transaction(function(currentViews) {
+        return (currentViews || 0) + 1;
+    }, function(error, committed, snapshot) {
+        const displayElement = document.getElementById('view-count');
+        if (displayElement) {
+
+            let actualViews = (snapshot && snapshot.val()) ? snapshot.val() : 1;
+            let totalShow = 988 + actualViews;
+            displayElement.innerText = totalShow.toLocaleString('hi-IN');
+        }
+    });
+})();
+</script>
+        
+</body>
+  </html> 
