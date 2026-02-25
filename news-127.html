@@ -553,84 +553,6 @@ animation: none !important ;
         
    
     <script>
-        const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
-
-window.onscroll = () => {
-    // 1. Sirf Progress Bar Logic rakhein
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-    
-    const pBar = document.getElementById("progress-bar");
-    if (pBar) {
-        pBar.style.width = scrolled + "%";
-    }
-
-
-};
-        
-        
-
-async function hShare(platform) { 
-    h(); // Vibration (Haptic)
-    
-    // Title aur URL set karna
-    const shareTitle = document.title;
-    const shareUrl = window.location.origin + window.location.pathname;
-    const fullMessage = encodeURIComponent(shareTitle + "\n" + shareUrl);
-
-    // 1. Agar WhatsApp icon par click kiya
-    if (platform === 'wa') {
-        window.open(`https://api.whatsapp.com/send?text=${fullMessage}`, '_blank');
-    } 
-    
-    // 2. Agar Facebook icon par click kiya
-    else if (platform === 'fb') {
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank');
-    } 
-    
-    else {
-        if (navigator.share) {
-            try {
-                const randomUrl = shareUrl + "?v=" + Math.floor(Math.random() * 100);
-                await navigator.share({ 
-                    title: shareTitle, 
-                    text: '🔥 Exclusive: Read the full story here:', 
-                    url: randomUrl 
-                });
-            } catch (err) { console.log("Share failed"); }
-        }
-    }
-}
-const imageObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            // Container ko "Ready" state mein dalo taaki blur dikhe
-            entry.target.classList.add('reveal-ready');
-
-            // Random Delay (2s to 4s)
-            const delay = Math.floor(Math.random() * (4000 - 2000 + 1)) + 2000;
-            
-            setTimeout(() => {
-                entry.target.classList.add('revealed'); // CSS ke '.revealed' se match karega
-            }, delay);
-            
-            imageObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.3 });
-
-document.querySelectorAll('.article-image-container').forEach(el => {
-    // Spinner add karna
-    if(!el.querySelector('.loader-circle')){
-        const loader = document.createElement('div');
-        loader.className = 'loader-circle';
-        el.prepend(loader);
-    }
-    imageObserver.observe(el);
-});
-
-    </script>
         <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7d934cc8d13140b6bce32a76bb018c5c"}'></script>
 
 <footer class="micro-footer">
@@ -676,5 +598,4 @@ document.querySelectorAll('.article-image-container').forEach(el => {
 </script>
         
 </body>
-</html>
-   
+  </html> 
