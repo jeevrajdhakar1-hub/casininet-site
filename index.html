@@ -11,6 +11,25 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG_0945.png">
     <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary_large_image">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YF8S99238"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6YF8S99238');
+    </script>
+
+    <link rel="manifest" href="/manifest.json">
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('Service Worker Registered!'))
+            .catch(err => console.error('Service Worker Error', err));
+        });
+      }
+    </script>
+    
     
     <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -21,7 +40,7 @@
 </script>
 
     
-
+</head>
     <style>
        
         * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; cursor: pointer; }
@@ -35,6 +54,76 @@
             -webkit-font-smoothing: antialiased;
             transition: opacity 0.3s ease;
         }
+        /* --- CASINInet Sticky Action Bar Style --- */
+.cn-action-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    z-index: 9999;
+    background: #000000; /* Pure Black Background */
+    border-top: 1px solid #1f1f1f; /* Subtle Top Border */
+    padding: 10px 15px calc(10px + env(safe-area-inset-bottom)); /* iPhone Notch Safety */
+    gap: 12px;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+}
+
+.cn-btn {
+    flex: 1;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    border: none;
+    color: #fff;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: inherit;
+}
+
+
+.cn-wa { 
+    background: #25D366; 
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
+}
+
+.cn-pwa { 
+    background: #ff3b30; 
+    display: none; 
+    box-shadow: 0 4px 12px rgba(255, 59, 48, 0.2);
+    animation: pulse 2s infinite; /* Naye users ka dhyan khinchne ke liye */
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.cn-btn:active { 
+    transform: scale(0.94); 
+    opacity: 0.8;
+}
+
+/* Footer ko space dene ke liye */
+.micro-footer { 
+    margin-bottom: 90px !important; 
+}
+
+
+@media screen and (min-width: 768px) {
+    .cn-action-bar {
+        max-width: 400px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 20px 20px 0 0;
+    }
+}
+        
         
         .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #111; border-radius: 12px; border: 1px solid #222; margin: 10px 0 25px 0; }
        .logo {
@@ -58,7 +147,8 @@
 
         .t-label { color: #ff0000; font-size: 11px; font-weight: 800; margin-left: 10px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
         /* Weekend Reads / Featured Section */
-.featured-section {
+
+        .featured-section {
     margin: 20px 0;
     border-top: 2px solid #333; /* Top line like your image */
     padding-top: 10px;
