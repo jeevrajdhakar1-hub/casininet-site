@@ -740,6 +740,46 @@ document.querySelectorAll('.article-image-container').forEach(el => {
     © 2026 CASINInet News
   </div>
 </footer>
+            <div class="cn-action-bar">
+    <a href="https://whatsapp.com/channel/APKA_WHATSAPP_LINK" class="cn-btn cn-wa">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="18" style="margin-right:8px; filter: brightness(0) invert(1);">
+        WhatsApp
+    </a>
+    <button id="pwaInstallBtn" class="cn-btn cn-pwa">
+        App Install करें
+    </button>
+    </div>
+   <script>
+let cnDeferredPrompt;
+const pwaInstallBtn = document.getElementById('pwaInstallBtn');
+
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    console.log('PWA Ready to Install');
+    e.preventDefault();
+    cnDeferredPrompt = e;
+    
+    pwaInstallBtn.style.display = 'flex'; 
+});
+
+pwaInstallBtn.addEventListener('click', () => {
+    if (cnDeferredPrompt) {
+        cnDeferredPrompt.prompt();
+        cnDeferredPrompt.userChoice.then((choice) => {
+            if (choice.outcome === 'accepted') {
+                console.log('User ne install kar liya');
+                pwaInstallBtn.style.display = 'none';
+            }
+            cnDeferredPrompt = null;
+        });
+    }
+});
+
+
+window.addEventListener('appinstalled', () => {
+    pwaInstallBtn.style.display = 'none';
+});
+   </script>
         <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
 <script>
