@@ -1,0 +1,16 @@
+{
+  "name": "CN न्यूज़ - CASINInet",
+  "short_name": "CN न्यूज़",
+  "description": "CASINInet - Breaking News Update",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#ff3b30",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG_0945.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
