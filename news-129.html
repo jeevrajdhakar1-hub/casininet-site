@@ -20,6 +20,7 @@
     <style>
         * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; }
         body { background: #121212 !important; color: #fff;  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; touch-action: pan-y; overflow-x: hidden; }
+        
     
     .header {
     position: fixed !important;
@@ -425,6 +426,74 @@ animation: none !important ;
     display: block;
     filter: none !important;
     opacity: 1 !important;
+    }
+        .cn-action-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    z-index: 9999;
+    background: #000000; /* Pure Black Background */
+    border-top: 1px solid #1f1f1f; /* Subtle Top Border */
+    padding: 10px 15px calc(10px + env(safe-area-inset-bottom)); /* iPhone Notch Safety */
+    gap: 12px;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+}
+
+.cn-btn {
+    flex: 1;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    border: none;
+    color: #fff;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: inherit;
+}
+
+
+.cn-wa { 
+    background: #25D366; 
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
+}
+
+.cn-pwa { 
+    background: #ff3b30; 
+    display: none; 
+    box-shadow: 0 4px 12px rgba(255, 59, 48, 0.2);
+    animation: pulse 2s infinite; /* Naye users ka dhyan khinchne ke liye */
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.cn-btn:active { 
+    transform: scale(0.94); 
+    opacity: 0.8;
+}
+
+/* Footer ko space dene ke liye */
+.micro-footer { 
+    margin-bottom: 90px !important; 
+}
+
+
+@media screen and (min-width: 768px) {
+    .cn-action-bar {
+        max-width: 400px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 20px 20px 0 0;
+    }
     }
 
         
