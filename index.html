@@ -12,12 +12,33 @@
     <meta property="og:type" content="article">
 <meta name="twitter:card" content="summary_large_image">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YF8S99238"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-6YF8S99238');
-    </script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // Normal Config
+  gtag('config', 'G-6YF8S99238');
+
+
+  window.addEventListener('load', () => {
+    // Ye check karta hai ki user ne App kholi hai ya Browser
+    const isPWA = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+    
+    if (isPWA) {
+      
+      gtag('event', 'pwa_usage', {
+        'event_category': 'Engagement',
+        'event_label': 'App Opened',
+        'non_interaction': true
+      });
+      console.log('User is using the App');
+    } else {
+      console.log('User is using the Browser');
+    }
+  });
+</script>
+    
 
     <link rel="manifest" href="/manifest.json">
     <script>
@@ -505,16 +526,7 @@
 
     window.addEventListener("pageshow", () => { document.body.style.opacity = "1"; });
     load();
-</script>
-    <div class="cn-action-bar">
-    <a href="https://whatsapp.com/channel/APKA_WHATSAPP_LINK" class="cn-btn cn-wa">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="18" style="margin-right:8px; filter: brightness(0) invert(1);">
-        WhatsApp
-    </a>
-    <button id="pwaInstallBtn" class="cn-btn cn-pwa">
-        App Install करें
-    </button>
-    </div>
+
 
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7d934cc8d13140b6bce32a76bb018c5c"}'></script>
     <footer class="micro-footer">
@@ -526,7 +538,16 @@
     © 2026 CASINInet News
   </div>    
 </footer>
-
+</script>
+    <div class="cn-action-bar">
+    <a href="https://whatsapp.com/channel/APKA_WHATSAPP_LINK" class="cn-btn cn-wa">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="18" style="margin-right:8px; filter: brightness(0) invert(1);">
+        WhatsApp
+    </a>
+    <button id="pwaInstallBtn" class="cn-btn cn-pwa">
+        App Install करें
+    </button>
+    </div>
    <script>
 let cnDeferredPrompt;
 const pwaInstallBtn = document.getElementById('pwaInstallBtn');
