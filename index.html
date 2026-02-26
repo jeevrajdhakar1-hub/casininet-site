@@ -577,6 +577,45 @@ window.addEventListener('appinstalled', () => {
     pwaInstallBtn.style.display = 'none';
 });
    </script>
+   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"></script>
+
+<script>
+  // Tere screenshot se nikaali gayi asli config
+  const firebaseConfig = {
+    apiKey: "AIzaSyA6jwyLINE4dxCEzLS5uN5hibvXOkzWeBc",
+    authDomain: "casininet.firebaseapp.com",
+    projectId: "casininet",
+    storageBucket: "casininet.firebasestorage.app",
+    messagingSenderId: "413905660652",
+    appId: "1:413905660652:web:cfb81de658eba870d8d3c9",
+    measurementId: "G-RFLM0XJWCF"
+  };
+
+  // Firebase initialize karein
+  firebase.initializeApp(firebaseConfig);
+  const messaging = firebase.messaging();
+
+  // Notification Permission maangna
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./firebase-messaging-sw.js')
+      .then((registration) => {
+        console.log('Service Worker Registered for Notifications!');
+        
+        
+        return messaging.getToken({ 
+          vapidKey: 'BGLas6nLI4bT5xJ6JDMsaORqEp0WZQFA6G0PDalhzCjthq9RPdFlQr_zhv1H7LHQXkBzcoXnodKAwVe5RL0UZzE', 
+          serviceWorkerRegistration: registration 
+        });
+      })
+      .then((token) => {
+        if (token) {
+          console.log('Token generated:', token);
+        }
+      })
+      .catch((err) => console.log('Error:', err));
+  }
+</script>
     
 </body>
  </html>
