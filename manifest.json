@@ -2,7 +2,7 @@
   "name": "CN न्यूज़ - CASINInet",
   "short_name": "CN न्यूज़",
   "description": "CASINInet - Breaking News Update",
-  "start_url": "/index.html",
+  "start_url": "/index.html?utm_source=pwa&utm_medium=app",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#ff3b30",
