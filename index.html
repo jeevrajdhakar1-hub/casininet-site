@@ -540,7 +540,7 @@
 </footer>
 
     <div class="cn-action-bar">
-    <a href="https://whatsapp.com/channel/APKA_WHATSAPP_LINK" class="cn-btn cn-wa">
+    <a href="https://chat.whatsapp.com/GwO9ksRHMAhE1c24x7nGou?mode=hq2tcla " class="cn-btn cn-wa">
         <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="18" style="margin-right:8px; filter: brightness(0) invert(1);">
         WhatsApp
     </a>
@@ -551,13 +551,11 @@
    <script>
 let cnDeferredPrompt;
 const pwaInstallBtn = document.getElementById('pwaInstallBtn');
-
-// Ye event tabhi chalta hai jab site PWA ke liye ready ho
 window.addEventListener('beforeinstallprompt', (e) => {
     console.log('PWA Ready to Install');
     e.preventDefault();
     cnDeferredPrompt = e;
-    // Button ko tabhi dikhao jab browser ready ho
+
     pwaInstallBtn.style.display = 'flex'; 
 });
 
@@ -574,7 +572,7 @@ pwaInstallBtn.addEventListener('click', () => {
     }
 });
 
-// Agar app pehle se installed hai toh button chhupa do
+
 window.addEventListener('appinstalled', () => {
     pwaInstallBtn.style.display = 'none';
 });
