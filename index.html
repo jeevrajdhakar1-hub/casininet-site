@@ -597,26 +597,40 @@ pwaInstallBtn.addEventListener('click', () => {
   firebase.initializeApp(firebaseConfig);
   const messaging = firebase.messaging();
 
-  if ('serviceWorker' in navigator) {
-    // Purane sw.js ko register karne wali line hata di hai taaki conflict na ho
-    navigator.serviceWorker.register('./firebase-messaging-sw.js')
-      .then((registration) => {
-        console.log('FCM Service Worker Active!');
+  // Naya "Force Trigger" function
+  async function initNotifications() {
+    if ('serviceWorker' in navigator) {
+      try {
+        // Pehle permission maangna zaroori hai
+        const permission = await Notification.requestPermission();
         
-        // Permission maangne ka asli trigger
-        return messaging.getToken({ 
-          vapidKey: 'BGLas6nLI4bT5xJ6JDMsaORqEp0WZQFA6G0PDalhzCjthq9RPdFlQr_zhv1H7LHQXkBzcoXnodKAwVe5RL0UZzE', 
-          serviceWorkerRegistration: registration 
-        });
-      })
-      .then((token) => {
-        if (token) {
-          console.log('Token generated:', token);
+        if (permission === 'granted') {
+          const registration = await navigator.serviceWorker.register('./firebase-messaging-sw.js');
+          console.log('FCM Service Worker Registered!');
+
+          const token = await messaging.getToken({ 
+            vapidKey: 'BGLas6nLI4bT5xJ6JDMsaORqEp0WZQFA6G0PDalhzCjthq9RPdFlQr_zhv1H7LHQXkBzcoXnodKAwVe5RL0UZzE', 
+            serviceWorkerRegistration: registration 
+          });
+
+          if (token) {
+            console.log('Token generated:', token);
+          }
+        } else {
+          console.warn('Permission denied by user');
         }
-      })
-      .catch((err) => console.error('Notification Error:', err));
+      } catch (err) {
+        console.error('Notification Setup Error:', err);
+      }
+    }
   }
+
+  // Page load hone ke 3 second baad trigger karo (Browser ko lagta hai user active hai)
+  window.addEventListener('load', () => {
+    setTimeout(initNotifications, 3000);
+  });
 </script>
+
     
 
     
