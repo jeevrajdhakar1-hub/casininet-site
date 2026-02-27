@@ -791,7 +791,7 @@ window.addEventListener('appinstalled', () => {
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
 
 <script>
-  
+  // 2. Full Config (Dono kaam ke liye)
   const firebaseConfig = {
     apiKey: "AIzaSyA6jwyLINE4dxCEzLS5uN5hibvXOkzWeBc",
     authDomain: "casininet.firebaseapp.com",
@@ -803,9 +803,12 @@ window.addEventListener('appinstalled', () => {
     measurementId: "G-RFLM0XJWCF"
   };
 
-  // Initialize Firebase
+  // 3. Initialize Firebase (Sirf ek baar)
+  let app;
   if (!firebase.apps.length) { 
-      firebase.initializeApp(firebaseConfig); 
+      app = firebase.initializeApp(firebaseConfig); 
+  } else {
+      app = firebase.app();
   }
   
   const messaging = firebase.messaging();
@@ -822,32 +825,36 @@ window.addEventListener('appinstalled', () => {
             vapidKey: 'BGLas6nLI4bT5xJ6JDMsaORqEp0WZQFA6G0PDalhzCjthq9RPdFlQr_zhv1H7LHQXkBzcoXnodKAwVe5RL0UZzE', 
             serviceWorkerRegistration: reg 
           });
-          if (token) console.log('Token generated on Article Page:', token);
+          if (token) console.log('Token generated:', token);
         }
       } catch (err) { console.error('Notification Error:', err); }
     }
   }
 
-  // --- PART 2: VIEW COUNT LOGIC ---
-  const pagePath = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
-  const viewRef = database.ref('article_views/' + pagePath);
+  
+  function updateViewCount() {
+    const pagePath = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
+    const viewRef = database.ref('article_views/' + pagePath);
 
-  viewRef.transaction(function(currentViews) {
-      return (currentViews || 0) + 1;
-  }, function(error, committed, snapshot) {
-      const displayElement = document.getElementById('view-count');
-      if (displayElement) {
-          let actualViews = (snapshot && snapshot.val()) ? snapshot.val() : 1;
-          let totalShow = 988 + actualViews;
-          displayElement.innerText = totalShow.toLocaleString('hi-IN');
-      }
-  });
+    viewRef.transaction(function(currentViews) {
+        return (currentViews || 0) + 1;
+    }, function(error, committed, snapshot) {
+        const displayElement = document.getElementById('view-count');
+        if (displayElement) {
+            let actualViews = (snapshot && snapshot.val()) ? snapshot.val() : 1;
+            let totalShow = 988 + actualViews;
+            displayElement.innerText = totalShow.toLocaleString('hi-IN');
+        }
+    });
+  }
 
-  // Start everything after 2 seconds
+  
   window.addEventListener('load', () => {
-    setTimeout(startNotifications, 2000);
+    updateViewCount();
+    setTimeout(startNotifications, 2500);
   });
 </script>
+        
         
         
 </body>
