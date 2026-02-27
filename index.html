@@ -41,15 +41,7 @@
     
 
     <link rel="manifest" href="/manifest.json">
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('Service Worker Registered!'))
-            .catch(err => console.error('Service Worker Error', err));
-        });
-      }
-    </script>
+      
     
     
     <script type="text/javascript">
@@ -584,6 +576,9 @@ pwaInstallBtn.addEventListener('click', () => {
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"></script>
 
 <script>
+
+
+    <script>
   const firebaseConfig = {
     apiKey: "AIzaSyA6jwyLINE4dxCEzLS5uN5hibvXOkzWeBc",
     authDomain: "casininet.firebaseapp.com",
@@ -597,40 +592,33 @@ pwaInstallBtn.addEventListener('click', () => {
   firebase.initializeApp(firebaseConfig);
   const messaging = firebase.messaging();
 
-  // Naya "Force Trigger" function
-  async function initNotifications() {
+  async function startSystem() {
     if ('serviceWorker' in navigator) {
       try {
-        // Pehle permission maangna zaroori hai
+        // Notification Permission maangna
         const permission = await Notification.requestPermission();
-        
         if (permission === 'granted') {
-          const registration = await navigator.serviceWorker.register('./firebase-messaging-sw.js');
-          console.log('FCM Service Worker Registered!');
+          // Sirf Firebase wala worker register karo, yahi PWA ka kaam bhi karega
+          const reg = await navigator.serviceWorker.register('./firebase-messaging-sw.js');
+          console.log('FCM System Live!');
 
           const token = await messaging.getToken({ 
             vapidKey: 'BGLas6nLI4bT5xJ6JDMsaORqEp0WZQFA6G0PDalhzCjthq9RPdFlQr_zhv1H7LHQXkBzcoXnodKAwVe5RL0UZzE', 
-            serviceWorkerRegistration: registration 
+            serviceWorkerRegistration: reg 
           });
-
-          if (token) {
-            console.log('Token generated:', token);
-          }
-        } else {
-          console.warn('Permission denied by user');
+          if (token) console.log('Token:', token);
         }
       } catch (err) {
-        console.error('Notification Setup Error:', err);
+        console.error('Setup Error:', err);
       }
     }
   }
 
-  // Page load hone ke 3 second baad trigger karo (Browser ko lagta hai user active hai)
+  // 2 second baad system chalu karo
   window.addEventListener('load', () => {
-    setTimeout(initNotifications, 3000);
+    setTimeout(startSystem, 2000);
   });
 </script>
-
     
 
     
