@@ -786,38 +786,71 @@ window.addEventListener('appinstalled', () => {
 });
 </script>
         
-        <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+
 <script>
-(function() {
-    
-    const firebaseConfig = { 
-        databaseURL: "https://cn-news-86ceb-default-rtdb.firebaseio.com" 
-    };
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
 
-    if (!firebase.apps.length) { 
-        firebase.initializeApp(firebaseConfig); 
-    }
-    const database = firebase.database();
+<script>
+  // Dono kaam ke liye Mix Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyA6jwyLINE4dxCEzLS5uN5hibvXOkzWeBc",
+    authDomain: "casininet.firebaseapp.com",
+    projectId: "casininet",
+    databaseURL: "https://cn-news-86ceb-default-rtdb.firebaseio.com",
+    storageBucket: "casininet.firebasestorage.app",
+    messagingSenderId: "413905660652",
+    appId: "1:413905660652:web:cfb81de658eba870d8d3c9",
+    measurementId: "G-RFLM0XJWCF"
+  };
 
+  // Initialize Firebase
+  if (!firebase.apps.length) { 
+      firebase.initializeApp(firebaseConfig); 
+  }
+  
+  const messaging = firebase.messaging();
+  const database = firebase.database();
 
-    const pagePath = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
-    const viewRef = database.ref('article_views/' + pagePath);
-
-    
-    viewRef.transaction(function(currentViews) {
-        return (currentViews || 0) + 1;
-    }, function(error, committed, snapshot) {
-        const displayElement = document.getElementById('view-count');
-        if (displayElement) {
-
-            let actualViews = (snapshot && snapshot.val()) ? snapshot.val() : 1;
-            let totalShow = 988 + actualViews;
-            displayElement.innerText = totalShow.toLocaleString('hi-IN');
+  // --- PART 1: NOTIFICATION LOGIC ---
+  async function startNotifications() {
+    if ('serviceWorker' in navigator) {
+      try {
+        const permission = await Notification.requestPermission();
+        if (permission === 'granted') {
+          const reg = await navigator.serviceWorker.register('./firebase-messaging-sw.js');
+          const token = await messaging.getToken({ 
+            vapidKey: 'BGLas6nLI4bT5xJ6JDMsaORqEp0WZQFA6G0PDalhzCjthq9RPdFlQr_zhv1H7LHQXkBzcoXnodKAwVe5RL0UZzE', 
+            serviceWorkerRegistration: reg 
+          });
+          if (token) console.log('Token generated on Article Page:', token);
         }
-    });
-})();
+      } catch (err) { console.error('Notification Error:', err); }
+    }
+  }
+
+  // --- PART 2: VIEW COUNT LOGIC ---
+  const pagePath = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
+  const viewRef = database.ref('article_views/' + pagePath);
+
+  viewRef.transaction(function(currentViews) {
+      return (currentViews || 0) + 1;
+  }, function(error, committed, snapshot) {
+      const displayElement = document.getElementById('view-count');
+      if (displayElement) {
+          let actualViews = (snapshot && snapshot.val()) ? snapshot.val() : 1;
+          let totalShow = 988 + actualViews;
+          displayElement.innerText = totalShow.toLocaleString('hi-IN');
+      }
+  });
+
+  // Start everything after 2 seconds
+  window.addEventListener('load', () => {
+    setTimeout(startNotifications, 2000);
+  });
 </script>
+        
         
 </body>
 </html>
