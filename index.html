@@ -565,6 +565,13 @@ pwaInstallBtn.addEventListener('click', () => {
         cnDeferredPrompt.userChoice.then((choice) => {
             if (choice.outcome === 'accepted') {
                 console.log('User ne install kar liya');
+                
+                
+                gtag('event', 'pwa_install_success', {
+                    'event_category': 'Engagement',
+                    'event_label': 'PWA Installed'
+                });
+                
                 pwaInstallBtn.style.display = 'none';
             }
             cnDeferredPrompt = null;
@@ -572,10 +579,6 @@ pwaInstallBtn.addEventListener('click', () => {
     }
 });
 
-
-window.addEventListener('appinstalled', () => {
-    pwaInstallBtn.style.display = 'none';
-});
    </script>
    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"></script>
