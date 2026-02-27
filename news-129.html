@@ -752,7 +752,7 @@ document.querySelectorAll('.article-image-container').forEach(el => {
         App Install करें
     </button>
     </div>
-   <script>
+<script>
 let cnDeferredPrompt;
 const pwaInstallBtn = document.getElementById('pwaInstallBtn');
 
@@ -761,6 +761,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
     console.log('PWA Ready to Install');
     e.preventDefault();
     cnDeferredPrompt = e;
+    
     
     pwaInstallBtn.style.display = 'flex'; 
 });
@@ -771,6 +772,15 @@ pwaInstallBtn.addEventListener('click', () => {
         cnDeferredPrompt.userChoice.then((choice) => {
             if (choice.outcome === 'accepted') {
                 console.log('User ne install kar liya');
+                
+                
+                if (typeof gtag === 'function') {
+                    gtag('event', 'pwa_install_success', {
+                        'event_category': 'Engagement',
+                        'event_label': 'PWA Installed from Article Page'
+                    });
+                }
+                
                 pwaInstallBtn.style.display = 'none';
             }
             cnDeferredPrompt = null;
@@ -778,11 +788,12 @@ pwaInstallBtn.addEventListener('click', () => {
     }
 });
 
-
+// Install hone ke baad button gayab kar do
 window.addEventListener('appinstalled', () => {
     pwaInstallBtn.style.display = 'none';
 });
-   </script>
+</script>
+        
         <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
 <script>
