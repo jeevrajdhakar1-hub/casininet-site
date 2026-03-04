@@ -183,16 +183,61 @@
     .micro-footer a { color: #666; text-decoration: none; margin: 0 8px; font-weight: 600; }
     .micro-footer a:hover { color: #fff; }
 
+    /* Ticker */
+    .ticker-bar {
+        background: #1a1a1a; border-bottom: 1px solid #2a2a2a;
+        display: flex; align-items: center; height: 34px; overflow: hidden;
+    }
+    .ticker-label {
+        background: #e8001c; color: #fff; font-size: 10px; font-weight: 800;
+        padding: 0 10px; height: 100%; display: flex; align-items: center;
+        white-space: nowrap; flex-shrink: 0; letter-spacing: 0.5px;
+    }
+    .ticker-scroll { flex: 1; overflow: hidden; }
+    .ticker-text {
+        display: inline-block; white-space: nowrap; font-size: 11px; color: #ccc;
+        animation: scroll-ticker 25s linear infinite; padding-left: 20px;
+    }
+    @keyframes scroll-ticker { 0%{transform:translateX(100vw)} 100%{transform:translateX(-100%)} }
+
     @media screen and (min-width: 768px) {
-        body { max-width: 540px; margin: 0 auto; }
-        .cn-action-bar { max-width: 540px; left: 50%; transform: translateX(-50%); border-radius: 16px 16px 0 0; }
+        body { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        .header { border-radius: 0 0 8px 8px; margin-bottom: 10px; }
+
+        .ticker-bar { border-radius: 8px; margin-bottom: 10px; }
+
+        /* Desktop: 3 column grid for all cards */
+        #m { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; align-items: start; }
+
+        /* Big card spans full width */
+        #m > div:first-child { grid-column: 1 / -1; }
+
+        /* Horizontal cards: make them vertical on desktop */
+        .card-h { flex-direction: column; }
+        .card-h img { width: 100%; height: 160px; }
+        .card-h .c-title { -webkit-line-clamp: 4; padding-right: 30px; }
+
+        /* Grid cards bigger images on desktop */
+        .card-g img { height: 130px; }
+
+        /* Big card image taller on desktop */
+        .card-big img { height: 320px; }
+        .card-big .c-title { font-size: 22px; }
+
+        /* Dividers span full in grid */
+        .divider { margin: 0 10px; }
+
+        .cn-action-bar { max-width: 600px; left: 50%; transform: translateX(-50%); border-radius: 16px 16px 0 0; }
+
+        .micro-footer { padding-bottom: 100px; }
     }
 </style>
 </head>
 
 <body ontouchstart="">
 
-<!-- HEADER -->
+
 <div class="header">
     <a href="#" class="logo">CN<span class="news-hi">न्यूज़</span></a>
     <div class="header-right">
@@ -200,6 +245,13 @@
         <div class="profile-btn">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
         </div>
+    </div>
+</div>
+
+<div class="ticker-bar">
+    <div class="ticker-label">NEWS UPDATE</div>
+    <div class="ticker-scroll">
+        <span class="ticker-text">आपके क्षेत्र में क्या चल रहा है? &nbsp;&nbsp;&nbsp; ताज़ा खबरें पढ़ें CN न्यूज़ पर &nbsp;&nbsp;&nbsp;आपके क्षेत्र की हर खबर सबसे पहले &nbsp;&nbsp;&nbsp;</span>
     </div>
 </div>
 
