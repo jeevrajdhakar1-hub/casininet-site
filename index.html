@@ -16,502 +16,368 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
-  // Normal Config
   gtag('config', 'G-6YF8S99238');
-
-
   window.addEventListener('load', () => {
-    // Ye check karta hai ki user ne App kholi hai ya Browser
     const isPWA = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-    
     if (isPWA) {
-      
-      gtag('event', 'pwa_usage', {
-        'event_category': 'Engagement',
-        'event_label': 'App Opened',
-        'non_interaction': true
-      });
+      gtag('event', 'pwa_usage', { 'event_category': 'Engagement', 'event_label': 'App Opened', 'non_interaction': true });
       console.log('User is using the App');
     } else {
       console.log('User is using the Browser');
     }
   });
 </script>
-    
-
     <link rel="manifest" href="/manifest.json">
-      
-    
-    
-    <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "vdml84lcr8");
-</script>
+    <script>
+    window.addEventListener('load', function() {
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "vdml84lcr8");
+    });
+    </script>
 
-    
-</head>
-    <style>
-       
-        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; cursor: pointer; }
-        
-        body { 
-            background: #000; 
-            color: #fff; 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            margin: 0; 
-            padding: env(safe-area-inset-top) 10px env(safe-area-inset-bottom) 10px; 
-            -webkit-font-smoothing: antialiased;
-            transition: opacity 0.3s ease;
-        }
-        /* --- CASINInet Sticky Action Bar Style --- */
-.cn-action-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    z-index: 9999;
-    background: #000000; /* Pure Black Background */
-    border-top: 1px solid #1f1f1f; /* Subtle Top Border */
-    padding: 10px 15px calc(10px + env(safe-area-inset-bottom)); /* iPhone Notch Safety */
-    gap: 12px;
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
-}
+<style>
+    * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; cursor: pointer; }
 
-.cn-btn {
-    flex: 1;
-    height: 48px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 700;
-    text-decoration: none;
-    border: none;
-    color: #fff;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    font-family: inherit;
-}
-
-
-.cn-wa { 
-    background: #25D366; 
-    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
-}
-
-.cn-pwa { 
-    background: #ff3b30; 
-    display: none; 
-    box-shadow: 0 4px 12px rgba(255, 59, 48, 0.2);
-    animation: pulse 2s infinite; /* Naye users ka dhyan khinchne ke liye */
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-    100% { transform: scale(1); }
-}
-
-.cn-btn:active { 
-    transform: scale(0.94); 
-    opacity: 0.8;
-}
-
-/* Footer ko space dene ke liye */
-.micro-footer { 
-    margin-bottom: 90px !important; 
-}
-
-
-@media screen and (min-width: 768px) {
-    .cn-action-bar {
-        max-width: 400px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-radius: 20px 20px 0 0;
+    body {
+        background: #111;
+        color: #fff;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        margin: 0;
+        padding: 0 0 env(safe-area-inset-bottom) 0;
+        -webkit-font-smoothing: antialiased;
+        transition: opacity 0.3s ease;
     }
-}
-        
-        
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: #111; border-radius: 12px; border: 1px solid #222; margin: 10px 0 25px 0; }
-       .logo {
-  font-size: 20px;
-  font-weight: 900;      
-  color: #fff;
-  text-decoration: none;
-  letter-spacing: -0.5px;
 
-}
-        .logo .news-hi {
-  font-size: 12px;         
-  font-weight: 500;        
-  color: #9a9a9a;          
-  margin-left: 2px;
-}
+    /* ===== HEADER ===== */
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 14px;
+        background: #1a1a1a;
+        border-bottom: 1px solid #2a2a2a;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    .logo {
+        font-size: 22px; font-weight: 900; color: #fff;
+        text-decoration: none; font-style: normal; letter-spacing: -1px;
+        line-height: 1; display: flex; flex-direction: row; align-items: baseline; gap: 3px;
+    }
+    .logo .news-hi { font-size: 13px; font-weight: 600; color: #ccc; letter-spacing: 0.5px; font-style: normal; }
+    .live-pill {
+        display: flex; align-items: center; gap: 6px;
+        color: #e8001c; font-size: 12px; font-weight: 800;
+        border: 1px solid #e8001c; padding: 4px 10px; border-radius: 8px;
+    }
+    .header-right { display: flex; align-items: center; gap: 10px; }
+    .profile-btn {
+        width: 32px; height: 32px; border-radius: 50%;
+        background: #333; border: 1px solid #444;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .profile-btn svg { width: 16px; height: 16px; stroke: #aaa; fill: none; stroke-width: 1.5; }
 
-        .live { color: #ff0000; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 5px; border: 1px solid #ff0000; padding: 3px 10px; border-radius: 8px; }
-        .dot { width: 7px; height: 7px; background: #ff0000; border-radius: 50%; animation: blink 1s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+    .dot { width: 7px; height: 7px; background: #e8001c; border-radius: 50%; animation: blink 1s infinite; flex-shrink: 0; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
-        .t-label { color: #ff0000; font-size: 11px; font-weight: 800; margin-left: 10px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
-        /* Weekend Reads / Featured Section */
+    /* ===== CARDS ===== */
 
-        .featured-section {
-    margin: 20px 0;
-    border-top: 2px solid #333; /* Top line like your image */
-    padding-top: 10px;
-}
+    /* Big first card */
+    .card-big { display: block; text-decoration: none; padding: 14px 14px 12px 14px; position: relative; }
+    .card-big img { width: 100%; height: 200px; object-fit: cover; border-radius: 4px; display: block; margin-bottom: 10px; }
+    .card-big .c-tag { color: #888; font-size: 11px; font-weight: 600; letter-spacing: 0.3px; margin-bottom: 5px; display: block; }
+    .card-big .c-title { font-size: 17px; font-weight: 700; color: #fff; line-height: 1.4; padding-right: 35px; display: block; }
 
-.featured-label {
-    font-size: 14px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 15px;
-    color: #fff;
-}
+    /* Horizontal card */
+    .card-h { display: flex; align-items: flex-start; gap: 12px; padding: 14px 14px; text-decoration: none; position: relative; }
+    .card-h-text { flex: 1; }
+    .card-h .c-tag { color: #888; font-size: 11px; font-weight: 600; letter-spacing: 0.3px; margin-bottom: 5px; display: block; }
+    .card-h .c-title {
+        font-size: 14px; font-weight: 600; color: #fff; line-height: 1.4;
+        display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+        padding-right: 30px;
+    }
+    .card-h img { width: 100px; height: 70px; object-fit: cover; border-radius: 4px; flex-shrink: 0; }
 
-.featured-card {
-    text-decoration: none;
-    display: block;
-}
+    /* 2-col grid */
+    .grid-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #2a2a2a; }
+    .card-g { background: #111; padding: 10px 10px 14px 10px; text-decoration: none; display: block; position: relative; }
+    .card-g img { width: 100%; height: 100px; object-fit: cover; border-radius: 4px; margin-bottom: 8px; display: block; }
+    .card-g .c-tag { color: #888; font-size: 10px; font-weight: 600; letter-spacing: 0.3px; margin-bottom: 4px; display: block; }
+    .card-g .c-title {
+        font-size: 12px; font-weight: 600; color: #fff; line-height: 1.3;
+        display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+        padding-right: 25px;
+    }
 
-.featured-img {
-    width: 100%;
-    height: 50px;
-    border-radius: 4px;
-    margin-bottom: 15px;
-}
+    /* Divider */
+    .divider { height: 1px; background: #2a2a2a; margin: 0 14px; }
+    .divider-full { height: 1px; background: #2a2a2a; }
 
-.featured-headline {
-    font-size: 22px;
-    font-weight: 700;
-    line-height: 1.3;
-    color: #fff;
-    margin-bottom: 10px;
-    text-decoration: underline; /* Underline like your image */
-    text-underline-offset: 4px;
-}
+    /* Share btn */
+    .share-btn {
+        position: absolute; right: 8px; bottom: 8px;
+        background: #fff; width: 28px; height: 28px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        z-index: 10; transition: transform 0.2s;
+    }
+    .share-btn:active { transform: scale(1.2); }
+    .share-btn svg { width: 14px; height: 14px; fill: #000; }
 
-.featured-desc {
-    font-size: 14px;
-    color: #aaa;
-    line-height: 1.5;
-    margin-bottom: 20px;
-}
-
-.section-divider {
-    border-bottom: 1px solid #333;
-    margin-bottom: 20px;
-}
-        .slider-box { display: flex; overflow-x: auto; gap: 15px; padding: 0 5px 25px 5px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-        .slider-box::-webkit-scrollbar { display: none; }
-        
-        .round-card { flex: 0 0 85px; text-align: center; transition: transform 0.2s; }
-        .round-card:active { transform: scale(0.85); } 
-        .round-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #ff0000; padding: 2px; }
-
-        .card-link { display: block; margin-bottom: 0; text-decoration: none; position: relative; transition: transform 0.2s; height: 100%; }
-        .card-link:active { transform: scale(0.96); } 
-        
-        .main-card { background: #111; border-radius: 11px; overflow: hidden; border: 1px solid #222; display: flex; flex-direction: column; height: 100%; }
-        .main-img { width: 100%; height: 140px; object-fit: cover; flex-shrink: 0; }
-        .main-text { 
-    padding: 12px 12px 20px 12px;
-    position: relative; 
-    flex: 1; 
-    display: flex; 
-    flex-direction: column; 
-}
-        .main-title { 
-    font-size: 11px; 
-    font-weight: 600; 
-    color: #fff; 
-    line-height: 1.2; 
-    display: -webkit-box; 
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical; 
- 
-    padding-right: 30px; 
-}       .tag { color: #ff0000; font-size: 9px; font-weight: 800; text-transform: uppercase; margin-bottom: 1px; margin-top: -9px; display: block; }
-
-        .share-btn { position: absolute; right: 7px; bottom: 6px; background: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; transition: transform 0.2s; }
-        .share-btn:active { transform: scale(1.2); }
-        .share-btn svg { width: 16px; height: 16px; fill: #000; }
-
-        .ad-box { background: #080808; border: 1px dashed #222; border-radius: 12px; margin-bottom: 30px; padding: 15px; text-align: center; min-height: 250px; display: flex; align-items: center; justify-content: center; color: #333; font-size: 10px; letter-spacing: 2px; }
-
-        .about-sec { background: #0a0a0a; border-radius: 12px; padding: 20px; margin: 40px 5px 20px 5px; border: 1px solid #1a1a1a; text-align: center; }
-        .footer { padding: 30px 0 50px 0; text-align: center; border-top: 1px solid #111; }
-        .footer-logo { font-weight: 800; color: #444; font-size: 12px; letter-spacing: 1px; }
-
-    .footer-logo { font-weight: 800; color: #444; font-size: 12px; letter-spacing: 1px; }
-
+    /* Skeleton */
     .skeleton {
-        background: linear-gradient(90deg, #111 25%, #222 50%, #111 75%);
+        background: linear-gradient(90deg, #1e1e1e 25%, #2a2a2a 50%, #1e1e1e 75%);
         background-size: 200% 100%;
         animation: skeleton-loading 1.5s infinite;
-        border-radius: 12px;
+        border-radius: 4px;
     }
-    @keyframes skeleton-loading {
-        0% { background-position: 200% 0; }
-        100% { background-position: -200% 0; }
+    @keyframes skeleton-loading { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+    .sk-row { display: flex; gap: 12px; padding: 14px; border-bottom: 1px solid #222; }
+    .sk-lines { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+
+    /* Inline related */
+    .inline-related-box { padding: 8px 14px; }
+    .inline-related-box a {
+        display: flex; align-items: center; gap: 12px;
+        background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 8px;
+        padding: 10px 12px; text-decoration: none;
     }
-    .skeleton-card {
-        height: 300px;
-        margin-bottom: 25px;
-        width: 100%;
-        background: #111;
-        border-radius: 16px;
-        padding: 15px;
+    .inline-related-box img { width: 75px; height: 55px; object-fit: cover; border-radius: 4px; flex-shrink: 0; }
+    .inline-related-label { color: #e8001c; font-size: 10px; font-weight: 800; display: block; margin-bottom: 4px; }
+    .inline-related-title { font-size: 13px; color: #fff; font-weight: 600; line-height: 1.3; }
+
+    /* Prcha */
+    .prcha-wrap { padding: 4px 14px 10px; }
+    .prcha-wrap img { width: 100%; height: 180px; border-radius: 8px; border: 1px solid #222; object-fit: cover; display: block; }
+
+    /* Bottom bar */
+    .cn-action-bar {
+        position: fixed; bottom: 0; left: 0; width: 100%;
+        display: flex; z-index: 9999;
+        background: #1a1a1a; border-top: 1px solid #2a2a2a;
+        padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+        gap: 10px; box-shadow: 0 -5px 20px rgba(0,0,0,0.6);
     }
-    .skeleton-img { height: 180px; width: 100%; margin-bottom: 15px; }
-    .skeleton-text { height: 20px; width: 80%; margin-bottom: 10px; }
-    .skeleton-text.short { height: 20px; width: 50%; }
-        
-        .micro-footer {
-  text-align: center;
-  padding: 30px 20px;
-  border-top: 1px solid #1c1c1e;
-  margin-top: 40px;
-  font-size: 12px;
-  color: #48484a;
-  background: #000;
-}
-
-.micro-footer a {
-  color: #8e8e93;
-  text-decoration: none;
-  margin: 0 8px;
-  font-weight: 600;
-}
-
-.micro-footer a:hover {
-  color: #ffffff;
-}
-        #m {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            align-items: start;
-        }
-        
-
-
-.article-card {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    gap: 15px;
-}
-
-.card-img-container img {
-    width: 80px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 6px;
-}
-
-.card-headline {
-    font-size: 14px;
-    color: #fff;
-    font-weight: 600;
-    line-height: 1.3;
-}
-
-
-  
-@media screen and (min-width: 768px) {
-    body { 
-        max-width: 1100px;
-        margin: 0 auto;   
-        padding: 20px;
+    .cn-btn {
+        flex: 1; height: 46px; border-radius: 10px;
+        display: flex; align-items: center; justify-content: center; gap: 6px;
+        font-size: 13px; font-weight: 700; text-decoration: none;
+        border: none; color: #fff; transition: all 0.2s; font-family: inherit;
     }
+    .cn-wa { background: #25D366; box-shadow: 0 4px 12px rgba(37,211,102,0.2); }
+    .cn-pwa { background: #e8001c; display: none; box-shadow: 0 4px 12px rgba(232,0,28,0.2); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.02)} }
+    .cn-btn:active { transform: scale(0.94); opacity: 0.8; }
 
-    .round-card { flex: 0 0 110px; }
-    .round-img { width: 100px; height: 100px; }
-
-  
-        #m { 
-    display: grid; 
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 12px; 
-    align-items: stretch; /* Isse PC par cards line me rahenge */
-}
-
-@media screen and (min-width: 768px) {
-    #m { 
-        grid-template-columns: repeat(3, 1fr); 
-        gap: 20px; 
+    /* Footer */
+    .micro-footer {
+        text-align: center; padding: 30px 20px 100px;
+        border-top: 1px solid #1c1c1e; margin-top: 10px;
+        font-size: 12px; color: #48484a; background: #111;
     }
-}
-      
-    </style>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6YF8S99238"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    .micro-footer a { color: #666; text-decoration: none; margin: 0 8px; font-weight: 600; }
+    .micro-footer a:hover { color: #fff; }
 
-  gtag('config', 'G-6YF8S99238');
-</script>
+    @media screen and (min-width: 768px) {
+        body { max-width: 540px; margin: 0 auto; }
+        .cn-action-bar { max-width: 540px; left: 50%; transform: translateX(-50%); border-radius: 16px 16px 0 0; }
+    }
+</style>
 </head>
 
-<body ontouchstart=""> 
+<body ontouchstart="">
+
+<!-- HEADER -->
 <div class="header">
-  <a href="#" class="logo">
-  CN<span class="news-hi">न्यूज़</span>
-</a>
-  <div class="live">
-    <div class="dot"></div> LIVE
-  </div>
-</div>
-   <div class="featured-section"> <div class="featured-label">MUST READS</div>
-    
-    <div class="featured-card static-content">
-        <img src="https://path-to-your-image.jpg" class="featured-img" alt="Featured News">
-        <div class="featured-headline">
-         Your Gateway to Local Excellence.
-        </div>
-        <div class="featured-desc">
-        Curating the most significant headlines from your neighborhood to the world.
+    <a href="#" class="logo">CN<span class="news-hi">न्यूज़</span></a>
+    <div class="header-right">
+        <div class="live-pill"><span class="dot"></span> LIVE</div>
+        <div class="profile-btn">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
         </div>
     </div>
-    
-    <div class="section-divider"></div>
 </div>
 
-    <div id="m"></div>
-<div id="container-1dd72f211aefd488e56f759ff509152a"></div>
-<script>
-    let allMainNews = [];     
-    let visibleCount = 12;    // PC grid fix karne ke liye 12 cards shuruat mein
-    const step = 9;            
-    let isLoading = false;     
-    let isRelatedBoxAdded = false; // Fix: Variable defined here
+<!-- NEWS -->
+<div id="m"></div>
 
-    // Vibration on touch
+<footer class="micro-footer">
+    <a href="about.html">About Us</a> |
+    <a href="editorial-policy.html">Editorial Policy</a> |
+    <a href="editorial-team.html">Editorial Team</a> |
+    <a href="contact.html">Contact</a>
+    <div style="margin-top:10px;">© 2026 CASINInet News</div>
+</footer>
+
+<div class="cn-action-bar">
+    <a href="https://chat.whatsapp.com/DbD0P3N2Pk6EreoUXHN8uJ?mode=gi_t" class="cn-btn cn-wa">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="16" style="filter:brightness(0) invert(1);">
+        WhatsApp
+    </a>
+    <button id="pwaInstallBtn" class="cn-btn cn-pwa">App Install करें</button>
+</div>
+
+<script>
+    let allMainNews = [];
+    let visibleCount = 12;
+    const step = 9;
+    let isLoading = false;
+    let isRelatedBoxAdded = false;
+    let gridBuffer = [];
+
     const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
 
-    // Share Function
+    const shareIcon = `<svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>`;
+
     async function share(e, title, id) {
-        e.stopPropagation(); 
+        e.stopPropagation();
         h();
         const shareUrl = window.location.origin + '/news-' + id + '.html?v=' + Math.floor(Math.random() * 100);
-        try { 
-            await navigator.share({ 
-                title: 'CN NEWS', 
-                text: '🔥 ' + title, 
-                url: shareUrl 
-            }); 
-        } catch (err) { console.log("Share cancelled"); }
+        try { await navigator.share({ title: 'CN NEWS', text: '🔥 ' + title, url: shareUrl }); }
+        catch (err) { console.log("Share cancelled"); }
     }
 
-    // Navigation function
-    function go(id) { 
-        h(); 
+    function go(id) {
+        h();
         document.body.style.opacity = "0";
-        setTimeout(() => { window.location.href = `news-${id}.html`; }, 250); 
+        setTimeout(() => { window.location.href = `news-${id}.html`; }, 250);
     }
-  
-    // Skeleton Loader
+
     function showSkeletons() {
-        const container = document.getElementById('m');
-        let skeletonHtml = '';
-        for (let i = 0; i < 6; i++) { 
-            skeletonHtml += `
-                <div class="skeleton-card">
-                    <div class="skeleton skeleton-img" style="height:140px; margin-bottom:10px;"></div>
-                    <div class="skeleton skeleton-text" style="height:20px; width:80%; margin-bottom:10px;"></div>
-                    <div class="skeleton skeleton-text short" style="height:20px; width:50%;"></div>
-                </div>`;
+        const c = document.getElementById('m');
+        let html = '';
+        for (let i = 0; i < 6; i++) {
+            html += `<div class="sk-row">
+                <div class="sk-lines">
+                    <div class="skeleton" style="height:10px;width:35%;"></div>
+                    <div class="skeleton" style="height:14px;width:100%;"></div>
+                    <div class="skeleton" style="height:14px;width:75%;"></div>
+                </div>
+                <div class="skeleton" style="width:100px;height:70px;border-radius:4px;flex-shrink:0;"></div>
+            </div>`;
         }
-        container.innerHTML = skeletonHtml;
+        c.innerHTML = html;
+    }
+
+    function flushGrid(container) {
+        if (gridBuffer.length === 0) return;
+        let rowHtml = `<div class="grid-row">`;
+        gridBuffer.forEach(n => {
+            rowHtml += `<div class="card-g" onclick="go(${n.id})">
+                <img src="${n.img}" loading="lazy">
+                <span class="c-tag">${n.tag}</span>
+                <span class="c-title">${n.headline}</span>
+                <div class="share-btn" onclick="share(event,'${n.headline.replace(/'/g,"\\'")}',${n.id})">${shareIcon}</div>
+            </div>`;
+        });
+        rowHtml += `</div><div class="divider-full"></div>`;
+        container.insertAdjacentHTML('beforeend', rowHtml);
+        gridBuffer = [];
     }
 
     function renderNews(isInitial = false) {
         const container = document.getElementById('m');
         const start = isInitial ? 0 : visibleCount - step;
         const newsToShow = allMainNews.slice(start, visibleCount);
-        
+
         newsToShow.forEach((n, index) => {
-            // Normal Card HTML
-            let cardHtml = `
-            <div class="card-link" onclick="go(${n.id})">
-                <div class="main-card">
-                    <img src="${n.img}" class="main-img" loading="lazy" style="height:135px;">
-                    <div class="main-text">
-                        <span class="tag">${n.tag}</span>
-                        <span class="main-title">${n.headline}</span>
+            const absIndex = start + index;
+
+            // Card 0: Big full-width
+            if (absIndex === 0) {
+                container.insertAdjacentHTML('beforeend', `
+                <div onclick="go(${n.id})" style="position:relative;">
+                    <div class="card-big">
+                        <img src="${n.img}" loading="eager" fetchpriority="high">
+                        <span class="c-tag">${n.tag}</span>
+                        <span class="c-title">${n.headline}</span>
                     </div>
+                    <div class="share-btn" onclick="share(event,'${n.headline.replace(/'/g,"\\'")}',${n.id})">${shareIcon}</div>
                 </div>
-                <div class="share-btn" onclick="share(event, '${n.headline.replace(/'/g, "\\'")}', ${n.id})">
-                    <svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
+                <div class="divider"></div>`);
+                return;
+            }
+
+            // Cards 1-4: Horizontal
+            if (absIndex >= 1 && absIndex <= 4) {
+                container.insertAdjacentHTML('beforeend', `
+                <div onclick="go(${n.id})" style="position:relative;">
+                    <div class="card-h">
+                        <div class="card-h-text">
+                            <span class="c-tag">${n.tag}</span>
+                            <span class="c-title">${n.headline}</span>
+                        </div>
+                        <img src="${n.img}" loading="lazy">
+                    </div>
+                    <div class="share-btn" onclick="share(event,'${n.headline.replace(/'/g,"\\'")}',${n.id})">${shareIcon}</div>
                 </div>
-            </div>`;
+                <div class="divider"></div>`);
 
-            container.insertAdjacentHTML('beforeend', cardHtml);
+                if (isInitial && absIndex === 3) {
+                    container.insertAdjacentHTML('beforeend', `
+                    <div class="prcha-wrap">
+                        <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/prcha.gif" loading="lazy">
+                    </div>
+                    <div class="divider"></div>`);
+                }
+                return;
+            }
 
-            // Related Box at 10th card position
-            let currentTotal = container.querySelectorAll('.card-link').length;
-            if (currentTotal === 8 && !isRelatedBoxAdded) {
-                let relatedBox = `
-                <div class="inline-related-box" style="grid-column: 1 / -1; margin: 15px 0;">
-                    <a href="https://casininet.com/news-115.html" class="article-card" style="text-decoration:none; display:flex; align-items:center; gap:12px; background:#111; border:1px solid #222; border-radius:12px; padding:12px;">
-                        <img src="https://i.postimg.cc/k4Jwfw6n/Screenshot-2026-01-20-11-40-54-75-99c04817c0de5652397fc8b56c3b3817.jpg" style="width:80px; height:60px; object-fit:cover; border-radius:6px;">
+            // Related box at 8 cards
+            let cardCount = container.querySelectorAll('.card-big, .card-h, .card-g').length;
+            if (cardCount === 8 && !isRelatedBoxAdded) {
+                flushGrid(container); // flush any pending grid first
+                container.insertAdjacentHTML('beforeend', `
+                <div class="inline-related-box">
+                    <a href="https://casininet.com/news-115.html">
+                        <img src="https://i.postimg.cc/k4Jwfw6n/Screenshot-2026-01-20-11-40-54-75-99c04817c0de5652397fc8b56c3b3817.jpg">
                         <div>
-                            <span style="color:red; font-size:10px; font-weight:bold; display:block; margin-botton:6px;">Most Viewed</span>
-                            <div style="font-size:14px; color:#fff; font-weight:600;">बिजोलिया स्पेशल रिपोर्ट: सैंडस्टोन माइनिंग की चमक या बुझता भविष्य?</div>
+                            <span class="inline-related-label">Most Viewed</span>
+                            <div class="inline-related-title">बिजोलिया स्पेशल रिपोर्ट: सैंडस्टोन माइनिंग की चमक या बुझता भविष्य?</div>
                         </div>
                     </a>
-                </div>`;
-                container.insertAdjacentHTML('beforeend', relatedBox);
-                isRelatedBoxAdded = true; 
+                </div>
+                <div class="divider"></div>`);
+                isRelatedBoxAdded = true;
             }
 
-         
-            if (isInitial && index === 3) {
-                let prcha = `
-                <div style="grid-column: 1 / -1; margin: 15px 0; width: 100%;">
-                    <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/prcha.gif" 
-                         style="width: 100%; height: 200px; border-radius: 12px; display: block; border: 1px solid #222;">
-                </div>`;
-                container.insertAdjacentHTML('beforeend', prcha);
-            }
+            // Cards 5+: 2-col grid
+            gridBuffer.push(n);
+            if (gridBuffer.length === 2) flushGrid(container);
         });
+
+        if (gridBuffer.length === 1) flushGrid(container);
     }
 
     async function load() {
-        isRelatedBoxAdded = false; 
-        showSkeletons(); 
+        isRelatedBoxAdded = false;
+        gridBuffer = [];
+        showSkeletons();
         try {
-            const r = await fetch('data.json?v=' + new Date().getTime()); 
+            const r = await fetch('data.json');
             const d = await r.json();
             allMainNews = d.filter(x => x.type === "main").reverse();
-            
-            setTimeout(() => { 
-                document.getElementById('m').innerHTML = ""; 
-                renderNews(true); 
-            }, 600);
-        } catch (e) { 
-            console.error("Data Load Error"); 
-            document.getElementById('m').innerHTML = "<p style='text-align:center;color:#444;'>Network error. Please refresh.</p>";
+            document.getElementById('m').innerHTML = "";
+            gridBuffer = [];
+            renderNews(true);
+        } catch (e) {
+            console.error("Data Load Error");
+            document.getElementById('m').innerHTML = "<p style='text-align:center;color:#444;padding:40px;'>Network error. Please refresh.</p>";
         }
     }
 
-    // Infinite Scroll
     window.onscroll = function() {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1200) {
             if (visibleCount < allMainNews.length && !isLoading) {
                 isLoading = true;
                 visibleCount += step;
                 renderNews();
-                setTimeout(() => { isLoading = false; }, 500); 
+                setTimeout(() => { isLoading = false; }, 500);
             }
         }
     };
@@ -520,63 +386,37 @@
     load();
 </script>
 
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7d934cc8d13140b6bce32a76bb018c5c"}'></script>
-    <footer class="micro-footer">
-  <a href="about.html">About Us</a> |
-  <a href="editorial-policy.html">Editorial Policy</a> |
-  <a href="editorial-team.html">Editorial Team</a> |
-  <a href="contact.html">Contact</a>
-  <div style="margin-top:10px;">
-    © 2026 CASINInet News
-  </div>    
-</footer>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7d934cc8d13140b6bce32a76bb018c5c"}'></script>
 
-    <div class="cn-action-bar">
-    <a href="Follow this link to join my WhatsApp group: https://chat.whatsapp.com/DbD0P3N2Pk6EreoUXHN8uJ?mode=gi_t" class="cn-btn cn-wa">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="18" style="margin-right:8px; filter: brightness(0) invert(1);">
-        WhatsApp
-    </a>
-    <button id="pwaInstallBtn" class="cn-btn cn-pwa">
-        App Install करें
-    </button>
-    </div>
-   <script>
+<script>
 let cnDeferredPrompt;
 const pwaInstallBtn = document.getElementById('pwaInstallBtn');
 window.addEventListener('beforeinstallprompt', (e) => {
     console.log('PWA Ready to Install');
     e.preventDefault();
     cnDeferredPrompt = e;
-
-    pwaInstallBtn.style.display = 'flex'; 
+    pwaInstallBtn.style.display = 'flex';
 });
-
 pwaInstallBtn.addEventListener('click', () => {
     if (cnDeferredPrompt) {
         cnDeferredPrompt.prompt();
         cnDeferredPrompt.userChoice.then((choice) => {
             if (choice.outcome === 'accepted') {
                 console.log('User ne install kar liya');
-                
-                
-                gtag('event', 'pwa_install_success', {
-                    'event_category': 'Engagement',
-                    'event_label': 'PWA Installed'
-                });
-                
+                gtag('event', 'pwa_install_success', { 'event_category': 'Engagement', 'event_label': 'PWA Installed' });
                 pwaInstallBtn.style.display = 'none';
             }
             cnDeferredPrompt = null;
         });
     }
 });
+</script>
 
-   </script>
-   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"></script>
-
+<script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"></script>
 <script>
-  const firebaseConfig = {
+window.addEventListener('load', () => {
+const firebaseConfig = {
     apiKey: "AIzaSyA6jwyLINE4dxCEzLS5uN5hibvXOkzWeBc",
     authDomain: "casininet.firebaseapp.com",
     projectId: "casininet",
@@ -584,40 +424,28 @@ pwaInstallBtn.addEventListener('click', () => {
     messagingSenderId: "413905660652",
     appId: "1:413905660652:web:cfb81de658eba870d8d3c9",
     measurementId: "G-RFLM0XJWCF"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const messaging = firebase.messaging();
-
-  async function startSystem() {
+};
+firebase.initializeApp(firebaseConfig);
+const messaging = firebase.messaging();
+async function startSystem() {
     if ('serviceWorker' in navigator) {
-      try {
-        // Notification Permission maangna
-        const permission = await Notification.requestPermission();
-        if (permission === 'granted') {
-          // Sirf Firebase wala worker register karo, yahi PWA ka kaam bhi karega
-          const reg = await navigator.serviceWorker.register('./firebase-messaging-sw.js');
-          console.log('FCM System Live!');
-
-          const token = await messaging.getToken({ 
-            vapidKey: 'BGLas6nLI4bT5xJ6JDMsaORqEp0WZQFA6G0PDalhzCjthq9RPdFlQr_zhv1H7LHQXkBzcoXnodKAwVe5RL0UZzE', 
-            serviceWorkerRegistration: reg 
-          });
-          if (token) console.log('Token:', token);
-        }
-      } catch (err) {
-        console.error('Setup Error:', err);
-      }
+        try {
+            const permission = await Notification.requestPermission();
+            if (permission === 'granted') {
+                const reg = await navigator.serviceWorker.register('./firebase-messaging-sw.js');
+                console.log('FCM System Live!');
+                const token = await messaging.getToken({
+                    vapidKey: 'BGLas6nLI4bT5xJ6JDMsaORqEp0WZQFA6G0PDalhzCjthq9RPdFlQr_zhv1H7LHQXkBzcoXnodKAwVe5RL0UZzE',
+                    serviceWorkerRegistration: reg
+                });
+                if (token) console.log('Token:', token);
+            }
+        } catch (err) { console.error('Setup Error:', err); }
     }
-  }
-
-  // 2 second baad system chalu karo
-  window.addEventListener('load', () => {
-    setTimeout(startSystem, 2000);
-  });
+}
+window.addEventListener('load', () => { setTimeout(startSystem, 2000); });
+});
 </script>
-    
 
-    
 </body>
- </html>
+</html>
