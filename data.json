@@ -1,6 +1,4 @@
 [
-  
-  
   {
     "id": 107,
     "type": "main",
@@ -145,46 +143,52 @@
     "tag": "news",
     "content": "बिजोलिया। क्षेत्र के लक्ष्मीखेड़ा गांव में 5 फरवरी को खेत पर काम कर रही बुजुर्ग महिला से हुई सोने के जेवरात की लूट का पुलिस ने पर्दाफाश कर दिया है। थाना प्रभारी स्वागत पांड्या के नेतृत्व में पुलिस टीम ने त्वरित कार्रवाई करते हुए वारदात में शामिल एक आरोपी को तिलकां मेले की भीड़ से धर दबोचा।"
   },
-    {
+  {
     "id": 126,
     "type": "main",
     "headline": "छोटी बिजोलिया की सड़कें बनीं यमराज का रास्ता ओवरलोड ट्रकों ने बिछाया मौत का जाल",
     "img": "https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG-20260223-WA0010.jpg",
     "tag": "Bijoliya news ",
     "content": "बिजोलिया क्षेत्र में ओवरलोड ट्रकों का आतंक बढ़ता जा रहा है, जिससे आमजन का सड़कों पर चलना दूभर हो गया है।"
-},
-      {
+  },
+  {
     "id": 127,
     "type": "main",
     "headline": "बिजौलिया के 4 मित्रों की 'निष्काम गौ सेवा' बनी बेजुबानों की ढाल",
     "img": "https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG-20260225-WA0003.jpg",
     "tag": "News ",
     "content": "बिजौलिया। सेवा का जज्बा अगर अटूट हो, तो संसाधनों की कमी कभी आड़े नहीं आती। बिजौलिया के चार युवाओं ने पिछले 3 वर्षों से गौ सेवा का एक ऐसा आत्मनिर्भर मॉडल खड़ा किया है"
-      },
-  
-      {
+  },
+  {
     "id": 128,
     "type": "main",
     "headline": "कास्या के पास आदमखोर पैंथर का हमला; ईश्वर ओड की मौत, ",
     "img": "https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG-20260225-WA0008.jpg",
     "tag": "News ",
     "content": "बिजोलिया क्षेत्र के कास्या के पास एक बेहद दुखद और खौफनाक घटना सामने आई है। यहाँ एक आदमखोर पैंथर ने आबादी क्षेत्र में घुसकर 35 वर्षीय युवक को अपना शिकार बना लिया"
-      },
-        {
+  },
+  {
     "id": 129,
     "type": "main",
     "headline": "बिजौलिया के पास गूंजेगा बागेश्वर धाम का जयकारा! धीरेंद्र कृष्ण शास्त्री की कथा को मिली हरी झंडी।",
     "img": "https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG-20260226-WA0001.jpg",
     "tag": "News ",
     "content": " सनातनी धर्म प्रेमियों के लिए एक अत्यंत हर्ष और गौरव का विषय सामने आया है।"
-        },
-          {
+  },
+  {
     "id": 130,
     "type": "main",
     "headline": "बच्चा चोर की अफवाहों से बचें: बेरीसाल की घटना का सच और कानून को हाथ में न लेने की अपील",
     "img": "https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG-20260227-WA0000.jpg",
     "tag": "News ",
     "content": "पिछले कुछ दिनों से हमारे क्षेत्र में बच्चा चोर की अफवाहें जंगल की आग की तरह फैल रही हैं। हाल ही में बिजोलिया के पास, बेरीसाल गांव में एक ऐसी ही घटना सामने आई जहाँ भीड़ ने 2-3 अनजान लोगों को 'बच्चा चोर' समझकर पकड़ लिया।"
-          }
-  
+  },
+  {
+    "id": 131,
+    "type": "main",
+    "img": "https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG-20260218-WA0000.jpg",
+    "headline": "jknjdcdjcndcj",
+    "tag": "news",
+    "content": "jdjjjdhc\n\nkekjcdc\n\njcnkcdc"
+  }
 ]
