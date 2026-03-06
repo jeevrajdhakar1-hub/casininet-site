@@ -27,6 +27,7 @@
     <link rel="manifest" href="/manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/notosansdevanagari/v25/TuGOUUFzXI5FBtUq5a8bjKYTZjtgoo.woff2" as="font" type="font/woff2" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     <script>
     window.addEventListener('load', function() {
@@ -42,7 +43,7 @@
     :root {
         --red: #D0021B;
         --red-soft: rgba(208,2,27,0.08);
-        --red-glow: rgba(208,2,27,0.15);
+        --red-glow: rgba(208,2,27,0.18);
         --bg: #0A0A0C;
         --bg2: #111115;
         --bg3: #18181E;
@@ -53,8 +54,9 @@
         --text-muted: #52525E;
         --font-display: 'Playfair Display', Georgia, serif;
         --font-body: 'Noto Sans Devanagari', -apple-system, sans-serif;
-        --radius: 6px;
-        --radius-lg: 12px;
+        --radius: 8px;
+        --radius-lg: 14px;
+        --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     * {
@@ -66,6 +68,10 @@
         padding: 0;
     }
 
+    html {
+        scroll-behavior: smooth;
+    }
+
     body {
         background: var(--bg);
         color: var(--text-primary);
@@ -73,9 +79,8 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         padding: 0 0 env(safe-area-inset-bottom) 0;
-        transition: opacity 0.35s ease;
-        /* Subtle noise texture for depth */
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+        transition: opacity 0.3s ease;
+        will-change: opacity;
     }
 
     /* ===== HEADER ===== */
@@ -85,22 +90,33 @@
         align-items: center;
         padding: 0 16px;
         height: 56px;
-        background: rgba(10,10,12,0.92);
-        backdrop-filter: blur(20px) saturate(180%);
-        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        background: #0a0a0c;
         border-bottom: 1px solid var(--border);
         position: sticky;
         top: 0;
         z-index: 1000;
+        contain: layout style;
+        transition: box-shadow 0.25s ease;
+    }
+    @supports (backdrop-filter: blur(1px)) {
+        .header {
+            background: rgba(10,10,12,0.97);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
     }
 
-    /* Subtle top accent line */
+    .header.scrolled {
+        box-shadow: 0 4px 32px rgba(0,0,0,0.6);
+    }
+
     .header::before {
         content: '';
         position: absolute;
         top: 0; left: 0; right: 0;
         height: 2px;
-        background: linear-gradient(90deg, transparent 0%, var(--red) 30%, var(--red) 70%, transparent 100%);
+        background: linear-gradient(90deg, transparent 0%, var(--red) 20%, var(--red) 80%, transparent 100%);
+        opacity: 0.9;
     }
 
     .logo {
@@ -114,11 +130,11 @@
         display: flex;
         align-items: baseline;
         gap: 2px;
+        transition: opacity var(--transition);
     }
+    .logo:active { opacity: 0.7; }
 
-    .logo .logo-cn {
-        color: #fff;
-    }
+    .logo .logo-cn { color: #fff; }
 
     .logo .news-hi {
         font-family: var(--font-body);
@@ -138,11 +154,12 @@
         color: var(--red);
         font-size: 10px;
         font-weight: 800;
-        border: 1px solid rgba(208,2,27,0.4);
+        border: 1px solid rgba(208,2,27,0.35);
         background: var(--red-soft);
         padding: 5px 10px;
         border-radius: 4px;
         letter-spacing: 1px;
+        transition: border-color var(--transition), background var(--transition);
     }
 
     .header-right { display: flex; align-items: center; gap: 10px; }
@@ -156,9 +173,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: border-color 0.2s, background 0.2s;
+        transition: background var(--transition), border-color var(--transition), transform var(--transition);
     }
-    .profile-btn:active { background: var(--bg2); border-color: var(--border-strong); }
+    .profile-btn:active { background: var(--bg2); transform: scale(0.92); }
     .profile-btn svg { width: 15px; height: 15px; stroke: var(--text-secondary); fill: none; stroke-width: 1.5; }
 
     .dot {
@@ -186,7 +203,7 @@
         color: #fff;
         font-size: 9px;
         font-weight: 800;
-        padding: 0 12px;
+        padding: 0 14px;
         height: 100%;
         display: flex;
         align-items: center;
@@ -197,14 +214,11 @@
         position: relative;
     }
 
-    /* Arrow shape on ticker label */
     .ticker-label::after {
         content: '';
         position: absolute;
-        right: -8px;
-        top: 0;
-        width: 0;
-        height: 0;
+        right: -8px; top: 0;
+        width: 0; height: 0;
         border-top: 18px solid transparent;
         border-bottom: 18px solid transparent;
         border-left: 8px solid var(--red);
@@ -223,9 +237,7 @@
     @keyframes scroll-ticker { 0%{transform:translateX(100vw)} 100%{transform:translateX(-100%)} }
 
     /* ===== NEWS CARDS ===== */
-    #m {
-        padding: 0;
-    }
+    #m { padding: 0; }
 
     /* Big first card */
     .card-big {
@@ -234,13 +246,15 @@
         padding: 16px 14px 14px;
         position: relative;
         background: var(--bg);
+        transition: background var(--transition);
     }
+    .card-big:active { background: rgba(255,255,255,0.02); }
 
     .card-big-img-wrap {
         position: relative;
         border-radius: var(--radius);
         overflow: hidden;
-        margin-bottom: 12px;
+        margin-bottom: 13px;
     }
 
     .card-big img {
@@ -248,18 +262,15 @@
         height: 210px;
         object-fit: cover;
         display: block;
-        transition: transform 0.4s ease;
     }
+    .card-big:active img { opacity: 0.88; }
 
-    .card-big:active img { transform: scale(1.02); }
-
-    /* Gradient overlay on big card image */
     .card-big-img-wrap::after {
         content: '';
         position: absolute;
         bottom: 0; left: 0; right: 0;
-        height: 50%;
-        background: linear-gradient(to top, rgba(10,10,12,0.7) 0%, transparent 100%);
+        height: 55%;
+        background: linear-gradient(to top, rgba(10,10,12,0.75) 0%, transparent 100%);
         pointer-events: none;
     }
 
@@ -274,11 +285,9 @@
         margin-bottom: 7px;
         gap: 6px;
     }
-
     .card-big .c-tag::before {
         content: '';
-        width: 12px;
-        height: 2px;
+        width: 12px; height: 2px;
         background: var(--red);
         border-radius: 1px;
         flex-shrink: 0;
@@ -304,9 +313,9 @@
         text-decoration: none;
         position: relative;
         background: var(--bg);
-        transition: background 0.15s;
+        contain: layout style;
     }
-    .card-h:active { background: var(--bg2); }
+    .card-h:active { background: rgba(255,255,255,0.025); }
 
     .card-h-text { flex: 1; }
 
@@ -323,8 +332,7 @@
     }
     .card-h .c-tag::before {
         content: '';
-        width: 10px;
-        height: 2px;
+        width: 10px; height: 2px;
         background: var(--red);
         border-radius: 1px;
         flex-shrink: 0;
@@ -334,7 +342,7 @@
         font-size: 14px;
         font-weight: 600;
         color: var(--text-primary);
-        line-height: 1.5;
+        line-height: 1.55;
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
@@ -353,18 +361,15 @@
     }
 
     .card-h img {
-        width: 100%;
-        height: 100%;
+        width: 100%; height: 100%;
         object-fit: cover;
         display: block;
-        transition: transform 0.35s ease;
     }
-    .card-h:active img { transform: scale(1.05); }
+    .card-h:active img { opacity: 0.85; }
 
-   
+    /* Grid */
     .grid-row {
         display: flex;
-        grid-template-columns: 1fr 1fr;
         gap: 1px;
         background: var(--border);
     }
@@ -375,7 +380,8 @@
         text-decoration: none;
         display: block;
         position: relative;
-        transition: background 0.15s;
+        flex: 1;
+        contain: layout style;
     }
     .card-g:active { background: var(--bg3); }
 
@@ -387,13 +393,11 @@
     }
 
     .card-g img {
-        width: 100%;
-        height: 105px;
+        width: 100%; height: 105px;
         object-fit: cover;
         display: block;
-        transition: transform 0.35s ease;
     }
-    .card-g:active img { transform: scale(1.04); }
+    .card-g:active img { opacity: 0.85; }
 
     .card-g .c-tag {
         display: inline-flex;
@@ -408,8 +412,7 @@
     }
     .card-g .c-tag::before {
         content: '';
-        width: 8px;
-        height: 1.5px;
+        width: 8px; height: 1.5px;
         background: var(--red);
         border-radius: 1px;
         flex-shrink: 0;
@@ -419,7 +422,7 @@
         font-size: 12.5px;
         font-weight: 600;
         color: var(--text-primary);
-        line-height: 1.4;
+        line-height: 1.45;
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
@@ -438,7 +441,7 @@
         background: var(--border);
     }
 
-    /* Section label between groups */
+    /* Section label */
     .section-label {
         padding: 14px 14px 0;
         display: flex;
@@ -464,36 +467,36 @@
         position: absolute;
         right: 8px;
         bottom: 10px;
-        background: var(--bg3);
+        background: rgba(20,20,26,0.95);
         border: 1px solid var(--border-strong);
-        width: 30px;
-        height: 30px;
+        width: 30px; height: 30px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 10;
-        transition: transform 0.2s, background 0.15s;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.5);
     }
-    .share-btn:active { transform: scale(1.18); background: #222; }
+    .share-btn:active { opacity: 0.7; }
     .share-btn svg { width: 13px; height: 13px; fill: var(--text-secondary); }
 
     /* Skeleton */
     .skeleton {
         background: linear-gradient(90deg, var(--bg2) 25%, var(--bg3) 50%, var(--bg2) 75%);
-        background-size: 300% 100%;
-        animation: skeleton-loading 1.8s ease-in-out infinite;
+        background-size: 200% 100%;
+        animation: skeleton-loading 1.6s ease-in-out infinite;
         border-radius: var(--radius);
     }
-    @keyframes skeleton-loading { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+    @keyframes skeleton-loading { 0%{background-position:150% 0} 100%{background-position:-150% 0} }
 
     .sk-row {
         display: flex;
         gap: 12px;
         padding: 14px;
         border-bottom: 1px solid var(--border);
+        animation: fadeIn 0.4s ease both;
     }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
     .sk-lines { flex: 1; display: flex; flex-direction: column; gap: 8px; }
 
     /* Inline related */
@@ -507,30 +510,30 @@
         border-radius: var(--radius-lg);
         padding: 12px;
         text-decoration: none;
-        transition: background 0.15s;
+        transition: background var(--transition), border-color var(--transition), transform var(--transition);
         position: relative;
         overflow: hidden;
     }
-
-    /* Left accent */
     .inline-related-box a::before {
         content: '';
         position: absolute;
         left: 0; top: 0; bottom: 0;
         width: 3px;
         background: var(--red);
+        border-radius: 0 2px 2px 0;
     }
-
-    .inline-related-box a:active { background: #1f1f27; }
-
+    .inline-related-box a:active {
+        background: #1f1f27;
+        border-color: rgba(255,255,255,0.18);
+        transform: scale(0.99);
+    }
     .inline-related-box img {
-        width: 78px;
-        height: 58px;
+        width: 78px; height: 58px;
         object-fit: cover;
         border-radius: var(--radius);
         flex-shrink: 0;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.4);
     }
-
     .inline-related-label {
         color: var(--red);
         font-size: 9px;
@@ -540,7 +543,6 @@
         display: block;
         margin-bottom: 5px;
     }
-
     .inline-related-title {
         font-size: 13px;
         color: var(--text-primary);
@@ -548,7 +550,7 @@
         line-height: 1.4;
     }
 
-    /* Prcha (advertisement) */
+    /* Prcha */
     .prcha-wrap { padding: 4px 14px 12px; }
     .prcha-label {
         font-size: 9px;
@@ -566,6 +568,7 @@
         border: 1px solid var(--border);
         object-fit: cover;
         display: block;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     }
 
     /* ===== BOTTOM ACTION BAR ===== */
@@ -575,9 +578,9 @@
         width: 100%;
         display: flex;
         z-index: 9999;
-        background: rgba(18,18,24,0.95);
-        backdrop-filter: blur(24px) saturate(180%);
-        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        background: rgba(12,12,16,0.98);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
         border-top: 1px solid var(--border-strong);
         padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
         gap: 10px;
@@ -596,25 +599,22 @@
         text-decoration: none;
         border: none;
         color: #fff;
-        transition: transform 0.18s, opacity 0.18s;
+        transition: transform 0.18s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.18s, box-shadow 0.18s;
         font-family: var(--font-body);
         letter-spacing: 0.2px;
     }
-
     .cn-wa {
         background: #25D366;
-        box-shadow: 0 4px 16px rgba(37,211,102,0.25);
+        box-shadow: 0 3px 12px rgba(37,211,102,0.22);
     }
-
     .cn-pwa {
         background: var(--red);
         display: none;
-        box-shadow: 0 4px 16px rgba(208,2,27,0.3);
+        box-shadow: 0 3px 12px rgba(208,2,27,0.25);
         animation: pulse 2.5s ease-in-out infinite;
     }
-
-    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.015)} }
-    .cn-btn:active { transform: scale(0.93); opacity: 0.85; }
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.018)} }
+    .cn-btn:active { transform: scale(0.93); opacity: 0.88; }
 
     /* ===== FOOTER ===== */
     .micro-footer {
@@ -627,7 +627,6 @@
         background: var(--bg);
         letter-spacing: 0.3px;
     }
-
     .micro-footer .footer-logo {
         font-family: var(--font-display);
         font-size: 18px;
@@ -636,21 +635,28 @@
         margin-bottom: 12px;
         display: block;
     }
-
     .micro-footer a {
         color: var(--text-muted);
         text-decoration: none;
         margin: 0 7px;
         font-weight: 600;
-        transition: color 0.15s;
+        transition: color var(--transition);
     }
     .micro-footer a:hover { color: var(--text-secondary); }
-
     .micro-footer .copy {
         display: block;
         margin-top: 12px;
         color: var(--text-muted);
         opacity: 0.6;
+    }
+
+    /* Card entry animation */
+    @keyframes cardIn {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+    .card-anim {
+        animation: cardIn 0.28s ease both;
     }
 
     /* ===== DESKTOP ===== */
@@ -681,7 +687,7 @@
 
 <body ontouchstart="">
 
-<div class="header">
+<div class="header" id="mainHeader">
     <a href="#" class="logo">
         <span class="logo-cn">CN</span><span class="news-hi">न्यूज़</span>
     </a>
@@ -703,7 +709,7 @@
 <!-- NEWS -->
 <div id="m"></div>
 
-<footer class="micro-footer">
+<footer class="micro-footer" style="content-visibility:auto;contain-intrinsic-size:0 160px;">
     <span class="footer-logo">CN न्यूज़</span>
     <div>
         <a href="about.html">About Us</a> ·
@@ -723,6 +729,12 @@
 </div>
 
 <script>
+    // Header scroll shadow
+    const header = document.getElementById('mainHeader');
+    window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
+
     let allMainNews = [];
     let visibleCount = 12;
     const step = 9;
@@ -730,7 +742,7 @@
     let isRelatedBoxAdded = false;
     let gridBuffer = [];
 
-    const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
+    const h = () => { if (navigator.vibrate) navigator.vibrate(12); };
 
     const shareIcon = `<svg viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>`;
 
@@ -752,14 +764,14 @@
         const c = document.getElementById('m');
         let html = '';
         for (let i = 0; i < 6; i++) {
-            html += `<div class="sk-row">
+            html += `<div class="sk-row" style="animation-delay:${i*0.06}s">
                 <div class="sk-lines">
                     <div class="skeleton" style="height:9px;width:32%;"></div>
                     <div class="skeleton" style="height:13px;width:100%;margin-top:2px;"></div>
                     <div class="skeleton" style="height:13px;width:78%;"></div>
                     <div class="skeleton" style="height:13px;width:60%;"></div>
                 </div>
-                <div class="skeleton" style="width:100px;height:72px;border-radius:6px;flex-shrink:0;"></div>
+                <div class="skeleton" style="width:100px;height:72px;border-radius:8px;flex-shrink:0;"></div>
             </div>`;
         }
         c.innerHTML = html;
@@ -767,10 +779,10 @@
 
     function flushGrid(container) {
         if (gridBuffer.length === 0) return;
-        let rowHtml = `<div class="grid-row">`;
+        let rowHtml = `<div class="grid-row card-anim">`;
         gridBuffer.forEach(n => {
             rowHtml += `<div class="card-g" onclick="go(${n.id})">
-                <div class="card-g-img-wrap"><img src="${n.img}" loading="lazy"></div>
+                <div class="card-g-img-wrap"><img src="${n.img}" loading="lazy" decoding="async"></div>
                 <span class="c-tag">${n.tag}</span>
                 <span class="c-title">${n.headline}</span>
                 <div class="share-btn" onclick="share(event,'${n.headline.replace(/'/g,"\\'")}',${n.id})">${shareIcon}</div>
@@ -789,13 +801,12 @@
         newsToShow.forEach((n, index) => {
             const absIndex = start + index;
 
-            // Card 0: Big full-width
             if (absIndex === 0) {
                 container.insertAdjacentHTML('beforeend', `
-                <div onclick="go(${n.id})" style="position:relative;">
+                <div onclick="go(${n.id})" style="position:relative;" class="card-anim">
                     <div class="card-big">
                         <div class="card-big-img-wrap">
-                            <img src="${n.img}" loading="eager" fetchpriority="high">
+                            <img src="${n.img}" loading="eager" fetchpriority="high" decoding="async">
                         </div>
                         <span class="c-tag">${n.tag}</span>
                         <span class="c-title">${n.headline}</span>
@@ -806,17 +817,16 @@
                 return;
             }
 
-            // Cards 1-4: Horizontal
             if (absIndex >= 1 && absIndex <= 4) {
                 container.insertAdjacentHTML('beforeend', `
-                <div onclick="go(${n.id})" style="position:relative;">
+                <div onclick="go(${n.id})" style="position:relative;" class="card-anim" style="animation-delay:${absIndex*0.05}s">
                     <div class="card-h">
                         <div class="card-h-text">
                             <span class="c-tag">${n.tag}</span>
                             <span class="c-title">${n.headline}</span>
                         </div>
                         <div class="card-h-img-wrap">
-                            <img src="${n.img}" loading="lazy">
+                            <img src="${n.img}" loading="lazy" decoding="async">
                         </div>
                     </div>
                     <div class="share-btn" onclick="share(event,'${n.headline.replace(/'/g,"\\'")}',${n.id})">${shareIcon}</div>
@@ -834,12 +844,11 @@
                 return;
             }
 
-            // Related box at 8 cards
             let cardCount = container.querySelectorAll('.card-big, .card-h, .card-g').length;
             if (cardCount === 8 && !isRelatedBoxAdded) {
                 flushGrid(container);
                 container.insertAdjacentHTML('beforeend', `
-                <div class="inline-related-box">
+                <div class="inline-related-box card-anim">
                     <a href="https://casininet.com/news-115.html">
                         <img src="https://i.postimg.cc/k4Jwfw6n/Screenshot-2026-01-20-11-40-54-75-99c04817c0de5652397fc8b56c3b3817.jpg">
                         <div>
@@ -852,7 +861,6 @@
                 isRelatedBoxAdded = true;
             }
 
-            // Cards 5+: 2-col grid
             gridBuffer.push(n);
             if (gridBuffer.length === 2) flushGrid(container);
         });
@@ -877,7 +885,7 @@
         }
     }
 
-    window.onscroll = function() {
+    window.addEventListener('scroll', function() {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1200) {
             if (visibleCount < allMainNews.length && !isLoading) {
                 isLoading = true;
@@ -886,7 +894,7 @@
                 setTimeout(() => { isLoading = false; }, 500);
             }
         }
-    };
+    }, { passive: true });
 
     window.addEventListener("pageshow", () => { document.body.style.opacity = "1"; });
     load();
