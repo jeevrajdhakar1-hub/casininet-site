@@ -9,48 +9,41 @@
     <meta name="color-scheme" content="dark">
     <meta property="og:type" content="article">
     <meta property="og:title" content="बिजोलिया: बेरीसाल में बच्चा चोर की खबर का सच, अफवाहों पर ध्यान न देने की अपील">
-    <meta property="og:description" content="बेरीसाल में हाल ही में हुई घटना के बाद क्षेत्र में बच्चा चोरी की अफवाहें फैल रही हैं। जानें क्या है असल हकीकत और ऐसी स्थिति में एक जिम्मेदार नागरिक के तौर पर क्या करें।">
-    <meta name="keywords" content="Bijoliya News, Berisaal News, Bacha Chor Afwa, Child Abductor Rumors, Bijoliya Police Alert, Berisaal Incident Truth, CASINInet News, Rajasthan Local News, Mob Lynching Awareness, Fake News Alert, बिजोलिया समाचार, बेरीसाल बच्चा चोर अफवाह, बच्चा चोर का सच, पुलिस अलर्ट बिजोलिया">
+    <meta property="og:description" content="बेरीसाल में हाल ही में हुई घटना के बाद क्षेत्र में बच्चा चोरी की अफवाहें फैल रही हैं।">
+    <meta name="keywords" content="Bijoliya News, Berisaal News, CASINInet News, Rajasthan Local News">
     <meta property="og:image" content="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG-20260227-WA0000.jpg">
     <meta property="og:url" content="https://casininet.com/news-130.html">
     <meta name="twitter:card" content="summary_large_image">
+    <link rel="manifest" href="/manifest.json">
 
     <style>
-        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; }
-        body { background: #121212 !important; color: #fff; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; touch-action: pan-y; overflow-x: hidden; }
+        * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; margin: 0; padding: 0; }
 
-        .header {
-            position: fixed !important;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 47px;
-            z-index: 1000;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            padding: 0 15px;
-            background: #000000 !important;
-            border-bottom: 1px solid #1f1f1f;
-            -webkit-backdrop-filter: none !important;
-            backdrop-filter: none !important;
+        body {
+            background: #121212;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        #progress-container {
+        .header {
             position: fixed;
-            top: 47px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            z-index: 999;
+            top: 0; left: 0;
+            width: 100%; height: 47px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            background: #000;
+            border-bottom: 1px solid #1f1f1f;
         }
 
         .close-btn {
             background: #1a1a1a;
             border: 1px solid #333;
             color: #fff;
-            width: 30px;
-            height: 28px;
+            width: 30px; height: 28px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -58,6 +51,7 @@
             margin-right: 12px;
             text-decoration: none;
             font-size: 20px;
+            flex-shrink: 0;
         }
 
         .logo {
@@ -76,227 +70,115 @@
         }
 
         .live {
-            color: #ff3b30;
-            font-size: 11px;
-            font-weight: 800;
             display: flex;
-            font-size: 9px;
-            padding: 2px 8px;
-            border-radius: 4px;
             align-items: center;
             gap: 6px;
-            border: 1px solid rgba(255, 59, 48, 0.3);
-            background: rgba(255, 59, 48, 0.05);
+            font-size: 9px;
+            font-weight: 800;
+            color: #ff3b30;
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid rgba(255,59,48,0.3);
+            background: rgba(255,59,48,0.05);
+            flex-shrink: 0;
         }
 
         .dot { width: 7px; height: 7px; background: #ff0000; border-radius: 50%; animation: blink 1s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
-        .hero-section {
-            position: relative;
-            width: 100%;
-            height: 43vh;
-            background: #000;
-            overflow: hidden;
-            background: linear-gradient(to bottom, black 70%, transparent 100%);
-            mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+        #progress-container {
+            position: fixed;
+            top: 47px; left: 0;
+            width: 100%; height: 2px;
+            z-index: 999;
         }
 
-        .hero-img {
-            width: 100%;
-            height: 100%;
-            aspect-ratio: 16/9;
-            object-fit: cover;
-            filter: brightness(0.9);
-            will-change: transform;
-            -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-            mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+        #progress-bar {
+            height: 100%; width: 0%;
+            background: #ff3b30;
+            box-shadow: 0 0 10px rgba(255,59,48,0.5);
+            transition: width 0.15s ease-out;
         }
 
-        #parallax-img {
-            width: 100%;
-            height: auto;
-            position: relative;
-            top: 0;
-            filter: brightness(1);
-            will-change: auto;
-        }
+        .page-body { padding-top: 47px; }
 
+        /* MOBILE headline */
         .art-headline {
-            margin-top: 62px;
-            margin-bottom: 25px;
-            padding: 0 15px;
-            line-height: 1.2;
-            font-size: 30px;
+            font-size: 28px;
             font-weight: 800;
             color: #FF8C00;
-            margin-right: 0 !important;
+            line-height: 1.25;
             letter-spacing: -0.5px;
-            text-align: left;
+            padding: 20px 15px 15px;
         }
 
-        .content-container {
-            position: relative;
-            margin-top: -25px;
-            padding: 8px 15px !important;
-            z-index: 10;
-            background: #121212 !important;
+        /* MOBILE: single column, DESKTOP: grid */
+        .layout-grid {
+            display: block;
             width: 100%;
         }
 
-        .art-tag { display: inline-block; background: #ff3b30; color: #fff; padding: 4px 12px; border-radius: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; margin-top: 2px; }
-
-        .share-label {
-            font-size: 12px;
-            color: #7b7878;
-            font-weight: 500;
-            margin-right: 2px;
-        }
-
-        .share-icons {
-            display: flex;
-            align-items: center;
-            gap: 5px !important;
-        }
-
-        .s-icon img {
-            opacity: 1;
-            filter: saturate(0.7) brightness(-0.2);
-            transition: all 0.2s ease;
-        }
+        .main-col { width: 100%; }
+        .sidebar-col { display: none; }
+        .content-container { padding: 0 15px; }
 
         .meta-row {
-            margin-bottom: 8px;
-            width: 100%;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 10px;
-            margin-top: 2px;
+            margin-bottom: 12px;
         }
 
-        .s-icon:active img {
-            opacity: 0.9;
-            filter: saturate(1) brightness(1);
-            transform: scale(0.9);
+        .art-tag {
+            display: inline-block;
+            background: #ff3b30;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .article-body { font-size: 18px; line-height: 1.7; color: #e5e5ea; }
-        .article-body p { margin-bottom: 20px; margin-top: 0 !important; padding-top: 0 !important; }
+        .view-count-wrap { display: flex; align-items: center; gap: 6px; }
+        #view-count { color: #fff; font-size: 15px; font-weight: 600; }
+
+        .share-icons { display: flex; align-items: center; gap: 8px; }
+        .share-label { font-size: 12px; color: #7b7878; font-weight: 500; }
+        .s-icon img { transition: transform 0.2s; }
+        .s-icon:active img { transform: scale(0.85); }
+
+        .hero-wrap { margin: 10px 0 20px; border-radius: 10px; overflow: hidden; }
+        .hero-wrap img { width: 100%; height: auto; display: block; }
+
+        .article-body { font-size: 17px; line-height: 1.75; color: #e5e5ea; }
+        .article-body p { margin-bottom: 20px; }
         .article-body b { color: #fff; }
 
-        .share-container { margin: 40px 0; text-align: center; }
-        .share-trigger { background: #fff; color: #000; padding: 16px 50px; border-radius: 50px; font-weight: 700; font-size: 16px; cursor: pointer; border: none; transition: 0.2s; }
-        .share-trigger:active { transform: scale(0.95); }
-
-        .micro-footer { text-align: center; padding: 40px 0; border-top: 1px solid #1c1c1e; margin-top: 30px; font-size: 12px; color: #48484a; }
-
-        .article-footer-info {
-            margin-top: 40px;
-            padding: 20px;
-            background: #0a0a0a;
-            border-left: 3px solid #ff3b30;
-            border-radius: 4px;
-        }
-
-        .info-line {
-            font-size: 13px;
-            color: #fff;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-        }
-
-        .info-line span {
-            color: #8e8e93;
-            font-weight: 800;
-            font-size: 10px;
-            display: inline-block;
-            width: 80px;
-        }
-
-        .micro-footer {
-            text-align: center;
-            padding: 30px 20px;
-            border-top: 1px solid #1c1c1e;
-            margin-top: 40px;
-            font-size: 12px;
-            color: #48484a;
-            background: #000;
-        }
-
-        .micro-footer a {
-            color: #8e8e93;
-            text-decoration: none;
-            margin: 0 8px;
-            font-weight: 600;
-        }
-
-        .micro-footer a:hover { color: #ffffff; }
-
-        .article-image-container {
-            margin: 10px 0;
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-            background: transparent !important;
-            min-height: 250px;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center;
-        }
-
-        .inline-article-img {
+        /* Inline promo box */
+        #inline-media-box {
             width: 100%;
-            height: auto;
-            display: block;
+            margin: 25px auto;
+            padding: 10px;
+            background: #FFD700;
             border-radius: 12px;
-            aspect-ratio: 16/9;
-            object-fit: cover;
-            background: #1c1c1e;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: none;
         }
 
-        .inline-article-img:not([complete]) { animation: none !important; }
-
-        .article-image-container.reveal-ready {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #0d0d0d;
+        #inline-media-box .media-inner {
+            width: 100%;
+            aspect-ratio: 1/1;
+            border-radius: 6px;
+            overflow: hidden;
         }
 
-        .article-image-container.reveal-ready .inline-article-img {
-            filter: blur(35px);
-            opacity: 0;
-            transition: filter 1.5s ease, opacity 1.2s ease;
-        }
-
-        .loader-circle {
-            position: absolute;
-            width: 32px;
-            height: 32px;
-            border: 3px solid rgba(255,255,255,0.1);
-            border-top: 3px solid #ff3b30;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            z-index: 5;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        .article-image-container.revealed .inline-article-img {
-            filter: blur(0) !important;
-            opacity: 1 !important;
-        }
-
-        .article-image-container.revealed .loader-circle { display: none; }
-
-        #progress-bar {
-            height: 100%;
-            width: 0%;
-            background: #ff3b30;
-            box-shadow: 0 0 10px rgba(255, 59, 48, 0.5);
-            transition: width 0.15s ease-out;
+        #inline-media-box .media-inner img {
+            width: 100%; height: 100%;
+            object-fit: cover; display: block;
         }
 
         .inline-related-box {
@@ -304,393 +186,226 @@
             border: 1px solid #1c1c1e;
             border-radius: 8px;
             padding: 15px;
-            display: block;
-            margin-top: 5px !important;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .inline-label {
-            font-size: 10px;
-            color: #ff3b30;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 12px;
-            display: block;
+            font-size: 10px; color: #ff3b30;
+            font-weight: 800; text-transform: uppercase;
+            letter-spacing: 1.5px; margin-bottom: 12px; display: block;
         }
 
-        .article-card {
-            display: flex;
-            gap: 12px;
-            text-decoration: none;
-            align-items: center;
-            cursor: pointer;
+        .article-card { display: flex; gap: 12px; text-decoration: none; align-items: center; }
+        .article-card:active { opacity: 0.7; }
+
+        .card-img-wrap { flex-shrink: 0; width: 90px; height: 65px; border-radius: 6px; overflow: hidden; }
+        .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+
+        .card-headline { font-size: 14px; font-weight: 700; color: #fff; line-height: 1.35; }
+        .read-action { font-size: 11px; color: #ff3b30; font-weight: 700; margin-top: 5px; display: block; }
+
+        .article-footer-info {
+            margin-top: 30px; padding: 16px 20px;
+            background: #0a0a0a;
+            border-left: 3px solid #ff3b30;
+            border-radius: 4px;
         }
 
-        .article-card:active { transform: scale(0.98); transition: 0.1s; }
+        .info-line { font-size: 13px; color: #fff; margin-bottom: 6px; }
+        .info-line:last-child { margin-bottom: 0; }
+        .info-line span { color: #8e8e93; font-weight: 800; font-size: 10px; display: inline-block; width: 80px; }
 
-        .card-img-container {
-            flex-shrink: 0;
-            width: 100px;
-            height: 70px;
-            border-radius: 6px;
-            overflow: hidden;
+        .share-container { margin: 30px 15px; text-align: center; }
+        .share-trigger {
+            background: #fff; color: #000;
+            padding: 14px 50px; border-radius: 50px;
+            font-weight: 700; font-size: 16px;
+            cursor: pointer; border: none;
         }
+        .share-trigger:active { transform: scale(0.95); }
 
-        .card-img-container img { width: 100%; height: 100%; object-fit: cover; }
+        .desktop-share-bar { display: none; }
 
-        .card-content { display: flex; flex-direction: column; }
-
-        .card-headline {
-            font-size: 15px;
-            font-weight: 700;
-            color: #fff;
-            line-height: 1.3;
-            margin: 0;
-        }
-
-        .read-action {
-            font-size: 11px;
-            color: #ff3b30;
-            font-weight: 700;
-            margin-top: 5px;
-            display: block;
-        }
-
-        .square-box {
-            width: 100%;
-            margin: 35px auto 45px auto;
-            padding: 10px;
-            background: #FFD700;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            box-sizing: border-box;
-        }
-
-        .square-box .media-inner-wrapper {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            border-radius: 6px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .square-box .media-inner-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            display: block;
-            filter: none !important;
-            opacity: 1 !important;
-        }
-
+        /* Mobile bottom bar */
         .cn-action-bar {
             position: fixed;
-            bottom: 0;
-            left: 0;
+            bottom: 0; left: 0;
             width: 100%;
             display: flex;
             z-index: 9999;
-            background: #000000;
+            background: #000;
             border-top: 1px solid #1f1f1f;
             padding: 10px 15px calc(10px + env(safe-area-inset-bottom));
             gap: 12px;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
         }
 
         .cn-btn {
-            flex: 1;
-            height: 48px;
+            flex: 1; height: 48px;
             border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 700;
-            text-decoration: none;
-            border: none;
-            color: #fff;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            font-family: inherit;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-weight: 700;
+            text-decoration: none; border: none; color: #fff;
+            font-family: inherit; cursor: pointer;
         }
 
-        .cn-wa {
-            background: #25D366;
-            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
+        .cn-btn:active { opacity: 0.8; transform: scale(0.95); }
+        .cn-wa { background: #25D366; }
+        .cn-pwa { background: #ff3b30; display: none; }
+
+        .micro-footer {
+            text-align: center;
+            padding: 30px 20px 110px;
+            border-top: 1px solid #1c1c1e;
+            margin-top: 20px;
+            font-size: 12px; color: #48484a;
+            background: #000;
         }
 
-        .cn-pwa {
-            background: #ff3b30;
+        .micro-footer a { color: #8e8e93; text-decoration: none; margin: 0 6px; font-weight: 600; }
+
+        /* Ticker */
+        #cn-news-ticker {
+            position: fixed;
+            top: -130px; left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 24px);
+            max-width: 420px;
+            height: 100px;
+            z-index: 99999;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+            transition: top 0.5s cubic-bezier(0.34,1.56,0.64,1);
             display: none;
-            box-shadow: 0 4px 12px rgba(255, 59, 48, 0.2);
-            animation: pulse 2s infinite;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
+        #cn-news-ticker.show { top: 55px; }
+        #cn-news-ticker img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        #ticker-close {
+            position: absolute;
+            top: 6px; right: 6px;
+            width: 24px; height: 24px;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; color: #fff;
+            font-size: 13px; font-weight: 700; z-index: 10;
         }
 
-        .cn-btn:active { transform: scale(0.94); opacity: 0.8; }
-
-        .micro-footer { margin-bottom: 90px !important; }
-
-        /* ===== DESKTOP LAYOUT ===== */
-        @media screen and (min-width: 768px) {
-            .cn-action-bar {
-                max-width: 400px;
-                left: 50%;
-                transform: translateX(-50%);
-                border-radius: 20px 20px 0 0;
-            }
-        }
-
+        /* ===== DESKTOP 900px+ ===== */
         @media screen and (min-width: 900px) {
-            body {
-                touch-action: auto;
-            }
+            body { touch-action: auto; }
 
-            .header {
-                padding: 0 calc(50% - 380px);
-                height: 56px;
-            }
+            .header { height: 56px; padding: 0 40px; }
+            #progress-container { top: 56px; }
+            .page-body { padding-top: 56px; }
 
-            #progress-container {
-                top: 56px;
-            }
-
-            /* Main two-column layout */
-            .desktop-wrapper {
-                max-width: 1200px;
+            .art-headline {
+                font-size: 36px;
+                padding: 28px 40px 20px;
+                max-width: 1240px;
                 margin: 0 auto;
+            }
+
+            .layout-grid {
                 display: grid;
-                grid-template-columns: 1fr 340px;
-                gap: 40px;
-                padding: 0 30px;
+                grid-template-columns: 1fr 300px;
+                gap: 32px;
+                max-width: 1240px;
+                margin: 0 auto;
+                padding: 0 40px 40px;
                 align-items: start;
             }
 
-            .desktop-main {
-                min-width: 0;
-            }
+            .main-col { min-width: 0; }
+            .content-container { padding: 0; }
+            .hero-wrap { border-radius: 12px; }
+            .article-body { font-size: 18px; line-height: 1.8; }
+            #inline-media-box { max-width: 360px; }
 
-            .desktop-sidebar {
+            /* Sidebar visible */
+            .sidebar-col {
+                display: block;
                 position: sticky;
                 top: 76px;
-                display: block !important;
             }
 
-            .art-headline {
-                margin-top: 76px;
-                font-size: 38px;
-                max-width: 760px;
-                padding: 0 0 0 30px;
-            }
-
-            .content-container {
-                padding: 8px 0 !important;
-            }
-
-            #parallax-img {
+            #sidebar-media-box {
+                background: #FFD700;
                 border-radius: 12px;
+                padding: 8px;
+                margin-bottom: 16px;
+                display: none;
             }
 
-            .article-body {
-                font-size: 19px;
-                line-height: 1.8;
-            }
+            #sidebar-media-box img { width: 100%; border-radius: 8px; display: block; }
 
-            .square-box {
-                max-width: 400px;
-            }
-
-            /* Sidebar styles */
             .sidebar-box {
                 background: #0d0d0d;
                 border: 1px solid #1c1c1e;
                 border-radius: 12px;
                 padding: 16px;
-                margin-bottom: 20px;
+                margin-bottom: 16px;
             }
 
             .sidebar-title {
-                font-size: 10px;
-                font-weight: 800;
-                color: #ff3b30;
-                text-transform: uppercase;
-                letter-spacing: 1.5px;
-                margin-bottom: 14px;
-                display: block;
+                font-size: 10px; font-weight: 800;
+                color: #ff3b30; text-transform: uppercase;
+                letter-spacing: 1.5px; margin-bottom: 14px; display: block;
             }
 
             .sidebar-card {
-                display: flex;
-                gap: 10px;
-                text-decoration: none;
-                align-items: flex-start;
+                display: flex; gap: 10px;
+                text-decoration: none; align-items: flex-start;
                 padding: 10px 0;
                 border-bottom: 1px solid #1c1c1e;
-                cursor: pointer;
                 transition: opacity 0.2s;
             }
 
-            .sidebar-card:last-child {
-                border-bottom: none;
-                padding-bottom: 0;
-            }
+            .sidebar-card:last-child { border-bottom: none; padding-bottom: 0; }
+            .sidebar-card:hover { opacity: 0.7; }
 
-            .sidebar-card:hover { opacity: 0.75; }
+            .sidebar-card-img { flex-shrink: 0; width: 78px; height: 54px; border-radius: 6px; overflow: hidden; }
+            .sidebar-card-img img { width: 100%; height: 100%; object-fit: cover; }
+            .sidebar-card-title { font-size: 13px; font-weight: 600; color: #e5e5ea; line-height: 1.4; }
+            .sidebar-card-action { font-size: 11px; color: #ff3b30; font-weight: 700; margin-top: 4px; display: block; }
 
-            .sidebar-card-img {
-                flex-shrink: 0;
-                width: 80px;
-                height: 56px;
-                border-radius: 6px;
-                overflow: hidden;
-            }
-
-            .sidebar-card-img img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-
-            .sidebar-card-title {
-                font-size: 13px;
-                font-weight: 600;
-                color: #e5e5ea;
-                line-height: 1.4;
-            }
-
-            .sidebar-card-action {
-                font-size: 11px;
-                color: #ff3b30;
-                font-weight: 700;
-                margin-top: 4px;
-                display: block;
-            }
-
-            /* Hide mobile action bar on desktop */
-            .cn-action-bar {
-                display: none !important;
-            }
+            /* Hide mobile things */
+            .cn-action-bar { display: none !important; }
+            .share-container { display: none; }
 
             /* Desktop share bar */
             .desktop-share-bar {
                 display: flex !important;
                 align-items: center;
                 gap: 10px;
-                margin: 30px 0;
-                padding: 16px 20px;
+                margin: 25px 0;
+                padding: 14px 18px;
                 background: #0a0a0a;
                 border-radius: 10px;
                 border: 1px solid #1c1c1e;
             }
 
-            .desktop-share-bar span {
-                font-size: 13px;
-                color: #8e8e93;
-                font-weight: 600;
-                margin-right: 4px;
-            }
+            .desktop-share-bar span { font-size: 13px; color: #8e8e93; font-weight: 600; }
 
             .dsk-share-btn {
-                display: flex;
-                align-items: center;
-                gap: 7px;
-                padding: 8px 16px;
-                border-radius: 8px;
-                font-size: 13px;
-                font-weight: 700;
-                cursor: pointer;
-                border: none;
-                color: #fff;
-                text-decoration: none;
-                transition: opacity 0.2s, transform 0.15s;
+                display: flex; align-items: center; gap: 7px;
+                padding: 8px 16px; border-radius: 8px;
+                font-size: 13px; font-weight: 700;
+                cursor: pointer; border: none; color: #fff;
+                text-decoration: none; transition: opacity 0.2s;
             }
 
-            .dsk-share-btn:hover { opacity: 0.85; transform: scale(0.97); }
-            .dsk-share-btn:active { transform: scale(0.93); }
-
+            .dsk-share-btn:hover { opacity: 0.8; }
             .dsk-wa { background: #25D366; }
             .dsk-fb { background: #1877F2; }
 
-            .micro-footer {
-                margin-bottom: 40px !important;
-            }
+            .micro-footer { padding-bottom: 40px; }
 
-            /* Ticker wider on desktop */
-            #cn-news-ticker {
-                width: 560px;
-                height: 110px;
-            }
+            #cn-news-ticker { width: 560px; max-width: 560px; height: 110px; }
         }
-
-        /* Hide desktop sidebar on mobile */
-        .desktop-sidebar { display: none; }
-        .desktop-share-bar { display: none; }
-        .desktop-wrapper { display: contents; }
-        .desktop-main { display: contents; }
-
-        /* ===== CN NEWS TICKER ===== */
-        #cn-news-ticker {
-            position: fixed;
-            top: -120px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 400px;
-            max-width: calc(100% - 24px);
-            height: 100px;
-            z-index: 99999;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4);
-            transition: top 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            cursor: pointer;
-            display: none;
-        }
-
-        #cn-news-ticker.show {
-            top: 55px;
-        }
-
-        #cn-news-ticker img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        #ticker-close {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            width: 22px;
-            height: 22px;
-            background: rgba(0,0,0,0.75);
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: #fff;
-            font-size: 13px;
-            font-weight: 700;
-            line-height: 1;
-            z-index: 10;
-            transition: background 0.2s, transform 0.15s;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        #ticker-close:active {
-            background: rgba(255,59,48,0.85);
-            transform: scale(0.88);
-        }
-        /* ========================== */
     </style>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YF8S99238"></script>
@@ -699,264 +414,173 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-6YF8S99238');
-
         window.addEventListener('load', () => {
             const isPWA = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-            if (isPWA) {
-                gtag('event', 'pwa_usage', {
-                    'event_category': 'Engagement',
-                    'event_label': 'App Opened',
-                    'non_interaction': true
-                });
-            }
+            if (isPWA) gtag('event','pwa_usage',{event_category:'Engagement',event_label:'App Opened',non_interaction:true});
         });
     </script>
-
-    <link rel="manifest" href="/manifest.json">
 </head>
 
 <body>
 
 <div class="header">
     <a href="index.html" class="close-btn">&#8592;</a>
-    <a href="index.html" class="logo">
-        CN<span class="news-hi">न्यूज़</span>
-    </a>
+    <a href="index.html" class="logo">CN<span class="news-hi">न्यूज़</span></a>
     <div class="live"><div class="dot"></div> LIVE</div>
 </div>
 
-<div id="progress-container">
-    <div id="progress-bar"></div>
-</div>
+<div id="progress-container"><div id="progress-bar"></div></div>
 
-<h1 class="art-headline">बच्चा चोर की अफवाहों से बचें: बेरीसाल की घटना का सच और कानून को हाथ में न लेने की अपील</h1>
+<div class="page-body">
 
-<div class="desktop-wrapper">
-<div class="desktop-main">
+    <h1 class="art-headline">बच्चा चोर की अफवाहों से बचें: बेरीसाल की घटना का सच और कानून को हाथ में न लेने की अपील</h1>
 
-<div class="content-container">
-    <div class="meta-row" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-        <span class="art-tag">Bijoliya news</span>
+    <div class="layout-grid">
 
-        <div class="view-count-container" style="display: flex; align-items: center; gap: 6px; width: fit-content; background: transparent; padding: 0;">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block;">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                <circle cx="12" cy="12" r="3"></circle>
-            </svg>
-            <span id="view-count" style="color: #ffffff; font-size: 16px; font-weight: 600; line-height: 1;">...</span>
+        <!-- MAIN COLUMN -->
+        <div class="main-col">
+            <div class="content-container">
+
+                <div class="meta-row">
+                    <span class="art-tag">Bijoliya news</span>
+                    <div class="view-count-wrap">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                        <span id="view-count">...</span>
+                    </div>
+                    <div class="share-icons">
+                        <span class="share-label">शेयर</span>
+                        <a href="javascript:void(0)" onclick="hShare('wa')" class="s-icon">
+                            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="20">
+                        </a>
+                        <a href="javascript:void(0)" onclick="hShare('fb')" class="s-icon">
+                            <img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" width="20">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-wrap">
+                    <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG-20260227-WA0000.jpg" alt="News Image">
+                </div>
+
+                <div class="article-body">
+                    <p>बिजोलिया/बेरीसाल: पिछले कुछ दिनों से हमारे क्षेत्र में बच्चा चोर की अफवाहें जंगल की आग की तरह फैल रही हैं। हाल ही में बिजोलिया के पास, बेरीसाल गांव में एक ऐसी ही घटना सामने आई जहाँ भीड़ ने 2-3 अनजान लोगों को 'बच्चा चोर' समझकर पकड़ लिया।</p>
+
+                    <p><b>बेरीसाल घटना का असली सच</b><br>बेरीसाल में जिन लोगों को पकड़ा गया, उनका बच्चा चोरी से कोई लेना-देना नहीं था। गलतफहमी और डर की वजह से लोगों ने उन्हें शक के घेरे में ले लिया। सोशल मीडिया और व्हाट्सएप पर फैल रही खबरें पूरी तरह से झूठ और निराधार हैं। प्रशासन ने भी पुष्टि की है कि क्षेत्र में ऐसी कोई गिरोह सक्रिय नहीं है।</p>
+
+                    <!-- INLINE MEDIA -->
+                    <div id="inline-media-box">
+                        <div class="media-inner">
+                            <a id="inline-media-link" href="#" target="_blank">
+                                <img id="inline-media-img" src="" alt=""
+                                     onerror="document.getElementById('inline-media-box').style.display='none'">
+                            </a>
+                        </div>
+                    </div>
+
+                    <p><b>आपकी एक गलती ले सकती है किसी की जान</b><br>
+                    आजकल हर जगह बच्चा चोरी की खबरें वायरल हो रही हैं, जिनमें से अधिकतर फर्जी होती हैं। जब भीड़ बिना सोचे-समझे किसी पर हमला करती है, तो इसे 'मॉब लिंचिंग' कहते हैं। याद रखें: अनजान व्यक्ति भिखारी, साधु, या कोई रास्ता भटका हुआ मुसाफिर भी हो सकता है। बिना सबूत किसी को पीटना कानूनन अपराध है।
+                    </p>
+
+                    <p><b>अगर शक हो तो क्या करें?</b><br>
+                    कानून न तोड़ें: उसे पकड़ कर मारपीट बिल्कुल न करें। पुलिस को सूचना दें: तुरंत अपने नजदीकी पुलिस स्टेशन या 112/100 पर कॉल करें। अफवाह न फैलाएं: बिना जांचे-परखे कोई भी मैसेज व्हाट्सएप ग्रुप में शेयर न करें।
+                    </p>
+                </div>
+
+                <div class="inline-related-box">
+                    <span class="inline-label">Read more</span>
+                    <a href="https://casininet.com/news-119.html" class="article-card">
+                        <div class="card-img-wrap">
+                            <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/menalmain.jpeg" alt="">
+                        </div>
+                        <div>
+                            <div class="card-headline">मेनाल-आरोली के बीच NH-27 पर हादसा: अनियंत्रित होकर पलटा ट्रक</div>
+                            <span class="read-action">Read Full Story →</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="inline-related-box">
+                    <span class="inline-label">Read more</span>
+                    <a href="https://casininet.com/news-118.html" class="article-card">
+                        <div class="card-img-wrap">
+                            <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/khan0%20(2).jpeg" alt="">
+                        </div>
+                        <div>
+                            <div class="card-headline">मांझी साहब का खेड़ा: अवैध खनन से सरकार को लाखों का चूना</div>
+                            <span class="read-action">Read Full Story →</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="article-footer-info">
+                    <div class="info-line"><span>LOCATION</span>Bijoliya-Bhilwara</div>
+                    <div class="info-line"><span>PUBLISHED</span>February 26, 2026</div>
+                    <div class="info-line"><span>SOURCE</span>CN News Desk</div>
+                </div>
+
+                <div class="desktop-share-bar">
+                    <span>शेयर करें:</span>
+                    <a href="javascript:void(0)" onclick="hShare('wa')" class="dsk-share-btn dsk-wa">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="15" style="filter:brightness(0) invert(1)"> WhatsApp
+                    </a>
+                    <a href="javascript:void(0)" onclick="hShare('fb')" class="dsk-share-btn dsk-fb">
+                        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" width="15" style="filter:brightness(0) invert(1)"> Facebook
+                    </a>
+                </div>
+
+            </div>
         </div>
 
-        <div class="share-icons" style="display: flex; align-items: center;">
-            <span class="share-label">शेयर</span>
-            <a href="javascript:void(0)" onclick="hShare('wa')" class="s-icon"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="18"></a>
-            <a href="javascript:void(0)" onclick="hShare('fb')" class="s-icon"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" width="18"></a>
-        </div>
-    </div>
+        <!-- SIDEBAR (desktop only) -->
+        <div class="sidebar-col">
+            <div id="sidebar-media-box">
+                <a id="sidebar-media-link" href="#" target="_blank">
+                    <img id="sidebar-media-img" src="" alt=""
+                         onerror="document.getElementById('sidebar-media-box').style.display='none'">
+                </a>
+            </div>
 
-    <div class="hero-section" style="height: auto; mask-image: none; -webkit-mask-image: none; margin-bottom: 20px;">
-        <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG-20260227-WA0000.jpg" id="parallax-img" style="position: relative; top: 0; height: auto; filter: brightness(1);">
-    </div>
-
-    <div class="article-body" id="article-content">
-        <p>बिजोलिया/बेरीसाल: पिछले कुछ दिनों से हमारे क्षेत्र में बच्चा चोर की अफवाहें जंगल की आग की तरह फैल रही हैं। हाल ही में बिजोलिया के पास, बेरीसाल गांव में एक ऐसी ही घटना सामने आई जहाँ भीड़ ने 2-3 अनजान लोगों को 'बच्चा चोर' समझकर पकड़ लिया।</p>
-
-        <p><b>बेरीसाल घटना का असली सच<br></b>बेरीसाल में जिन लोगों को पकड़ा गया, उनका बच्चा चोरी से कोई लेना-देना नहीं था। गलतफहमी और डर की वजह से लोगों ने उन्हें शक के घेरे में ले लिया। सोशल मीडिया और व्हाट्सएप पर फैल रही खबरें कि "बच्चा चोर पकड़ा गया है" पूरी तरह से झूठ और निराधार हैं। प्रशासन ने भी पुष्टि की है कि क्षेत्र में ऐसी कोई गिरोह सक्रिय नहीं है।</p>
-
-        <!-- INLINE MEDIA - Firebase se control hoga -->
-        <div id="inline-media-box" class="featured-media-container square-box yellow-theme" style="display:none;">
-            <div class="media-inner-wrapper">
-                <a id="inline-media-link" href="#" target="_blank">
-                    <img id="inline-media-img" src="" alt=""
-                         style="width: 100%; height: 100%; object-fit: cover; display: block;"
-                         onerror="this.closest('#inline-media-box').style.display='none'">
+            <div class="sidebar-box">
+                <span class="sidebar-title">और खबरें</span>
+                <a href="https://casininet.com/news-119.html" class="sidebar-card">
+                    <div class="sidebar-card-img">
+                        <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/menalmain.jpeg" alt="">
+                    </div>
+                    <div>
+                        <div class="sidebar-card-title">मेनाल-आरोली के बीच NH-27 पर हादसा</div>
+                        <span class="sidebar-card-action">पढ़ें →</span>
+                    </div>
+                </a>
+                <a href="https://casininet.com/news-118.html" class="sidebar-card">
+                    <div class="sidebar-card-img">
+                        <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/khan0%20(2).jpeg" alt="">
+                    </div>
+                    <div>
+                        <div class="sidebar-card-title">मांझी साहब का खेड़ा: अवैध खनन</div>
+                        <span class="sidebar-card-action">पढ़ें →</span>
+                    </div>
                 </a>
             </div>
         </div>
 
-        <p><b>आपकी एक गलती ले सकती है किसी की जान<br></b>
-        आजकल हर जगह बच्चा चोरी की खबरें वायरल हो रही हैं, जिनमें से अधिकतर फर्जी होती हैं। जब भीड़ बिना सोचे-समझे किसी पर हमला करती है, तो इसे 'मॉब लिंचिंग' कहते हैं। याद रखें:
-        अनजान व्यक्ति भिखारी, साधु, या कोई रास्ता भटका हुआ मुसाफिर भी हो सकता है।
-        बिना सबूत किसी को पीटना कानूनन अपराध है, और इसमें आपको जेल हो सकती है।
-        हिंसा किसी भी समस्या का हल नहीं है, बल्कि इससे निर्दोष लोग मारे जाते हैं।
-        </p>
+    </div><!-- end layout-grid -->
 
-        <p><b>अगर शक हो तो क्या करें?<br></b>
-        अगर आपको अपने आस-पास कोई संदिग्ध व्यक्ति दिखता है, तो इन बातों का पालन करें:
-        कानून न तोड़ें: उसे पकड़ कर मारपीट बिल्कुल न करें।
-        पुलिस को सूचना दें: तुरंत अपने नजदीकी पुलिस स्टेशन या 112/100 पर कॉल करें।
-        अफवाह न फैलाएं: बिना जांचे-परखे कोई भी मैसेज व्हाट्सएप ग्रुप में शेयर न करें।
-        जिम्मेदार बनें: अगर कोई भीड़ हिंसा कर रही हो, तो उन्हें रोकने की कोशिश करें और पुलिस को बुलाएं।
-        </p>
+    <div class="share-container">
+        <button class="share-trigger" onclick="hShare('native')">Share Story</button>
     </div>
 
-    <div class="inline-related-box">
-        <span class="inline-label">Read more</span>
-        <a href="https://casininet.com/news-119.html" class="article-card">
-            <div class="card-img-container">
-                <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/menalmain.jpeg" alt="News Image">
-            </div>
-            <div class="card-content">
-                <div class="card-headline">मेनाल-आरोली के बीच NH-27 पर हादसा: अनियंत्रित होकर पलटा ट्रक</div>
-                <span class="read-action">Read Full Story →</span>
-            </div>
-        </a>
-    </div>
+</div><!-- end page-body -->
 
-    <div class="inline-related-box">
-        <span class="inline-label">Read more</span>
-        <a href="https://casininet.com/news-118.html" class="article-card">
-            <div class="card-img-container">
-                <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/khan0%20(2).jpeg" alt="News Image">
-            </div>
-            <div class="card-content">
-                <div class="card-headline">मांझी साहब का खेड़ा: अवैध खनन से सरकार को लाखों का चूना, ग्रामीणों ने मौके पर पहुंचकर रुकवाया काम</div>
-                <span class="read-action">Read Full Story →</span>
-            </div>
-        </a>
-    </div>
-
-    <div class="article-footer-info">
-        <div class="info-line"><span>LOCATION</span>Bijoliya-Bhilwara</div>
-        <div class="info-line"><span>PUBLISHED</span> February 26, 2026</div>
-        <div class="info-line"><span>SOURCE</span> CN News Desk</div>
-    </div>
-</div>
-
-<div class="share-container">
-    <button class="share-trigger" onclick="hShare('native')">Share Story</button>
-</div>
-
-<!-- Desktop Share Bar -->
-<div class="desktop-share-bar">
-    <span>शेयर करें:</span>
-    <a href="javascript:void(0)" onclick="hShare('wa')" class="dsk-share-btn dsk-wa">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="16" style="filter:brightness(0) invert(1)"> WhatsApp
-    </a>
-    <a href="javascript:void(0)" onclick="hShare('fb')" class="dsk-share-btn dsk-fb">
-        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" width="16" style="filter:brightness(0) invert(1)"> Facebook
-    </a>
-</div>
-
-</div><!-- end desktop-main -->
-
-<!-- Desktop Sidebar -->
-<aside class="desktop-sidebar">
-    <div class="sidebar-box">
-        <span class="sidebar-title">और खबरें</span>
-
-        <a href="https://casininet.com/news-119.html" class="sidebar-card">
-            <div class="sidebar-card-img">
-                <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/menalmain.jpeg" alt="">
-            </div>
-            <div>
-                <div class="sidebar-card-title">मेनाल-आरोली के बीच NH-27 पर हादसा: अनियंत्रित होकर पलटा ट्रक</div>
-                <span class="sidebar-card-action">पढ़ें →</span>
-            </div>
-        </a>
-
-        <a href="https://casininet.com/news-118.html" class="sidebar-card">
-            <div class="sidebar-card-img">
-                <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/khan0%20(2).jpeg" alt="">
-            </div>
-            <div>
-                <div class="sidebar-card-title">मांझी साहब का खेड़ा: अवैध खनन से सरकार को लाखों का चूना</div>
-                <span class="sidebar-card-action">पढ़ें →</span>
-            </div>
-        </a>
-    </div>
-
-    <!-- Sidebar Ticker/Promo Box -->
-    <div id="sidebar-media-box" class="sidebar-box" style="display:none; padding:10px;">
-        <a id="sidebar-media-link" href="#" target="_blank">
-            <img id="sidebar-media-img" src="" alt=""
-                 style="width:100%; border-radius:8px; display:block;"
-                 onerror="this.closest('#sidebar-media-box').style.display='none'">
-        </a>
-    </div>
-</aside>
-
-</div><!-- end desktop-wrapper -->
-
-<!-- ===== CN NEWS TICKER HTML ===== -->
+<!-- TICKER -->
 <div id="cn-news-ticker">
     <a href="#" id="ticker-link" target="_blank">
         <img id="ticker-img" src="" alt="">
     </a>
     <div id="ticker-close" onclick="closeTicker(event)">✕</div>
 </div>
-<!-- ================================ -->
-
-<script>
-    const h = () => { if (navigator.vibrate) navigator.vibrate(15); };
-
-    window.onscroll = () => {
-        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        const pBar = document.getElementById("progress-bar");
-        if (pBar) pBar.style.width = scrolled + "%";
-    };
-
-    async function hShare(platform) {
-        h();
-        const shareTitle = document.title;
-        const shareUrl = window.location.origin + window.location.pathname;
-        const fullMessage = encodeURIComponent(shareTitle + "\n" + shareUrl);
-
-        if (platform === 'wa') {
-            window.open(`https://api.whatsapp.com/send?text=${fullMessage}`, '_blank');
-        } else if (platform === 'fb') {
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank');
-        } else {
-            if (navigator.share) {
-                try {
-                    const randomUrl = shareUrl + "?v=" + Math.floor(Math.random() * 100);
-                    await navigator.share({
-                        title: shareTitle,
-                        text: '🔥 Exclusive: Read the full story here:',
-                        url: randomUrl
-                    });
-                } catch (err) { console.log("Share failed"); }
-            }
-        }
-    }
-
-    const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('reveal-ready');
-                const delay = Math.floor(Math.random() * (4000 - 2000 + 1)) + 2000;
-                setTimeout(() => {
-                    entry.target.classList.add('revealed');
-                }, delay);
-                imageObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.3 });
-
-    document.querySelectorAll('.article-image-container').forEach(el => {
-        if (!el.querySelector('.loader-circle')) {
-            const loader = document.createElement('div');
-            loader.className = 'loader-circle';
-            el.prepend(loader);
-        }
-        imageObserver.observe(el);
-    });
-
-    // closeTicker is global - no firebase needed
-    function closeTicker(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        if (navigator.vibrate) navigator.vibrate(10);
-        const ticker = document.getElementById('cn-news-ticker');
-        ticker.style.transition = 'top 0.35s ease-in, opacity 0.3s ease';
-        ticker.style.opacity = '0';
-        ticker.style.top = '-120px';
-        setTimeout(() => { ticker.style.display = 'none'; }, 400);
-    }
-</script>
-
-<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7d934cc8d13140b6bce32a76bb018c5c"}'></script>
 
 <footer class="micro-footer">
     <a href="about.html">About Us</a> |
@@ -968,46 +592,55 @@
 
 <div class="cn-action-bar">
     <a href="https://chat.whatsapp.com/DbD0P3N2Pk6EreoUXHN8uJ?mode=gi_t" class="cn-btn cn-wa">
-        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="18" style="margin-right:8px; filter: brightness(0) invert(1);">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="18" style="margin-right:8px; filter:brightness(0) invert(1);">
         WhatsApp
     </a>
-    <button id="pwaInstallBtn" class="cn-btn cn-pwa">
-        App Install करें
-    </button>
+    <button id="pwaInstallBtn" class="cn-btn cn-pwa">App Install करें</button>
 </div>
 
 <script>
-    let cnDeferredPrompt;
-    const pwaInstallBtn = document.getElementById('pwaInstallBtn');
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        cnDeferredPrompt = e;
-        pwaInstallBtn.style.display = 'flex';
+    window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const bar = document.getElementById("progress-bar");
+        if (bar) bar.style.width = ((s/h)*100) + "%";
     });
 
-    pwaInstallBtn.addEventListener('click', () => {
-        if (cnDeferredPrompt) {
-            cnDeferredPrompt.prompt();
-            cnDeferredPrompt.userChoice.then((choice) => {
-                if (choice.outcome === 'accepted') {
-                    if (typeof gtag === 'function') {
-                        gtag('event', 'pwa_install_success', {
-                            'event_category': 'Engagement',
-                            'event_label': 'PWA Installed from Article Page'
-                        });
-                    }
-                    pwaInstallBtn.style.display = 'none';
-                }
-                cnDeferredPrompt = null;
-            });
+    async function hShare(platform) {
+        if (navigator.vibrate) navigator.vibrate(15);
+        const title = document.title;
+        const url = window.location.origin + window.location.pathname;
+        if (platform === 'wa') {
+            window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(title+"\n"+url), '_blank');
+        } else if (platform === 'fb') {
+            window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url), '_blank');
+        } else if (navigator.share) {
+            try { await navigator.share({ title, url }); } catch(e) {}
         }
-    });
+    }
 
-    window.addEventListener('appinstalled', () => {
-        pwaInstallBtn.style.display = 'none';
+    function closeTicker(e) {
+        e.preventDefault(); e.stopPropagation();
+        if (navigator.vibrate) navigator.vibrate(10);
+        const t = document.getElementById('cn-news-ticker');
+        t.style.transition = 'top 0.35s ease-in, opacity 0.3s ease';
+        t.style.opacity = '0';
+        t.style.top = '-130px';
+        setTimeout(() => { t.style.display = 'none'; }, 400);
+    }
+
+    let cnDeferredPrompt;
+    const pwaBtn = document.getElementById('pwaInstallBtn');
+    window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); cnDeferredPrompt = e; pwaBtn.style.display = 'flex'; });
+    pwaBtn.addEventListener('click', () => {
+        if (!cnDeferredPrompt) return;
+        cnDeferredPrompt.prompt();
+        cnDeferredPrompt.userChoice.then(c => { if(c.outcome==='accepted') pwaBtn.style.display='none'; cnDeferredPrompt=null; });
     });
+    window.addEventListener('appinstalled', () => { pwaBtn.style.display = 'none'; });
 </script>
+
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7d934cc8d13140b6bce32a76bb018c5c"}'></script>
 
 <!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
@@ -1015,141 +648,101 @@
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
 
 <script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyA6jwyLINE4dxCEzLS5uN5hibvXOkzWeBc",
-        authDomain: "casininet.firebaseapp.com",
-        projectId: "casininet",
-        databaseURL: "https://cn-news-86ceb-default-rtdb.firebaseio.com",
-        storageBucket: "casininet.firebasestorage.app",
-        messagingSenderId: "413905660652",
-        appId: "1:413905660652:web:cfb81de658eba870d8d3c9",
-        measurementId: "G-RFLM0XJWCF"
-    };
-
-    let app;
     if (!firebase.apps.length) {
-        app = firebase.initializeApp(firebaseConfig);
-    } else {
-        app = firebase.app();
+        firebase.initializeApp({
+            apiKey: "AIzaSyA6jwyLINE4dxCEzLS5uN5hibvXOkzWeBc",
+            authDomain: "casininet.firebaseapp.com",
+            projectId: "casininet",
+            databaseURL: "https://cn-news-86ceb-default-rtdb.firebaseio.com",
+            storageBucket: "casininet.firebasestorage.app",
+            messagingSenderId: "413905660652",
+            appId: "1:413905660652:web:cfb81de658eba870d8d3c9",
+            measurementId: "G-RFLM0XJWCF"
+        });
     }
 
     const messaging = firebase.messaging();
     const database = firebase.database();
 
-    // ===== CN NEWS TICKER FUNCTIONS =====
+    // VIEW COUNT
+    function updateViewCount() {
+        const page = window.location.pathname.split('/').pop().replace('.html','') || 'home';
+        database.ref('article_views/' + page).transaction(
+            v => (v||0)+1,
+            (err, committed, snap) => {
+                const el = document.getElementById('view-count');
+                if (el && snap) el.innerText = (988 + (snap.val()||1)).toLocaleString('hi-IN');
+            }
+        );
+    }
+
+    // TICKER
     function loadTicker() {
-        const pagePath = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
+        const page = window.location.pathname.split('/').pop().replace('.html','') || 'home';
         const ticker = document.getElementById('cn-news-ticker');
 
-        database.ref('ticker/' + pagePath).once('value').then(function(snap) {
-            let data = snap.val();
-            if (data) {
-                showTicker(data, ticker);
-            } else {
-                database.ref('ticker/default').once('value').then(function(defaultSnap) {
-                    let defaultData = defaultSnap.val();
-                    if (defaultData) showTicker(defaultData, ticker);
-                });
-            }
-        }).catch(function(err) {
-            console.log('Ticker error:', err);
-        });
-    }
-
-    function showTicker(data, ticker) {
-        document.getElementById('ticker-img').src = data.image;
-        document.getElementById('ticker-link').href = data.link || '#';
-        if (typeof gtag === 'function' && data.label) {
-            document.getElementById('ticker-link').addEventListener('click', function() {
-                gtag('event', 'ticker_click', { 'event_label': data.label });
+        database.ref('ticker/' + page).once('value').then(snap => {
+            const d = snap.val();
+            if (d && d.image) { showTicker(d, ticker); return; }
+            database.ref('ticker/default').once('value').then(ds => {
+                const dd = ds.val();
+                if (dd && dd.image) showTicker(dd, ticker);
             });
-        }
+        }).catch(e => console.log('Ticker err:', e));
+    }
+
+    function showTicker(d, ticker) {
+        document.getElementById('ticker-img').src = d.image;
+        document.getElementById('ticker-link').href = d.link || '#';
         ticker.style.display = 'block';
-        setTimeout(function() {
-            ticker.classList.add('show');
-        }, 1200);
+        setTimeout(() => ticker.classList.add('show'), 1200);
     }
-    // ====================================
 
-    // ===== INLINE MEDIA FUNCTIONS =====
+    // INLINE MEDIA
     function loadInlineMedia() {
-        const pagePath = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
-        const mediaBox = document.getElementById('inline-media-box');
+        const page = window.location.pathname.split('/').pop().replace('.html','') || 'home';
 
-        database.ref('inline_media/' + pagePath).once('value').then(function(snap) {
-            let data = snap.val();
-            if (data) {
-                showInlineMedia(data, mediaBox);
-            } else {
-                database.ref('inline_media/default').once('value').then(function(defaultSnap) {
-                    let defaultData = defaultSnap.val();
-                    if (defaultData) showInlineMedia(defaultData, mediaBox);
-                });
-            }
-        }).catch(function(err) {
-            console.log('Inline media error:', err);
-        });
+        database.ref('inline_media/' + page).once('value').then(snap => {
+            const d = snap.val();
+            if (d && d.image) { showInlineMedia(d); return; }
+            database.ref('inline_media/default').once('value').then(ds => {
+                const dd = ds.val();
+                if (dd && dd.image) showInlineMedia(dd);
+            });
+        }).catch(e => console.log('Media err:', e));
     }
 
-    function showInlineMedia(data, mediaBox) {
-        if (data && data.image) {
-            document.getElementById('inline-media-img').src = data.image;
-            document.getElementById('inline-media-link').href = data.link || '#';
-            if (typeof gtag === 'function' && data.label) {
-                document.getElementById('inline-media-link').addEventListener('click', function() {
-                    gtag('event', 'inline_media_click', { 'event_label': data.label });
-                });
-            }
-            mediaBox.style.display = 'block';
-
-            // Sidebar me bhi same image dikhao (desktop)
-            const sidebarBox = document.getElementById('sidebar-media-box');
-            const sidebarImg = document.getElementById('sidebar-media-img');
-            const sidebarLink = document.getElementById('sidebar-media-link');
-            if (sidebarBox && sidebarImg) {
-                sidebarImg.src = data.image;
-                sidebarLink.href = data.link || '#';
-                sidebarBox.style.display = 'block';
-            }
+    function showInlineMedia(d) {
+        // Mobile
+        const box = document.getElementById('inline-media-box');
+        if (box) {
+            document.getElementById('inline-media-img').src = d.image;
+            document.getElementById('inline-media-link').href = d.link || '#';
+            box.style.display = 'block';
+        }
+        // Desktop sidebar
+        const sBox = document.getElementById('sidebar-media-box');
+        if (sBox) {
+            document.getElementById('sidebar-media-img').src = d.image;
+            document.getElementById('sidebar-media-link').href = d.link || '#';
+            sBox.style.display = 'block';
         }
     }
-    // ==================================
 
-    // --- NOTIFICATION LOGIC ---
+    // NOTIFICATIONS
     async function startNotifications() {
-        if ('serviceWorker' in navigator) {
-            try {
-                const permission = await Notification.requestPermission();
-                if (permission === 'granted') {
-                    const reg = await navigator.serviceWorker.register('./firebase-messaging-sw.js');
-                    const token = await messaging.getToken({
-                        vapidKey: 'BGLas6nLI4bT5xJ6JDMsaORqEp0WZQFA6G0PDalhzCjthq9RPdFlQr_zhv1H7LHQXkBzcoXnodKAwVe5RL0UZzE',
-                        serviceWorkerRegistration: reg
-                    });
-                    if (token) console.log('Token generated:', token);
-                }
-            } catch (err) { console.error('Notification Error:', err); }
-        }
+        if (!('serviceWorker' in navigator)) return;
+        try {
+            if (await Notification.requestPermission() !== 'granted') return;
+            const reg = await navigator.serviceWorker.register('./firebase-messaging-sw.js');
+            const token = await messaging.getToken({
+                vapidKey: 'BGLas6nLI4bT5xJ6JDMsaORqEp0WZQFA6G0PDalhzCjthq9RPdFlQr_zhv1H7LHQXkBzcoXnodKAwVe5RL0UZzE',
+                serviceWorkerRegistration: reg
+            });
+            if (token) console.log('FCM:', token);
+        } catch(e) { console.error('Notif err:', e); }
     }
 
-    // --- VIEW COUNT LOGIC ---
-    function updateViewCount() {
-        const pagePath = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
-        const viewRef = database.ref('article_views/' + pagePath);
-
-        viewRef.transaction(function(currentViews) {
-            return (currentViews || 0) + 1;
-        }, function(error, committed, snapshot) {
-            const displayElement = document.getElementById('view-count');
-            if (displayElement) {
-                let actualViews = (snapshot && snapshot.val()) ? snapshot.val() : 1;
-                let totalShow = 988 + actualViews;
-                displayElement.innerText = totalShow.toLocaleString('hi-IN');
-            }
-        });
-    }
-
-    // ===== ALL FIREBASE LOADS ON PAGE READY =====
     window.addEventListener('load', () => {
         updateViewCount();
         loadTicker();
