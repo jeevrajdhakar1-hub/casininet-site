@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG_0945.png">
     <meta name="color-scheme" content="dark">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="बिजोलिया: बेरीसाल में बच्चा चोर की खबर का सच, अफवाहों पर ध्यान न देने की अपील"> 
+    <meta property="og:title" content="बिजोलिया: बेरीसाल में बच्चा चोर की खबर का सच, अफवाहों पर ध्यान न देने की अपील">
     <meta property="og:description" content="बेरीसाल में हाल ही में हुई घटना के बाद क्षेत्र में बच्चा चोरी की अफवाहें फैल रही हैं। जानें क्या है असल हकीकत और ऐसी स्थिति में एक जिम्मेदार नागरिक के तौर पर क्या करें।">
     <meta name="keywords" content="Bijoliya News, Berisaal News, Bacha Chor Afwa, Child Abductor Rumors, Bijoliya Police Alert, Berisaal Incident Truth, CASINInet News, Rajasthan Local News, Mob Lynching Awareness, Fake News Alert, बिजोलिया समाचार, बेरीसाल बच्चा चोर अफवाह, बच्चा चोर का सच, पुलिस अलर्ट बिजोलिया">
     <meta property="og:image" content="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG-20260227-WA0000.jpg">
@@ -438,6 +438,7 @@
 
         .micro-footer { margin-bottom: 90px !important; }
 
+        /* ===== DESKTOP LAYOUT ===== */
         @media screen and (min-width: 768px) {
             .cn-action-bar {
                 max-width: 400px;
@@ -447,8 +448,195 @@
             }
         }
 
-        /* ===== AD BANNER POPUP ===== */
-        #ad-banner-popup {
+        @media screen and (min-width: 900px) {
+            body {
+                touch-action: auto;
+            }
+
+            .header {
+                padding: 0 calc(50% - 380px);
+                height: 56px;
+            }
+
+            #progress-container {
+                top: 56px;
+            }
+
+            /* Main two-column layout */
+            .desktop-wrapper {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: 1fr 340px;
+                gap: 40px;
+                padding: 0 30px;
+                align-items: start;
+            }
+
+            .desktop-main {
+                min-width: 0;
+            }
+
+            .desktop-sidebar {
+                position: sticky;
+                top: 76px;
+                display: block !important;
+            }
+
+            .art-headline {
+                margin-top: 76px;
+                font-size: 38px;
+                max-width: 760px;
+                padding: 0 0 0 30px;
+            }
+
+            .content-container {
+                padding: 8px 0 !important;
+            }
+
+            #parallax-img {
+                border-radius: 12px;
+            }
+
+            .article-body {
+                font-size: 19px;
+                line-height: 1.8;
+            }
+
+            .square-box {
+                max-width: 400px;
+            }
+
+            /* Sidebar styles */
+            .sidebar-box {
+                background: #0d0d0d;
+                border: 1px solid #1c1c1e;
+                border-radius: 12px;
+                padding: 16px;
+                margin-bottom: 20px;
+            }
+
+            .sidebar-title {
+                font-size: 10px;
+                font-weight: 800;
+                color: #ff3b30;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                margin-bottom: 14px;
+                display: block;
+            }
+
+            .sidebar-card {
+                display: flex;
+                gap: 10px;
+                text-decoration: none;
+                align-items: flex-start;
+                padding: 10px 0;
+                border-bottom: 1px solid #1c1c1e;
+                cursor: pointer;
+                transition: opacity 0.2s;
+            }
+
+            .sidebar-card:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+
+            .sidebar-card:hover { opacity: 0.75; }
+
+            .sidebar-card-img {
+                flex-shrink: 0;
+                width: 80px;
+                height: 56px;
+                border-radius: 6px;
+                overflow: hidden;
+            }
+
+            .sidebar-card-img img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .sidebar-card-title {
+                font-size: 13px;
+                font-weight: 600;
+                color: #e5e5ea;
+                line-height: 1.4;
+            }
+
+            .sidebar-card-action {
+                font-size: 11px;
+                color: #ff3b30;
+                font-weight: 700;
+                margin-top: 4px;
+                display: block;
+            }
+
+            /* Hide mobile action bar on desktop */
+            .cn-action-bar {
+                display: none !important;
+            }
+
+            /* Desktop share bar */
+            .desktop-share-bar {
+                display: flex !important;
+                align-items: center;
+                gap: 10px;
+                margin: 30px 0;
+                padding: 16px 20px;
+                background: #0a0a0a;
+                border-radius: 10px;
+                border: 1px solid #1c1c1e;
+            }
+
+            .desktop-share-bar span {
+                font-size: 13px;
+                color: #8e8e93;
+                font-weight: 600;
+                margin-right: 4px;
+            }
+
+            .dsk-share-btn {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                padding: 8px 16px;
+                border-radius: 8px;
+                font-size: 13px;
+                font-weight: 700;
+                cursor: pointer;
+                border: none;
+                color: #fff;
+                text-decoration: none;
+                transition: opacity 0.2s, transform 0.15s;
+            }
+
+            .dsk-share-btn:hover { opacity: 0.85; transform: scale(0.97); }
+            .dsk-share-btn:active { transform: scale(0.93); }
+
+            .dsk-wa { background: #25D366; }
+            .dsk-fb { background: #1877F2; }
+
+            .micro-footer {
+                margin-bottom: 40px !important;
+            }
+
+            /* Ticker wider on desktop */
+            #cn-news-ticker {
+                width: 560px;
+                height: 110px;
+            }
+        }
+
+        /* Hide desktop sidebar on mobile */
+        .desktop-sidebar { display: none; }
+        .desktop-share-bar { display: none; }
+        .desktop-wrapper { display: contents; }
+        .desktop-main { display: contents; }
+
+        /* ===== CN NEWS TICKER ===== */
+        #cn-news-ticker {
             position: fixed;
             top: -120px;
             left: 50%;
@@ -465,18 +653,18 @@
             display: none;
         }
 
-        #ad-banner-popup.show {
+        #cn-news-ticker.show {
             top: 55px;
         }
 
-        #ad-banner-popup img {
+        #cn-news-ticker img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
 
-        #ad-banner-close {
+        #ticker-close {
             position: absolute;
             top: 6px;
             right: 6px;
@@ -498,7 +686,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        #ad-banner-close:active {
+        #ticker-close:active {
             background: rgba(255,59,48,0.85);
             transform: scale(0.88);
         }
@@ -543,6 +731,9 @@
 
 <h1 class="art-headline">बच्चा चोर की अफवाहों से बचें: बेरीसाल की घटना का सच और कानून को हाथ में न लेने की अपील</h1>
 
+<div class="desktop-wrapper">
+<div class="desktop-main">
+
 <div class="content-container">
     <div class="meta-row" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
         <span class="art-tag">Bijoliya news</span>
@@ -571,15 +762,13 @@
 
         <p><b>बेरीसाल घटना का असली सच<br></b>बेरीसाल में जिन लोगों को पकड़ा गया, उनका बच्चा चोरी से कोई लेना-देना नहीं था। गलतफहमी और डर की वजह से लोगों ने उन्हें शक के घेरे में ले लिया। सोशल मीडिया और व्हाट्सएप पर फैल रही खबरें कि "बच्चा चोर पकड़ा गया है" पूरी तरह से झूठ और निराधार हैं। प्रशासन ने भी पुष्टि की है कि क्षेत्र में ऐसी कोई गिरोह सक्रिय नहीं है।</p>
 
-        <div class="featured-media-container square-box yellow-theme">
+        <!-- INLINE MEDIA - Firebase se control hoga -->
+        <div id="inline-media-box" class="featured-media-container square-box yellow-theme" style="display:none;">
             <div class="media-inner-wrapper">
-                <a href="https://www.instagram.com/oscar_da_dhaba?igsh=MWw3ZDZ4cmdrbTQ3cA==" 
-                   target="_blank"
-                   onclick="gtag('event', 'instagram_click', { 'event_label': 'Oscar Da Dhaba Image' });">
-                    <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/IMG-20260226-WA0002(1).jpg" 
-                         alt="News Photo"
+                <a id="inline-media-link" href="#" target="_blank">
+                    <img id="inline-media-img" src="" alt=""
                          style="width: 100%; height: 100%; object-fit: cover; display: block;"
-                         onerror="this.style.display='none'">
+                         onerror="this.closest('#inline-media-box').style.display='none'">
                 </a>
             </div>
         </div>
@@ -634,15 +823,66 @@
 </div>
 
 <div class="share-container">
-    <button class="share-trigger" onclick="hShare('तिलस्वां मार्ग बना खूनी रोड: मेले के दौरान 7 दिन में 3 बड़े हादसे, आज अल्टो और ओम्नी में हुई भीषण भिड़ंत!')">Share Story</button>
+    <button class="share-trigger" onclick="hShare('native')">Share Story</button>
 </div>
 
-<!-- ===== AD BANNER POPUP HTML ===== -->
-<div id="ad-banner-popup">
-    <a href="#" id="ad-link" target="_blank">
-        <img id="ad-banner-img" src="" alt="">
+<!-- Desktop Share Bar -->
+<div class="desktop-share-bar">
+    <span>शेयर करें:</span>
+    <a href="javascript:void(0)" onclick="hShare('wa')" class="dsk-share-btn dsk-wa">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="16" style="filter:brightness(0) invert(1)"> WhatsApp
     </a>
-    <div id="ad-banner-close" onclick="closeBannerAd(event)">✕</div>
+    <a href="javascript:void(0)" onclick="hShare('fb')" class="dsk-share-btn dsk-fb">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968764.png" width="16" style="filter:brightness(0) invert(1)"> Facebook
+    </a>
+</div>
+
+</div><!-- end desktop-main -->
+
+<!-- Desktop Sidebar -->
+<aside class="desktop-sidebar">
+    <div class="sidebar-box">
+        <span class="sidebar-title">और खबरें</span>
+
+        <a href="https://casininet.com/news-119.html" class="sidebar-card">
+            <div class="sidebar-card-img">
+                <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/menalmain.jpeg" alt="">
+            </div>
+            <div>
+                <div class="sidebar-card-title">मेनाल-आरोली के बीच NH-27 पर हादसा: अनियंत्रित होकर पलटा ट्रक</div>
+                <span class="sidebar-card-action">पढ़ें →</span>
+            </div>
+        </a>
+
+        <a href="https://casininet.com/news-118.html" class="sidebar-card">
+            <div class="sidebar-card-img">
+                <img src="https://raw.githubusercontent.com/jeevrajdhakar1-hub/casininet-site/refs/heads/main/images/khan0%20(2).jpeg" alt="">
+            </div>
+            <div>
+                <div class="sidebar-card-title">मांझी साहब का खेड़ा: अवैध खनन से सरकार को लाखों का चूना</div>
+                <span class="sidebar-card-action">पढ़ें →</span>
+            </div>
+        </a>
+    </div>
+
+    <!-- Sidebar Ticker/Promo Box -->
+    <div id="sidebar-media-box" class="sidebar-box" style="display:none; padding:10px;">
+        <a id="sidebar-media-link" href="#" target="_blank">
+            <img id="sidebar-media-img" src="" alt=""
+                 style="width:100%; border-radius:8px; display:block;"
+                 onerror="this.closest('#sidebar-media-box').style.display='none'">
+        </a>
+    </div>
+</aside>
+
+</div><!-- end desktop-wrapper -->
+
+<!-- ===== CN NEWS TICKER HTML ===== -->
+<div id="cn-news-ticker">
+    <a href="#" id="ticker-link" target="_blank">
+        <img id="ticker-img" src="" alt="">
+    </a>
+    <div id="ticker-close" onclick="closeTicker(event)">✕</div>
 </div>
 <!-- ================================ -->
 
@@ -703,18 +943,95 @@
         imageObserver.observe(el);
     });
 
-    // ===== AD BANNER CLOSE FUNCTION =====
-    function closeBannerAd(e) {
+    // ===== CN NEWS TICKER FUNCTIONS =====
+    function closeTicker(e) {
         e.preventDefault();
         e.stopPropagation();
         if (navigator.vibrate) navigator.vibrate(10);
-        const banner = document.getElementById('ad-banner-popup');
-        banner.style.transition = 'top 0.35s ease-in, opacity 0.3s ease';
-        banner.style.opacity = '0';
-        banner.style.top = '-120px';
-        setTimeout(() => { banner.style.display = 'none'; }, 400);
+        const ticker = document.getElementById('cn-news-ticker');
+        ticker.style.transition = 'top 0.35s ease-in, opacity 0.3s ease';
+        ticker.style.opacity = '0';
+        ticker.style.top = '-120px';
+        setTimeout(() => { ticker.style.display = 'none'; }, 400);
+    }
+
+    function loadTicker() {
+        const pagePath = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
+        const ticker = document.getElementById('cn-news-ticker');
+
+        database.ref('ticker/' + pagePath).once('value').then(function(snap) {
+            let data = snap.val();
+            if (data) {
+                showTicker(data, ticker);
+            } else {
+                database.ref('ticker/default').once('value').then(function(defaultSnap) {
+                    let defaultData = defaultSnap.val();
+                    if (defaultData) showTicker(defaultData, ticker);
+                });
+            }
+        }).catch(function(err) {
+            console.log('Ticker error:', err);
+        });
+    }
+
+    function showTicker(data, ticker) {
+        document.getElementById('ticker-img').src = data.image;
+        document.getElementById('ticker-link').href = data.link || '#';
+        if (typeof gtag === 'function' && data.label) {
+            document.getElementById('ticker-link').addEventListener('click', function() {
+                gtag('event', 'ticker_click', { 'event_label': data.label });
+            });
+        }
+        ticker.style.display = 'block';
+        setTimeout(function() {
+            ticker.classList.add('show');
+        }, 1200);
     }
     // ====================================
+
+    // ===== INLINE MEDIA FUNCTIONS =====
+    function loadInlineMedia() {
+        const pagePath = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
+        const mediaBox = document.getElementById('inline-media-box');
+
+        database.ref('inline_media/' + pagePath).once('value').then(function(snap) {
+            let data = snap.val();
+            if (data) {
+                showInlineMedia(data, mediaBox);
+            } else {
+                database.ref('inline_media/default').once('value').then(function(defaultSnap) {
+                    let defaultData = defaultSnap.val();
+                    if (defaultData) showInlineMedia(defaultData, mediaBox);
+                });
+            }
+        }).catch(function(err) {
+            console.log('Inline media error:', err);
+        });
+    }
+
+    function showInlineMedia(data, mediaBox) {
+        if (data && data.image) {
+            document.getElementById('inline-media-img').src = data.image;
+            document.getElementById('inline-media-link').href = data.link || '#';
+            if (typeof gtag === 'function' && data.label) {
+                document.getElementById('inline-media-link').addEventListener('click', function() {
+                    gtag('event', 'inline_media_click', { 'event_label': data.label });
+                });
+            }
+            mediaBox.style.display = 'block';
+
+            // Sidebar me bhi same image dikhao (desktop)
+            const sidebarBox = document.getElementById('sidebar-media-box');
+            const sidebarImg = document.getElementById('sidebar-media-img');
+            const sidebarLink = document.getElementById('sidebar-media-link');
+            if (sidebarBox && sidebarImg) {
+                sidebarImg.src = data.image;
+                sidebarLink.href = data.link || '#';
+                sidebarBox.style.display = 'block';
+            }
+        }
+    }
+    // ==================================
 </script>
 
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7d934cc8d13140b6bce32a76bb018c5c"}'></script>
@@ -831,51 +1148,11 @@
         });
     }
 
-    // ===== CENTRALIZED AD BANNER LOGIC =====
-    function loadAdBanner() {
-        const pagePath = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
-        const adBanner = document.getElementById('ad-banner-popup');
-
-        // Pehle is page ka specific ad dhundo
-        database.ref('ads/' + pagePath).once('value').then(function(snap) {
-            let adData = snap.val();
-
-            if (adData) {
-                // Is page ka specific ad mila
-                showAd(adData, adBanner);
-            } else {
-                // Specific ad nahi mila, default ad try karo
-                database.ref('ads/default').once('value').then(function(defaultSnap) {
-                    let defaultAd = defaultSnap.val();
-                    if (defaultAd) {
-                        showAd(defaultAd, adBanner);
-                    }
-                    // Dono nahi mile to banner nahi dikhega
-                });
-            }
-        }).catch(function(err) {
-            console.log('Ad load error:', err);
-        });
-    }
-
-    function showAd(adData, adBanner) {
-        // Image aur link set karo
-        document.getElementById('ad-banner-img').src = adData.image;
-        document.getElementById('ad-link').href = adData.link || '#';
-
-        // Banner dikhao
-        adBanner.style.display = 'block';
-
-        // 1.2 second baad slide karke aaye
-        setTimeout(function() {
-            adBanner.classList.add('show');
-        }, 1200);
-    }
-    // ========================================
-
+    // ===== ALL FIREBASE LOADS ON PAGE READY =====
     window.addEventListener('load', () => {
         updateViewCount();
-        loadAdBanner();
+        loadTicker();
+        loadInlineMedia();
         setTimeout(startNotifications, 2500);
     });
 </script>
