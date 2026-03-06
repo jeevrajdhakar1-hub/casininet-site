@@ -943,7 +943,7 @@
         imageObserver.observe(el);
     });
 
-    // ===== CN NEWS TICKER FUNCTIONS =====
+    // closeTicker is global - no firebase needed
     function closeTicker(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -954,84 +954,6 @@
         ticker.style.top = '-120px';
         setTimeout(() => { ticker.style.display = 'none'; }, 400);
     }
-
-    function loadTicker() {
-        const pagePath = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
-        const ticker = document.getElementById('cn-news-ticker');
-
-        database.ref('ticker/' + pagePath).once('value').then(function(snap) {
-            let data = snap.val();
-            if (data) {
-                showTicker(data, ticker);
-            } else {
-                database.ref('ticker/default').once('value').then(function(defaultSnap) {
-                    let defaultData = defaultSnap.val();
-                    if (defaultData) showTicker(defaultData, ticker);
-                });
-            }
-        }).catch(function(err) {
-            console.log('Ticker error:', err);
-        });
-    }
-
-    function showTicker(data, ticker) {
-        document.getElementById('ticker-img').src = data.image;
-        document.getElementById('ticker-link').href = data.link || '#';
-        if (typeof gtag === 'function' && data.label) {
-            document.getElementById('ticker-link').addEventListener('click', function() {
-                gtag('event', 'ticker_click', { 'event_label': data.label });
-            });
-        }
-        ticker.style.display = 'block';
-        setTimeout(function() {
-            ticker.classList.add('show');
-        }, 1200);
-    }
-    // ====================================
-
-    // ===== INLINE MEDIA FUNCTIONS =====
-    function loadInlineMedia() {
-        const pagePath = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
-        const mediaBox = document.getElementById('inline-media-box');
-
-        database.ref('inline_media/' + pagePath).once('value').then(function(snap) {
-            let data = snap.val();
-            if (data) {
-                showInlineMedia(data, mediaBox);
-            } else {
-                database.ref('inline_media/default').once('value').then(function(defaultSnap) {
-                    let defaultData = defaultSnap.val();
-                    if (defaultData) showInlineMedia(defaultData, mediaBox);
-                });
-            }
-        }).catch(function(err) {
-            console.log('Inline media error:', err);
-        });
-    }
-
-    function showInlineMedia(data, mediaBox) {
-        if (data && data.image) {
-            document.getElementById('inline-media-img').src = data.image;
-            document.getElementById('inline-media-link').href = data.link || '#';
-            if (typeof gtag === 'function' && data.label) {
-                document.getElementById('inline-media-link').addEventListener('click', function() {
-                    gtag('event', 'inline_media_click', { 'event_label': data.label });
-                });
-            }
-            mediaBox.style.display = 'block';
-
-            // Sidebar me bhi same image dikhao (desktop)
-            const sidebarBox = document.getElementById('sidebar-media-box');
-            const sidebarImg = document.getElementById('sidebar-media-img');
-            const sidebarLink = document.getElementById('sidebar-media-link');
-            if (sidebarBox && sidebarImg) {
-                sidebarImg.src = data.image;
-                sidebarLink.href = data.link || '#';
-                sidebarBox.style.display = 'block';
-            }
-        }
-    }
-    // ==================================
 </script>
 
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7d934cc8d13140b6bce32a76bb018c5c"}'></script>
@@ -1113,6 +1035,85 @@
 
     const messaging = firebase.messaging();
     const database = firebase.database();
+
+    // ===== CN NEWS TICKER FUNCTIONS =====
+    function loadTicker() {
+        const pagePath = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
+        const ticker = document.getElementById('cn-news-ticker');
+
+        database.ref('ticker/' + pagePath).once('value').then(function(snap) {
+            let data = snap.val();
+            if (data) {
+                showTicker(data, ticker);
+            } else {
+                database.ref('ticker/default').once('value').then(function(defaultSnap) {
+                    let defaultData = defaultSnap.val();
+                    if (defaultData) showTicker(defaultData, ticker);
+                });
+            }
+        }).catch(function(err) {
+            console.log('Ticker error:', err);
+        });
+    }
+
+    function showTicker(data, ticker) {
+        document.getElementById('ticker-img').src = data.image;
+        document.getElementById('ticker-link').href = data.link || '#';
+        if (typeof gtag === 'function' && data.label) {
+            document.getElementById('ticker-link').addEventListener('click', function() {
+                gtag('event', 'ticker_click', { 'event_label': data.label });
+            });
+        }
+        ticker.style.display = 'block';
+        setTimeout(function() {
+            ticker.classList.add('show');
+        }, 1200);
+    }
+    // ====================================
+
+    // ===== INLINE MEDIA FUNCTIONS =====
+    function loadInlineMedia() {
+        const pagePath = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
+        const mediaBox = document.getElementById('inline-media-box');
+
+        database.ref('inline_media/' + pagePath).once('value').then(function(snap) {
+            let data = snap.val();
+            if (data) {
+                showInlineMedia(data, mediaBox);
+            } else {
+                database.ref('inline_media/default').once('value').then(function(defaultSnap) {
+                    let defaultData = defaultSnap.val();
+                    if (defaultData) showInlineMedia(defaultData, mediaBox);
+                });
+            }
+        }).catch(function(err) {
+            console.log('Inline media error:', err);
+        });
+    }
+
+    function showInlineMedia(data, mediaBox) {
+        if (data && data.image) {
+            document.getElementById('inline-media-img').src = data.image;
+            document.getElementById('inline-media-link').href = data.link || '#';
+            if (typeof gtag === 'function' && data.label) {
+                document.getElementById('inline-media-link').addEventListener('click', function() {
+                    gtag('event', 'inline_media_click', { 'event_label': data.label });
+                });
+            }
+            mediaBox.style.display = 'block';
+
+            // Sidebar me bhi same image dikhao (desktop)
+            const sidebarBox = document.getElementById('sidebar-media-box');
+            const sidebarImg = document.getElementById('sidebar-media-img');
+            const sidebarLink = document.getElementById('sidebar-media-link');
+            if (sidebarBox && sidebarImg) {
+                sidebarImg.src = data.image;
+                sidebarLink.href = data.link || '#';
+                sidebarBox.style.display = 'block';
+            }
+        }
+    }
+    // ==================================
 
     // --- NOTIFICATION LOGIC ---
     async function startNotifications() {
