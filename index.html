@@ -694,11 +694,11 @@
     .grid-row,
     .profile-btn,
     .share-btn {
-        background: #3f3f3f !important;
+        background: #4a4a4a !important;
     }
-    .cn-wa { background: #3f3f3f !important; box-shadow: none !important; }
-    .cn-pwa { background: #3f3f3f !important; box-shadow: none !important; }
-    .cn-action-bar { background: #3f3f3f !important; }
+    .cn-wa { background: #4a4a4a !important; box-shadow: none !important; }
+    .cn-pwa { background: #4a4a4a !important; box-shadow: none !important; }
+    .cn-action-bar { background: #4a4a4a !important; }
 
     /* ===== PREMIUM TICKER UPGRADE ===== */
     .ticker-bar {
@@ -1018,10 +1018,9 @@ pwaInstallBtn.addEventListener('click', () => {
 });
 </script>
 
-<script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-<script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"></script>
 <script>
-window.addEventListener('load', () => {
 const firebaseConfig = {
     apiKey: "AIzaSyA6jwyLINE4dxCEzLS5uN5hibvXOkzWeBc",
     authDomain: "casininet.firebaseapp.com",
@@ -1033,22 +1032,39 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
+
 async function startSystem() {
-    if ('serviceWorker' in navigator) {
-        try {
-            const permission = await Notification.requestPermission();
-            if (permission === 'granted') {
-                const reg = await navigator.serviceWorker.register('./firebase-messaging-sw.js');
-                const token = await messaging.getToken({
-                    vapidKey: 'BGLas6nLI4bT5xJ6JDMsaORqEp0WZQFA6G0PDalhzCjthq9RPdFlQr_zhv1H7LHQXkBzcoXnodKAwVe5RL0UZzE',
-                    serviceWorkerRegistration: reg
-                });
-                if (token) console.log('Token:', token);
-            }
-        } catch (err) { console.error('Setup Error:', err); }
+    if (!('serviceWorker' in navigator)) return;
+    try {
+        // Step 1: Pehle Service Worker register karo
+        const reg = await navigator.serviceWorker.register('./firebase-messaging-sw.js');
+        console.log('SW registered:', reg.scope);
+
+        // Step 2: Phir permission maango
+        const permission = await Notification.requestPermission();
+        if (permission !== 'granted') {
+            console.warn('Notification permission denied');
+            return;
+        }
+
+       
+        const token = await messaging.getToken({
+            vapidKey: 'BGLas6nLI4bT5xJ6JDMsaORqEp0WZQFA6G0PDalhzCjthq9RPdFlQr_zhv1H7LHQXkBzcoXnodKAwVe5RL0UZzE',
+            serviceWorkerRegistration: reg
+        });
+        if (token) {
+            console.log('FCM Token:', token);
+        } else {
+            console.warn('Token nahi mila - SW ya vapidKey check karo');
+        }
+    } catch (err) {
+        console.error('Notification Setup Error:', err);
     }
 }
-window.addEventListener('load', () => { setTimeout(startSystem, 2000); });
+
+// Sirf ek load listener - page load hone ke 2 second baad start karo
+window.addEventListener('load', () => {
+    setTimeout(startSystem, 2000);
 });
 </script>
 
