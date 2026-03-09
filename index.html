@@ -687,8 +687,6 @@
     .card-big,
     .card-h,
     .card-g,
-    .ticker-bar,
-    .ticker-label,
     .inline-related-box,
     .inline-related-box a,
     .prcha-wrap,
@@ -698,12 +696,86 @@
     .share-btn {
         background: #3f3f3f !important;
     }
-    .ticker-label::after {
-        border-left-color: #3f3f3f !important;
-    }
     .cn-wa { background: #3f3f3f !important; box-shadow: none !important; }
     .cn-pwa { background: #3f3f3f !important; box-shadow: none !important; }
     .cn-action-bar { background: #3f3f3f !important; }
+
+    /* ===== PREMIUM TICKER UPGRADE ===== */
+    .ticker-bar {
+        background: linear-gradient(135deg, #1a1a20 0%, #22222a 100%) !important;
+        border-bottom: 1px solid rgba(208,2,27,0.25) !important;
+        border-top: 1px solid rgba(255,255,255,0.04) !important;
+        height: 44px !important;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03) !important;
+        position: relative !important;
+    }
+    .ticker-bar::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(208,2,27,0.4), transparent);
+    }
+    .ticker-label {
+        background: linear-gradient(135deg, #D0021B 0%, #ff1a30 60%, #b0001a 100%) !important;
+        color: #fff !important;
+        font-size: 10px !important;
+        font-weight: 900 !important;
+        padding: 0 18px 0 14px !important;
+        letter-spacing: 2px !important;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.4) !important;
+        box-shadow: 2px 0 12px rgba(208,2,27,0.5) !important;
+        gap: 7px !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+    .ticker-label::before {
+        content: '';
+        width: 7px;
+        height: 7px;
+        background: #fff;
+        border-radius: 50%;
+        flex-shrink: 0;
+        animation: tickerPulse 1.2s ease-in-out infinite;
+        box-shadow: 0 0 8px rgba(255,255,255,0.8);
+    }
+    .ticker-label::after {
+        border-left-color: #b0001a !important;
+        filter: drop-shadow(2px 0 6px rgba(208,2,27,0.6));
+    }
+    @keyframes tickerPulse {
+        0%,100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(0.6); opacity: 0.4; }
+    }
+    .ticker-scroll {
+        padding-left: 22px !important;
+        position: relative;
+    }
+    .ticker-scroll::before {
+        content: '';
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 28px;
+        background: linear-gradient(90deg, #1e1e26, transparent);
+        z-index: 2;
+        pointer-events: none;
+    }
+    .ticker-scroll::after {
+        content: '';
+        position: absolute;
+        right: 0; top: 0; bottom: 0;
+        width: 40px;
+        background: linear-gradient(270deg, #1e1e26, transparent);
+        z-index: 2;
+        pointer-events: none;
+    }
+    .ticker-text {
+        font-size: 12.5px !important;
+        font-weight: 600 !important;
+        color: #d0d0dc !important;
+        letter-spacing: 0.3px !important;
+        animation: scroll-ticker 32s linear infinite !important;
+    }
 </style>
 </head>
 
