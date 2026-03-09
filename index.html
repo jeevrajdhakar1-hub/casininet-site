@@ -1022,7 +1022,7 @@ pwaInstallBtn.addEventListener('click', () => {
 <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"></script>
 <script>
 const firebaseConfig = {
-    apiKey: "AIzaSyA6jwyLINE4dxCEzLS5uN5hibvXOkzWeBc",
+    apiKey: "AIzaSyA6jwylINe4dxCEzLS5uN5hibvXOkzWeBc",
     authDomain: "casininet.firebaseapp.com",
     projectId: "casininet",
     storageBucket: "casininet.firebasestorage.app",
@@ -1047,7 +1047,7 @@ async function startSystem() {
             return;
         }
 
-       
+        // Step 3: Token lo
         const token = await messaging.getToken({
             vapidKey: 'BGLas6nLI4bT5xJ6JDMsaORqEp0WZQFA6G0PDalhzCjthq9RPdFlQr_zhv1H7LHQXkBzcoXnodKAwVe5RL0UZzE',
             serviceWorkerRegistration: reg
@@ -1062,7 +1062,6 @@ async function startSystem() {
     }
 }
 
-// Sirf ek load listener - page load hone ke 2 second baad start karo
 window.addEventListener('load', () => {
     setTimeout(startSystem, 2000);
 });
