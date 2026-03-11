@@ -683,7 +683,7 @@
         .micro-footer { padding-bottom: 100px; }
     }
 
- 
+    /* ===== BOX COLOR OVERRIDE — सभी boxes का background #3f3f3f ===== */
     .card-big,
     .card-h,
     .card-g,
@@ -694,11 +694,11 @@
     .grid-row,
     .profile-btn,
     .share-btn {
-        #171719;!important
+        background: #1e1e1f !important;
     }
-    .cn-wa { background: #4a4a4a !important; box-shadow: none !important; }
-    .cn-pwa { background: #4a4a4a !important; box-shadow: none !important; }
-    .cn-action-bar { background: #4a4a4a !important; }
+    .cn-wa { background: #1e1e1f !important; box-shadow: none !important; }
+    .cn-pwa { background: #1e1e1f !important; box-shadow: none !important; }
+    .cn-action-bar { background: #1e1e1f !important; }
 
     /* ===== PREMIUM TICKER UPGRADE ===== */
     .ticker-bar {
@@ -1018,54 +1018,6 @@ pwaInstallBtn.addEventListener('click', () => {
 });
 </script>
 
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js"></script>
-<script>
-const firebaseConfig = {
-    apiKey: "AIzaSyA6jwylINe4dxCEzLS5uN5hibvXOkzWeBc",
-    authDomain: "casininet.firebaseapp.com",
-    projectId: "casininet",
-    storageBucket: "casininet.firebasestorage.app",
-    messagingSenderId: "413905660652",
-    appId: "1:413905660652:web:cfb81de658eba870d8d3c9",
-    measurementId: "G-RFLM0XJWCF"
-};
-firebase.initializeApp(firebaseConfig);
-const messaging = firebase.messaging();
-
-async function startSystem() {
-    if (!('serviceWorker' in navigator)) return;
-    try {
-        // Step 1: Pehle Service Worker register karo
-        const reg = await navigator.serviceWorker.register('./firebase-messaging-sw.js');
-        console.log('SW registered:', reg.scope);
-
-        // Step 2: Phir permission maango
-        const permission = await Notification.requestPermission();
-        if (permission !== 'granted') {
-            console.warn('Notification permission denied');
-            return;
-        }
-
-        // Step 3: Token lo
-        const token = await messaging.getToken({
-            vapidKey: 'BGLas6nLI4bT5xJ6JDMsaORqEp0WZQFA6G0PDalhzCjthq9RPdFlQr_zhv1H7LHQXkBzcoXnodKAwVe5RL0UZzE',
-            serviceWorkerRegistration: reg
-        });
-        if (token) {
-            console.log('FCM Token:', token);
-        } else {
-            console.warn('Token nahi mila - SW ya vapidKey check karo');
-        }
-    } catch (err) {
-        console.error('Notification Setup Error:', err);
-    }
-}
-
-window.addEventListener('load', () => {
-    setTimeout(startSystem, 2000);
-});
-</script>
 
 </body>
 </html>
