@@ -363,12 +363,19 @@
             database.ref('ticker/default').once('value').then(ds=>{const dd=ds.val();if(dd&&dd.image)showTicker(dd,ticker);});
         }).catch(e=>console.log('Ticker err:',e));
     }
-    function showTicker(d,ticker){
-        document.getElementById('ticker-img').src=d.image;
-        document.getElementById('ticker-link').href=d.link||'#';
-        ticker.style.display='block';
-        setTimeout(()=>ticker.classList.add('show'),1200);
-    }
+   function showTicker(d,ticker){
+    document.getElementById('ticker-img').src=d.image;
+    document.getElementById('ticker-link').href=d.link||'#';
+    ticker.style.display='block';
+    setTimeout(()=>ticker.classList.add('show'),1200);
+    // Auto close 6 second baad
+    setTimeout(()=>{
+        ticker.style.transition='top 0.35s ease-in, opacity 0.3s ease';
+        ticker.style.opacity='0';
+        ticker.style.top='-130px';
+        setTimeout(()=>{ticker.style.display='none';},400);
+    },6000);
+}
 
     // INLINE MEDIA
     function loadInlineMedia(){
