@@ -49,7 +49,6 @@
         #inline-media-box { width: 100%; margin: 25px auto; padding: 10px; background: #FFD700; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: none; }
         #inline-media-box .media-inner { width: 100%; aspect-ratio: 1/1; border-radius: 6px; overflow: hidden; }
         #inline-media-box .media-inner img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
         /* ── REACTION BAR ── */
         .reaction-bar { display: flex; align-items: center; gap: 10px; padding: 14px 0; margin: 8px 0; border-top: 1px solid #1f1f1f; border-bottom: 1px solid #1f1f1f; }
         .react-label { font-size: 12px; color: #555; font-weight: 600; flex-shrink: 0; }
@@ -61,7 +60,6 @@
         .r-btn.active-sad   { background: rgba(80,150,255,0.15);border-color: rgba(80,150,255,0.4);color: #5096ff; }
         .r-btn .r-emoji { font-size: 16px; line-height: 1; }
         .r-count { font-size: 12px; min-width: 14px; }
-
         /* ── PREV / NEXT ── */
         .art-nav { display: flex; gap: 10px; margin: 20px 0 8px; }
         .nav-card { flex: 1; background: #0d0d0d; border: 1px solid #1c1c1e; border-radius: 12px; padding: 12px; text-decoration: none; display: flex; flex-direction: column; gap: 6px; transition: background 0.2s; overflow: hidden; }
@@ -69,7 +67,6 @@
         .nav-dir { font-size: 9px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: #ff3b30; display: flex; align-items: center; gap: 4px; }
         .nav-img { width: 100%; height: 75px; object-fit: cover; border-radius: 7px; display: block; }
         .nav-headline { font-size: 12px; font-weight: 700; color: #e5e5ea; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-
         /* ── RELATED ── */
         .related-section { margin: 4px 0 20px; }
         .related-title { font-size: 10px; font-weight: 800; color: #ff3b30; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; display: block; }
@@ -80,7 +77,6 @@
         .rel-card-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .rel-card-tag { font-size: 9px; font-weight: 800; color: #ff3b30; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 3px; }
         .rel-card-title { font-size: 13px; font-weight: 600; color: #e5e5ea; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-
         .article-footer-info { margin-top: 24px; padding: 16px 20px; background: #0a0a0a; border-left: 3px solid #ff3b30; border-radius: 4px; }
         .info-line { font-size: 13px; color: #fff; margin-bottom: 6px; }
         .info-line:last-child { margin-bottom: 0; }
@@ -100,7 +96,6 @@
         #cn-news-ticker.show { top: 55px; }
         #cn-news-ticker img { width: 100%; height: 100%; object-fit: cover; display: block; }
         #ticker-close { position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; background: rgba(0,0,0,0.8); border: 1px solid rgba(255,255,255,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #fff; font-size: 13px; font-weight: 700; z-index: 10; }
-
         @media screen and (min-width: 900px) {
             body { touch-action: auto; }
             .header { height: 56px; padding: 0 40px; }
@@ -363,19 +358,21 @@
             database.ref('ticker/default').once('value').then(ds=>{const dd=ds.val();if(dd&&dd.image)showTicker(dd,ticker);});
         }).catch(e=>console.log('Ticker err:',e));
     }
-   function showTicker(d,ticker){
-    document.getElementById('ticker-img').src=d.image;
-    document.getElementById('ticker-link').href=d.link||'#';
-    ticker.style.display='block';
-    setTimeout(()=>ticker.classList.add('show'),1200);
-    // Auto close 6 second baad
-    setTimeout(()=>{
-        ticker.style.transition='top 0.35s ease-in, opacity 0.3s ease';
-        ticker.style.opacity='0';
-        ticker.style.top='-130px';
-        setTimeout(()=>{ticker.style.display='none';},400);
-    },6000);
-}
+    function showTicker(d,ticker){
+        document.getElementById('ticker-img').src=d.image;
+        document.getElementById('ticker-link').href=d.link||'#';
+        ticker.style.display='block';
+        setTimeout(()=>ticker.classList.add('show'),1200);
+        // AD VIEW COUNT — ticker
+        database.ref('ad_views/'+PAGE_KEY+'/ticker').transaction(v=>(v||0)+1);
+        // Auto close 6 second baad
+        setTimeout(()=>{
+            ticker.style.transition='top 0.35s ease-in, opacity 0.3s ease';
+            ticker.style.opacity='0';
+            ticker.style.top='-130px';
+            setTimeout(()=>{ticker.style.display='none';},400);
+        },6000);
+    }
 
     // INLINE MEDIA
     function loadInlineMedia(){
@@ -390,6 +387,8 @@
         if(box){document.getElementById('inline-media-img').src=d.image;document.getElementById('inline-media-link').href=d.link||'#';box.style.display='block';}
         const sBox=document.getElementById('sidebar-media-box');
         if(sBox){document.getElementById('sidebar-media-img').src=d.image;document.getElementById('sidebar-media-link').href=d.link||'#';sBox.style.display='block';}
+        // AD VIEW COUNT — inline media
+        database.ref('ad_views/'+PAGE_KEY+'/inline_media').transaction(v=>(v||0)+1);
     }
 
     // PREV / NEXT + RELATED — data.json se
