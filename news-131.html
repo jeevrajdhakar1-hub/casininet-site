@@ -266,7 +266,7 @@
     const database = firebase.database();
     const PAGE_KEY = 'news-131';
     function updateViewCount(){database.ref('article_views/'+PAGE_KEY).transaction(v=>(v||0)+1,(err,committed,snap)=>{const el=document.getElementById('view-count');if(el&&snap)el.innerText=(988+(snap.val()||1)).toLocaleString('hi-IN');});}
-    const reacted=JSON.parse(localStorage.getItem('reacted_'+PAGE_KEY)||'{}'');
+    const reacted=JSON.parse(localStorage.getItem('reacted_'+PAGE_KEY)||'{}');
     function loadReactions(){['fire','heart','sad'].forEach(type=>{database.ref('reactions/'+PAGE_KEY+'/'+type).on('value',snap=>{const cnt=snap.val()||0;document.getElementById('cnt-'+type).textContent=cnt>999?(cnt/1000).toFixed(1)+'k':cnt;});if(reacted[type])document.getElementById('btn-'+type).classList.add('active-'+type);});}
     function doReact(type){if(navigator.vibrate)navigator.vibrate(15);const ref=database.ref('reactions/'+PAGE_KEY+'/'+type);const btn=document.getElementById('btn-'+type);if(reacted[type]){ref.transaction(v=>Math.max(0,(v||0)-1));btn.classList.remove('active-'+type);delete reacted[type];}else{ref.transaction(v=>(v||0)+1);btn.classList.add('active-'+type);btn.style.transform='scale(1.3)';setTimeout(()=>btn.style.transform='',200);reacted[type]=true;}localStorage.setItem('reacted_'+PAGE_KEY,JSON.stringify(reacted));}
     const pollVoted=localStorage.getItem('poll_'+PAGE_KEY);
