@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CN News — Admin Panel</title>
+<style>
+:root {
+  --red: #D0021B;
+  --red-glow: rgba(208,2,27,0.18);
+  --bg: #0a0a0c;
+  --bg2: #111115;
+  --bg3: #18181E;
+  --border: rgba(255,255,255,0.08);
+  --border-strong: rgba(255,255,255,0.14);
+  --text: #F2F2F5;
+  --muted: #52525E;
+  --sub: #8A8A96;
+  --green: #25D366;
+  --orange: #FF8C00;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+/* LOCK SCREEN */
+#lockScreen { position: fixed; inset: 0; z-index: 99999; background: var(--bg); display: flex; align-items: center; justify-content: center; flex-direction: column; }
+#lockScreen.hide { animation: lockFade 0.4s ease forwards; pointer-events: none; }
+@keyframes lockFade { to { opacity: 0; transform: scale(1.03); } }
+.lock-box { width: 100%; max-width: 360px; padding: 0 24px; display: flex; flex-direction: column; align-items: center; }
+.lock-logo { font-size: 32px; font-weight: 900; letter-spacing: -1px; margin-bottom: 6px; }
+.lock-logo span { color: var(--red); }
+.lock-subtitle { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 36px; }
+.lock-icon { width: 56px; height: 56px; border-radius: 16px; background: var(--bg3); border: 1px solid var(--border-strong); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 24px; }
+.lock-title { font-size: 18px; font-weight: 800; margin-bottom: 6px; text-align: center; }
+.lock-desc { font-size: 13px; color: var(--sub); margin-bottom: 28px; text-align: center; }
+.lock-input-wrap { width: 100%; position: relative; margin-bottom: 12px; }
+.lock-input { width: 100%; height: 52px; background: var(--bg3); border: 1px solid var(--border-strong); border-radius: 12px; color: var(--text); font-size: 18px; letter-spacing: 4px; text-align: center; font-family: inherit; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+.lock-input:focus { border-color: rgba(208,2,27,0.5); box-shadow: 0 0 0 3px rgba(208,2,27,0.1); }
+.lock-input.wrong { border-color: var(--red); animation: shake 0.35s ease; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-5px)} 80%{transform:translateX(5px)} }
+.eye-btn { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--muted); padding: 4px; }
+.lock-error { font-size: 12px; color: #ff6b6b; font-weight: 600; min-height: 18px; margin-bottom: 14px; text-align: center; }
+.btn-unlock { width: 100%; height: 52px; background: var(--red); border: none; border-radius: 12px; color: #fff; font-size: 15px; font-weight: 800; cursor: pointer; font-family: inherit; box-shadow: 0 4px 20px rgba(208,2,27,0.28); transition: transform 0.18s, box-shadow 0.18s; }
+.btn-unlock:hover { box-shadow: 0 6px 28px rgba(208,2,27,0.4); transform: translateY(-1px); }
+.lock-attempts { margin-top: 14px; font-size: 11px; color: var(--muted); text-align: center; }
+.lock-attempts span { color: var(--red); font-weight: 700; }
+
+/* TOPBAR */
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 56px; background: rgba(10,10,12,0.97); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
+.topbar::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--red) 30%, var(--red) 70%, transparent); }
+.logo-wrap { display: flex; align-items: center; gap: 10px; }
+.logo-text { font-size: 20px; font-weight: 900; letter-spacing: -0.5px; }
+.logo-text span { color: var(--red); }
+.admin-badge { font-size: 9px; font-weight: 800; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; border: 1px solid var(--border-strong); padding: 2px 8px; border-radius: 4px; }
+.live-dot { display: flex; align-items: center; gap: 6px; font-size: 10px; color: var(--green); font-weight: 700; letter-spacing: 1px; }
+.dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: pulse 1.4s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(37,211,102,0.4)} 50%{opacity:0.6;box-shadow:0 0 0 4px rgba(37,211,102,0)} }
+
+/* LAYOUT */
+.main { max-width: 860px; margin: 0 auto; padding: 32px 20px 80px; }
+.page-title { font-size: 13px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; display: flex; align-items: center; gap: 12px; }
+.page-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* CARD */
+.card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 16px; }
+.card-title { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+
+/* FIELD */
+.field { margin-bottom: 16px; }
+.field:last-child { margin-bottom: 0; }
+.field label { display: block; font-size: 12px; font-weight: 700; color: var(--sub); margin-bottom: 8px; letter-spacing: 0.3px; }
+.field input, .field textarea, .field select { width: 100%; background: var(--bg3); border: 1px solid var(--border-strong); border-radius: 10px; color: var(--text); font-size: 14px; padding: 12px 14px; font-family: inherit; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+.field input:focus, .field textarea:focus, .field select:focus { border-color: rgba(208,2,27,0.4); box-shadow: 0 0 0 3px rgba(208,2,27,0.08); }
+.field textarea { min-height: 100px; resize: vertical; line-height: 1.6; }
+.field select option { background: var(--bg3); }
+.field-footer { display: flex; justify-content: flex-end; margin-top: 6px; }
+.char-count { font-size: 11px; color: var(--muted); }
+.req { color: var(--red); }
+.hint { color: var(--muted); font-weight: 500; font-size: 11px; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 560px) { .two-col { grid-template-columns: 1fr; } }
+
+/* ID CARD */
+.id-row { display: flex; align-items: center; gap: 16px; background: var(--bg3); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+.id-num { font-size: 40px; font-weight: 900; color: var(--red); letter-spacing: -2px; line-height: 1; }
+.id-meta { flex: 1; }
+.id-label { font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.id-url { font-size: 12px; color: var(--sub); word-break: break-all; }
+.id-row-btns { display: flex; gap: 8px; }
+.id-btn { width: 36px; height: 36px; background: var(--bg2); border: 1px solid var(--border-strong); border-radius: 8px; color: var(--text); font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+.id-btn:hover { border-color: var(--red); color: var(--red); }
+
+/* TOGGLE */
+.toggle-row { display: flex; align-items: center; justify-content: space-between; background: var(--bg3); border-radius: 10px; padding: 12px 14px; }
+.t-label { font-size: 13px; font-weight: 700; color: var(--text); }
+.t-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; inset: 0; background: var(--muted); border-radius: 24px; transition: 0.3s; }
+.slider:before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: 0.3s; }
+input:checked + .slider { background: var(--red); }
+input:checked + .slider:before { transform: translateX(20px); }
+
+/* PREVIEW */
+.preview-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; margin-bottom: 16px; overflow: hidden; display: none; }
+.preview-box.show { display: block; }
+.preview-header { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+.preview-inner { padding: 14px; }
+.prev-img { width: 100%; height: 160px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; display: block; }
+.prev-tag { display: inline-block; background: var(--red); color: #fff; font-size: 9px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+.prev-headline { font-size: 16px; font-weight: 800; color: var(--orange); line-height: 1.4; margin-bottom: 10px; }
+.prev-para { font-size: 13px; line-height: 1.7; color: var(--sub); margin-bottom: 8px; }
+
+/* SUBMIT */
+.submit-area { margin-top: 24px; }
+.btn-publish { width: 100%; height: 56px; background: var(--red); border: none; border-radius: 14px; color: #fff; font-size: 16px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: transform 0.18s, box-shadow 0.18s; box-shadow: 0 4px 24px rgba(208,2,27,0.3); font-family: inherit; }
+.btn-publish:hover { box-shadow: 0 6px 32px rgba(208,2,27,0.45); transform: translateY(-1px); }
+.btn-publish:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+.btn-preview { width: 100%; height: 44px; background: transparent; border: 1px solid var(--border-strong); border-radius: 12px; color: var(--sub); font-size: 14px; font-weight: 700; cursor: pointer; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.18s; font-family: inherit; }
+.btn-preview:hover { background: var(--bg3); color: var(--text); }
+
+/* STATUS */
+.status-bar { margin-top: 16px; padding: 14px 16px; border-radius: 12px; font-size: 13px; font-weight: 700; display: none; }
+.status-bar.loading { display: flex; align-items: center; gap: 10px; background: rgba(208,2,27,0.08); border: 1px solid rgba(208,2,27,0.2); color: #ff8a80; }
+.status-bar.success { display: block; background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.25); color: var(--green); }
+.status-bar.error { display: block; background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.25); color: #ff6b6b; }
+.spin { width: 16px; height: 16px; border: 2px solid rgba(208,2,27,0.3); border-top-color: var(--red); border-radius: 50%; animation: spin 0.8s linear infinite; flex-shrink: 0; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* SUCCESS OVERLAY */
+.success-overlay { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(10,10,12,0.95); flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
+.success-overlay.show { display: flex; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.success-icon { font-size: 64px; }
+.success-title { font-size: 28px; font-weight: 900; }
+.success-url { font-size: 13px; color: var(--sub); word-break: break-all; max-width: 400px; text-align: center; }
+.success-btns { display: flex; gap: 12px; margin-top: 8px; }
+.s-btn { padding: 12px 24px; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; font-family: inherit; border: none; text-decoration: none; }
+.s-btn-primary { background: var(--red); color: #fff; }
+.s-btn-secondary { background: var(--bg3); color: var(--text); border: 1px solid var(--border-strong); }
+
+/* SAVED PILL */
+.saved-pill { margin-left: auto; font-size: 10px; color: var(--green); font-weight: 700; background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.2); padding: 2px 8px; border-radius: 20px; display: none; }
+.saved-pill.show { display: inline-flex; }
+
+/* AI BUTTON */
+.btn-ai { background: linear-gradient(135deg,#1a1a2e,#16213e); border: 1px solid #a78bfa; color: #a78bfa; font-size: 11px; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-family: inherit; font-weight: 700; transition: all 0.2s; }
+.btn-ai:hover { background: linear-gradient(135deg,#1f1f3e,#1a2548); }
+.btn-ai:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* IMG UPLOAD */
+.btn-upload { background: #1a2e1a; border: 1px solid #25D366; color: #25D366; font-size: 11px; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-family: inherit; font-weight: 700; }
+.img-preview-wrap { margin-top: 12px; border-radius: 10px; overflow: hidden; display: none; position: relative; }
+.img-preview-wrap img { width: 100%; max-height: 200px; object-fit: cover; display: block; }
+.img-preview-label { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.7); font-size: 10px; color: var(--sub); padding: 6px 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+
+/* NOTIFICATION CARD */
+.notif-token-count { display: inline-flex; align-items: center; gap: 6px; background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.25); color: var(--green); font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 20px; letter-spacing: 0.5px; margin-left: auto; }
+.notif-token-count.loading { color: var(--muted); border-color: var(--border); background: var(--bg3); }
+.notif-token-count.error { color: #ff6b6b; border-color: rgba(255,107,107,0.25); background: rgba(255,107,107,0.08); }
+.btn-send-notif { width: 100%; height: 52px; background: linear-gradient(135deg,#1a3a1a,#0d260d); border: 1px solid rgba(37,211,102,0.4); border-radius: 14px; color: var(--green); font-size: 15px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.18s; font-family: inherit; box-shadow: 0 4px 20px rgba(37,211,102,0.1); margin-top: 4px; }
+.btn-send-notif:hover { box-shadow: 0 6px 28px rgba(37,211,102,0.25); transform: translateY(-1px); }
+.btn-send-notif:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+.notif-status { margin-top: 12px; padding: 10px 14px; border-radius: 10px; font-size: 12px; font-weight: 700; display: none; }
+.notif-status.success { background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.25); color: var(--green); display: block; }
+.notif-status.error { background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.25); color: #ff6b6b; display: block; }
+.notif-status.info { background: rgba(208,2,27,0.08); border: 1px solid rgba(208,2,27,0.2); color: #ff8a80; display: block; }
+.notif-preview-box { background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin-top: 14px; display: none; }
+.notif-preview-box.show { display: block; }
+.notif-preview-label { font-size: 9px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+.notif-mock { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 12px; display: flex; gap: 10px; align-items: flex-start; }
+.notif-mock-icon { font-size: 22px; flex-shrink: 0; }
+.notif-mock-title { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 3px; }
+.notif-mock-body { font-size: 12px; color: var(--sub); line-height: 1.5; }
+.notif-mock-app { font-size: 10px; color: var(--muted); margin-top: 4px; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- LOCK SCREEN -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <div class="lock-logo">CN<span>न्यूज़</span></div>
+    <div class="lock-subtitle">Admin Panel</div>
+    <div class="lock-icon">🔐</div>
+    <div class="lock-title">Verify Identity</div>
+    <div class="lock-desc">Admin password enter करें</div>
+    <div class="lock-input-wrap">
+      <input type="password" id="lockInput" class="lock-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkPassword()">
+      <button class="eye-btn" onclick="toggleEye()">
+        <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+        </svg>
+      </button>
+    </div>
+    <div class="lock-error" id="lockErr"></div>
+    <button class="btn-unlock" onclick="checkPassword()">Login करें</button>
+    <div class="lock-attempts" id="lockAttempts"></div>
+  </div>
+</div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="logo-wrap">
+    <div class="logo-text">CN<span>न्यूज़</span></div>
+    <div class="admin-badge">Admin</div>
+  </div>
+  <div class="live-dot"><div class="dot"></div> PUBLISHER</div>
+</div>
+
+<div class="main">
+  <div class="page-title">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    New Article
+  </div>
+
+  <!-- ARTICLE ID -->
+  <div class="card">
+    <div class="card-title">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Article ID
+    </div>
+    <div class="id-row">
+      <div class="id-num" id="displayId">—</div>
+      <div class="id-meta">
+        <div class="id-label">Page URL</div>
+        <div class="id-url" id="displayUrl">Login ke baad auto-set hoga...</div>
+      </div>
+      <div class="id-row-btns">
+        <button class="id-btn" onclick="changeId(-1)">−</button>
+        <button class="id-btn" onclick="changeId(1)">+</button>
+      </div>
+    </div>
+    <div class="field">
+      <label>ID manually set करें</label>
+      <input type="number" id="articleId" value="" min="1" oninput="updateIdDisplay()">
+    </div>
+  </div>
+
+  <!-- BASIC INFO -->
+  <div class="card">
+    <div class="card-title">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
+      Basic Info
+    </div>
+    <div class="field">
+      <label>Headline <span class="req">*</span></label>
+      <input type="text" id="headline" placeholder="खबर का शीर्षक यहाँ लिखें..." oninput="updatePreview(); countChars(this,'hCount',120)">
+      <div class="field-footer"><span class="char-count" id="hCount">0 / 120</span></div>
+    </div>
+    <div class="two-col">
+      <div class="field">
+        <label>Tag / Category <span class="req">*</span></label>
+        <select id="tag" onchange="updatePreview()">
+          <option value="news">News</option>
+          <option value="Bijoliya news">Bijoliya News</option>
+          <option value="राजस्थान">राजस्थान</option>
+          <option value="भीलवाड़ा">भीलवाड़ा</option>
+          <option value="क्राइम">क्राइम</option>
+          <option value="राजनीति">राजनीति</option>
+          <option value="खनन">खनन</option>
+          <option value="हादसा">हादसा</option>
+          <option value="custom">Custom...</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Custom Tag <span class="hint">(ऊपर Custom चुनें)</span></label>
+        <input type="text" id="customTag" placeholder="अपना tag लिखें">
+      </div>
+    </div>
+    <div class="field">
+      <label>SEO Keywords <span class="hint">(comma separated)</span>
+        <button class="btn-ai" id="aiBtn" onclick="aiAutoFill()">✨ AI से सब बनाएं</button>
+      </label>
+      <input type="text" id="keywords" placeholder="bijoliya, mining, rajasthan, CN news">
+    </div>
+    <div class="field">
+      <label>OG Title <span class="hint">(blank रहा तो headline use होगी)</span></label>
+      <input type="text" id="ogTitle" placeholder="Social share title...">
+    </div>
+    <div class="field">
+      <label>OG Description <span class="hint">(blank रहा तो Para 1 use होगा)</span></label>
+      <textarea id="ogDesc" placeholder="WhatsApp/Facebook पर share होने पर यह text दिखेगा..." style="min-height:70px;" oninput="countChars(this,'ogDescCount',160)"></textarea>
+      <div class="field-footer"><span class="char-count" id="ogDescCount">0 / 160</span></div>
+    </div>
+  </div>
+
+  <!-- HERO IMAGE -->
+  <div class="card">
+    <div class="card-title">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Hero Image
+    </div>
+    <div class="field">
+      <label>Image URL <span class="req">*</span>
+        <button class="btn-upload" onclick="document.getElementById('imgFileInput').click()">📁 Upload करें</button>
+      </label>
+      <input type="file" id="imgFileInput" accept="image/*" style="display:none" onchange="uploadImageToCloud(this)">
+      <input type="url" id="heroImg" placeholder="https://... ya ऊपर से upload करें" oninput="previewHeroImg()">
+      <div id="imgUploadStatus" style="font-size:11px;margin-top:4px;color:var(--sub);display:none;"></div>
+    </div>
+    <div class="img-preview-wrap" id="heroPreviewWrap">
+      <img id="heroPreviewImg" src="" alt="">
+      <div class="img-preview-label">Hero Image Preview</div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="card">
+    <div class="card-title">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      Article Content
+    </div>
+    <div class="field">
+      <label>Paragraph 1 <span class="req">*</span> <span class="hint">(**bold** के लिए double asterisk)</span></label>
+      <textarea id="para1" placeholder="पहला paragraph यहाँ लिखें..." oninput="updatePreview(); countChars(this,'p1Count',600)"></textarea>
+      <div class="field-footer"><span class="char-count" id="p1Count">0 / 600</span></div>
+    </div>
+    <div class="field">
+      <label>Para 1 के बाद Image <span class="hint">(optional)</span></label>
+      <input type="url" id="inlineImg1" placeholder="https://...">
+    </div>
+    <div class="field">
+      <label>Paragraph 2 <span class="req">*</span></label>
+      <textarea id="para2" placeholder="दूसरा paragraph..." oninput="updatePreview(); countChars(this,'p2Count',600)"></textarea>
+      <div class="field-footer"><span class="char-count" id="p2Count">0 / 600</span></div>
+    </div>
+    <div class="field">
+      <label>Middle Image</label>
+      <div class="toggle-row">
+        <div>
+          <div class="t-label">Paragraph 2 के बाद image दिखाएं</div>
+          <div class="t-desc">Promo image आएगी</div>
+        </div>
+        <label class="switch"><input type="checkbox" id="showImg2" onchange="updatePreview()"><span class="slider"></span></label>
+      </div>
+    </div>
+    <div class="field">
+      <label>Paragraph 3 <span class="req">*</span></label>
+      <textarea id="para3" placeholder="तीसरा paragraph..." oninput="updatePreview(); countChars(this,'p3Count',600)"></textarea>
+      <div class="field-footer"><span class="char-count" id="p3Count">0 / 600</span></div>
+    </div>
+    <div class="field">
+      <label>Para 3 के बाद Image <span class="hint">(optional)</span></label>
+      <input type="url" id="inlineImg3" placeholder="https://...">
+    </div>
+    <div class="field">
+      <label>YouTube Main Video <span class="hint">(optional)</span></label>
+      <input type="url" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=...">
+    </div>
+    <div class="field">
+      <label>Video Grid <span class="hint">(optional — 2-3 videos)</span></label>
+      <input type="url" id="ytGrid1" placeholder="Video 1 URL">
+      <input type="url" id="ytGrid2" placeholder="Video 2 URL" style="margin-top:8px;">
+      <input type="url" id="ytGrid3" placeholder="Video 3 URL" style="margin-top:8px;">
+    </div>
+  </div>
+
+  <!-- LIVE PREVIEW -->
+  <div class="preview-box" id="previewBox">
+    <div class="preview-header">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      Live Preview
+    </div>
+    <div class="preview-inner">
+      <img class="prev-img" id="prevImg" src="" alt="">
+      <span class="prev-tag" id="prevTag">news</span>
+      <div class="prev-headline" id="prevHeadline">Headline yahan dikhegi...</div>
+      <div class="prev-para" id="prevP1"></div>
+      <div class="prev-para" id="prevP2"></div>
+      <div class="prev-para" id="prevP3"></div>
+    </div>
+  </div>
+
+  <!-- PUSH NOTIFICATION -->
+  <div class="card" id="notifCard">
+    <div class="card-title">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      Push Notification
+      <span class="notif-token-count loading" id="tokenCountBadge">⟳ Loading...</span>
+    </div>
+    <div class="field">
+      <label>Notification Title <span class="req">*</span></label>
+      <input type="text" id="notifTitle" placeholder="जैसे: ब्रेकिंग न्यूज़: बिजोलिया में..." oninput="updateNotifPreview()" maxlength="65">
+      <div class="field-footer"><span class="char-count" id="notifTitleCount">0 / 65</span></div>
+    </div>
+    <div class="field">
+      <label>Notification Body <span class="req">*</span></label>
+      <textarea id="notifBody" placeholder="खबर का संक्षिप्त विवरण..." oninput="updateNotifPreview()" maxlength="150" style="min-height:70px;"></textarea>
+      <div class="field-footer"><span class="char-count" id="notifBodyCount">0 / 150</span></div>
+    </div>
+    <div class="field">
+      <label>Notification Link <span class="hint">(blank रहा तो article URL auto-fill)</span></label>
+      <input type="url" id="notifLink" placeholder="https://casininet.com/news-131.html">
+    </div>
+    <div class="field">
+      <label>Notification Image <span class="hint">(optional)</span></label>
+      <input type="url" id="notifImage" placeholder="https://...">
+    </div>
+    <div class="notif-preview-box" id="notifPreviewBox">
+      <div class="notif-preview-label">📱 Preview</div>
+      <div class="notif-mock">
+        <div class="notif-mock-icon">📰</div>
+        <div>
+          <div class="notif-mock-title" id="notifPrevTitle">CN News</div>
+          <div class="notif-mock-body" id="notifPrevBody">Notification body...</div>
+          <div class="notif-mock-app">CN न्यूज़ • अभी</div>
+        </div>
+      </div>
+    </div>
+    <button class="btn-send-notif" id="sendNotifBtn" onclick="sendPushNotification()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      सभी Subscribers को Notify करें
+    </button>
+    <div class="notif-status" id="notifStatus"></div>
+  </div>
+
+  <!-- PUBLISH -->
+  <div class="submit-area">
+    <button class="btn-preview" onclick="togglePreview()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      Preview देखें
+    </button>
+    <button class="btn-publish" id="publishBtn" onclick="publishArticle()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      Publish करें
+    </button>
+    <div class="status-bar" id="statusBar"></div>
+  </div>
+</div>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-icon">🎉</div>
+  <div class="success-title">Published!</div>
+  <div class="success-url" id="successUrl"></div>
+  <div class="success-btns">
+    <a class="s-btn s-btn-primary" id="viewArticleBtn" href="#" target="_blank">Article देखें →</a>
+    <button class="s-btn s-btn-secondary" onclick="resetForm()">नया Article</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+//  CLOUD FUNCTION URLs — Sab secrets server pe hain!
+// ═══════════════════════════════════════════════════════
+const CF = {
+  verifyPassword:  "https://verifypassword-jgugk4sdyq-uc.a.run.app",
+  getNextId:       "https://getnextid-jgugk4sdyq-uc.a.run.app",
+  uploadImage:     "https://uploadimage-jgugk4sdyq-uc.a.run.app",
+  generateAI:      "https://generateai-jgugk4sdyq-uc.a.run.app",
+  publishArticle:  "https://publisharticle-jgugk4sdyq-uc.a.run.app",
+  getTokenCount:   "https://gettokencount-jgugk4sdyq-uc.a.run.app",
+  sendNotification:"https://sendnotification-jgugk4sdyq-uc.a.run.app",
+};
+
+let CF_SECRET = "";  // verifyPassword se milega
+let failCount = 0;
+const MAX_FAILS = 5;
+let lockUntil = 0;
+
+// ═══════════════════════════════════════════════════════
+//  PASSWORD — Cloud Function se verify hoga
+// ═══════════════════════════════════════════════════════
+async function checkPassword() {
+  const now = Date.now();
+  if (now < lockUntil) {
+    document.getElementById("lockErr").textContent = Math.ceil((lockUntil - now) / 1000) + " सेकंड रुकें...";
+    return;
+  }
+  const input = document.getElementById("lockInput").value;
+  const btn = document.querySelector(".btn-unlock");
+  btn.textContent = "Verifying...";
+  btn.disabled = true;
+
+  try {
+    const res = await fetch(CF.verifyPassword, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({password: input})
+    });
+    const data = await res.json();
+    if (data.success) {
+      CF_SECRET = data.secret;
+      failCount = 0;
+      const ls = document.getElementById("lockScreen");
+      ls.classList.add("hide");
+      setTimeout(() => { ls.style.display = "none"; }, 420);
+      document.getElementById("lockInput").value = "";
+      setTimeout(initAfterLogin, 600);
+    } else {
+      handleWrongPass();
+    }
+  } catch (e) {
+    document.getElementById("lockErr").textContent = "Network error — internet check करें";
+  }
+  btn.textContent = "Login करें";
+  btn.disabled = false;
+}
+
+function handleWrongPass() {
+  failCount++;
+  const inp = document.getElementById("lockInput");
+  inp.classList.add("wrong");
+  setTimeout(() => inp.classList.remove("wrong"), 400);
+  inp.value = "";
+  const remaining = MAX_FAILS - failCount;
+  if (failCount >= MAX_FAILS) {
+    lockUntil = Date.now() + 30000;
+    failCount = 0;
+    document.getElementById("lockErr").textContent = "30 सेकंड के लिए block हो गए।";
+    const iv = setInterval(() => {
+      const s = Math.ceil((lockUntil - Date.now()) / 1000);
+      if (s <= 0) { clearInterval(iv); document.getElementById("lockErr").textContent = ""; }
+      else document.getElementById("lockErr").textContent = s + " सेकंड रुकें...";
+    }, 1000);
+  } else {
+    document.getElementById("lockErr").textContent = "गलत password!";
+    document.getElementById("lockAttempts").innerHTML = remaining + ' कोशिश बाकी, फिर <span>30 sec block</span>';
+  }
+}
+
+function toggleEye() {
+  const inp = document.getElementById("lockInput");
+  const icon = document.getElementById("eyeIcon");
+  if (inp.type === "password") {
+    inp.type = "text";
+    icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+  } else {
+    inp.type = "password";
+    icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+//  INIT AFTER LOGIN
+// ═══════════════════════════════════════════════════════
+async function initAfterLogin() {
+  await autoSetNextId();
+  fetchTokenCount();
+}
+
+async function autoSetNextId() {
+  try {
+    const res = await fetch(CF.getNextId, {
+      method: "GET",
+      headers: {"Authorization": "Bearer " + CF_SECRET}
+    });
+    const data = await res.json();
+    if (data.nextId) {
+      document.getElementById("articleId").value = data.nextId;
+      updateIdDisplay();
+    }
+  } catch (e) {
+    console.log("ID fetch failed:", e);
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+//  ID MANAGEMENT
+// ═══════════════════════════════════════════════════════
+function updateIdDisplay() {
+  const id = document.getElementById("articleId").value || "—";
+  document.getElementById("displayId").textContent = id;
+  document.getElementById("displayUrl").textContent = id !== "—" ? "https://casininet.com/news-" + id + ".html" : "...";
+}
+
+function changeId(delta) {
+  const inp = document.getElementById("articleId");
+  const val = parseInt(inp.value) || 0;
+  inp.value = Math.max(1, val + delta);
+  updateIdDisplay();
+}
+
+// ═══════════════════════════════════════════════════════
+//  PREVIEW
+// ═══════════════════════════════════════════════════════
+function updatePreview() {
+  const box = document.getElementById("previewBox");
+  const headline = document.getElementById("headline").value;
+  const img = document.getElementById("heroImg").value;
+  if (!headline && !img) return;
+  box.classList.add("show");
+  document.getElementById("prevImg").src = img || "";
+  document.getElementById("prevImg").style.display = img ? "block" : "none";
+  const tag = document.getElementById("customTag").value || document.getElementById("tag").value;
+  document.getElementById("prevTag").textContent = tag;
+  document.getElementById("prevHeadline").textContent = headline || "Headline...";
+  document.getElementById("prevP1").textContent = document.getElementById("para1").value.substring(0, 150) || "";
+  document.getElementById("prevP2").textContent = document.getElementById("para2").value.substring(0, 100) || "";
+  document.getElementById("prevP3").textContent = document.getElementById("para3").value.substring(0, 100) || "";
+}
+
+function previewHeroImg() {
+  const url = document.getElementById("heroImg").value;
+  const wrap = document.getElementById("heroPreviewWrap");
+  if (url) {
+    document.getElementById("heroPreviewImg").src = url;
+    wrap.style.display = "block";
+  } else {
+    wrap.style.display = "none";
+  }
+  updatePreview();
+}
+
+function togglePreview() {
+  const box = document.getElementById("previewBox");
+  box.classList.toggle("show");
+}
+
+function countChars(el, countId, max) {
+  document.getElementById(countId).textContent = el.value.length + " / " + max;
+}
+
+// ═══════════════════════════════════════════════════════
+//  IMAGE UPLOAD
+// ═══════════════════════════════════════════════════════
+async function uploadImageToCloud(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const status = document.getElementById("imgUploadStatus");
+  status.style.display = "block";
+  status.textContent = "⏳ Upload हो रही है...";
+
+  try {
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const base64 = e.target.result.split(",")[1];
+      const res = await fetch(CF.uploadImage, {
+        method: "POST",
+        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + CF_SECRET},
+        body: JSON.stringify({filename: file.name, base64, mimeType: file.type})
+      });
+      const data = await res.json();
+      if (data.success) {
+        document.getElementById("heroImg").value = data.url;
+        previewHeroImg();
+        status.textContent = "✅ Upload successful!";
+        status.style.color = "var(--green)";
+      } else {
+        status.textContent = "❌ Upload failed: " + data.error;
+        status.style.color = "#ff6b6b";
+      }
+    };
+    reader.readAsDataURL(file);
+  } catch (e) {
+    status.textContent = "❌ Error: " + e.message;
+    status.style.color = "#ff6b6b";
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+//  AI AUTO FILL
+// ═══════════════════════════════════════════════════════
+async function aiAutoFill() {
+  const headline = document.getElementById("headline").value.trim();
+  if (!headline) { alert("पहले Headline भरें!"); return; }
+  const btn = document.getElementById("aiBtn");
+  btn.textContent = "⏳ Generating...";
+  btn.disabled = true;
+
+  try {
+    const res = await fetch(CF.generateAI, {
+      method: "POST",
+      headers: {"Content-Type": "application/json", "Authorization": "Bearer " + CF_SECRET},
+      body: JSON.stringify({
+        headline,
+        tag: document.getElementById("customTag").value || document.getElementById("tag").value,
+        para1: document.getElementById("para1").value
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      if (data.keywords) document.getElementById("keywords").value = data.keywords;
+      if (data.ogDesc) document.getElementById("ogDesc").value = data.ogDesc;
+      if (data.para1) document.getElementById("para1").value = data.para1;
+      if (data.para2) document.getElementById("para2").value = data.para2;
+      if (data.para3) document.getElementById("para3").value = data.para3;
+      updatePreview();
+      btn.textContent = "✅ Done!";
+      setTimeout(() => { btn.textContent = "✨ AI से सब बनाएं"; btn.disabled = false; }, 2000);
+    } else {
+      alert("AI Error: " + data.error);
+      btn.textContent = "✨ AI से सब बनाएं";
+      btn.disabled = false;
+    }
+  } catch (e) {
+    alert("Network error: " + e.message);
+    btn.textContent = "✨ AI से सब बनाएं";
+    btn.disabled = false;
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+//  PUBLISH ARTICLE
+// ═══════════════════════════════════════════════════════
+async function publishArticle() {
+  const id       = parseInt(document.getElementById("articleId").value);
+  const headline = document.getElementById("headline").value.trim();
+  const img      = document.getElementById("heroImg").value.trim();
+  const para1    = document.getElementById("para1").value.trim();
+  const para2    = document.getElementById("para2").value.trim();
+  const para3    = document.getElementById("para3").value.trim();
+  const tag      = document.getElementById("tag").value;
+  const customTag= document.getElementById("customTag").value.trim();
+  const keywords = document.getElementById("keywords").value.trim();
+  const ogTitle  = document.getElementById("ogTitle").value.trim();
+  const ogDesc   = document.getElementById("ogDesc").value.trim();
+  const inlineImg1 = document.getElementById("inlineImg1").value.trim();
+  const inlineImg3 = document.getElementById("inlineImg3").value.trim();
+  const showImg2   = document.getElementById("showImg2").checked;
+  const youtubeUrl = document.getElementById("youtubeUrl").value.trim();
+  const ytGrid1    = document.getElementById("ytGrid1").value.trim();
+  const ytGrid2    = document.getElementById("ytGrid2").value.trim();
+  const ytGrid3    = document.getElementById("ytGrid3").value.trim();
+
+  if (!headline) { setStatus("error", "❌ Headline जरूरी है!"); return; }
+  if (!img)      { setStatus("error", "❌ Hero Image जरूरी है!"); return; }
+  if (!para1)    { setStatus("error", "❌ Paragraph 1 जरूरी है!"); return; }
+  if (!id)       { setStatus("error", "❌ Article ID set करें!"); return; }
+
+  const btn = document.getElementById("publishBtn");
+  btn.disabled = true;
+  setStatus("loading", "GitHub pe publish हो रहा है...");
+
+  try {
+    const res = await fetch(CF.publishArticle, {
+      method: "POST",
+      headers: {"Content-Type": "application/json", "Authorization": "Bearer " + CF_SECRET},
+      body: JSON.stringify({id, headline, img, para1, para2, para3, tag, customTag, keywords, ogTitle, ogDesc, inlineImg1, inlineImg3, showImg2, youtubeUrl, ytGrid1, ytGrid2, ytGrid3})
+    });
+    const data = await res.json();
+    if (data.success) {
+      setStatus("success", "✅ Published! " + data.url);
+      document.getElementById("successUrl").textContent = data.url;
+      document.getElementById("viewArticleBtn").href = data.url;
+      document.getElementById("successOverlay").classList.add("show");
+    } else {
+      setStatus("error", "❌ Error: " + data.error);
+    }
+  } catch (e) {
+    setStatus("error", "❌ Network error: " + e.message);
+  }
+  btn.disabled = false;
+}
+
+function setStatus(type, msg) {
+  const bar = document.getElementById("statusBar");
+  bar.className = "status-bar " + type;
+  if (type === "loading") {
+    bar.innerHTML = '<div class="spin"></div>' + msg;
+  } else {
+    bar.textContent = msg;
+  }
+}
+
+function resetForm() {
+  document.getElementById("successOverlay").classList.remove("show");
+  ["headline","keywords","ogTitle","ogDesc","para1","para2","para3","inlineImg1","inlineImg3","youtubeUrl","ytGrid1","ytGrid2","ytGrid3","heroImg","customTag","notifTitle","notifBody","notifLink","notifImage"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
+  document.getElementById("showImg2").checked = false;
+  document.getElementById("heroPreviewWrap").style.display = "none";
+  document.getElementById("previewBox").classList.remove("show");
+  document.getElementById("statusBar").className = "status-bar";
+  document.getElementById("notifStatus").className = "notif-status";
+  document.getElementById("notifPreviewBox").classList.remove("show");
+  setStatus("", "");
+  autoSetNextId();
+}
+
+// ═══════════════════════════════════════════════════════
+//  PUSH NOTIFICATION
+// ═══════════════════════════════════════════════════════
+async function fetchTokenCount() {
+  setTokenBadge("loading", "⟳ Loading...");
+  try {
+    const res = await fetch(CF.getTokenCount, {
+      method: "GET",
+      headers: {"Authorization": "Bearer " + CF_SECRET}
+    });
+    const data = await res.json();
+    setTokenBadge("normal", "🔔 " + (data.count || 0) + " Subscribers");
+  } catch (e) {
+    setTokenBadge("error", "⚠ Count error");
+  }
+}
+
+function setTokenBadge(type, text) {
+  const badge = document.getElementById("tokenCountBadge");
+  if (!badge) return;
+  badge.className = "notif-token-count" + (type !== "normal" ? " " + type : "");
+  badge.textContent = text;
+}
+
+function updateNotifPreview() {
+  const title = document.getElementById("notifTitle").value.trim();
+  const body  = document.getElementById("notifBody").value.trim();
+  document.getElementById("notifTitleCount").textContent = document.getElementById("notifTitle").value.length + " / 65";
+  document.getElementById("notifBodyCount").textContent  = document.getElementById("notifBody").value.length + " / 150";
+  const box = document.getElementById("notifPreviewBox");
+  if (title || body) {
+    box.classList.add("show");
+    document.getElementById("notifPrevTitle").textContent = title || "CN न्यूज़";
+    document.getElementById("notifPrevBody").textContent  = body  || "Body...";
+  } else {
+    box.classList.remove("show");
+  }
+}
+
+async function sendPushNotification() {
+  const title  = document.getElementById("notifTitle").value.trim();
+  const body   = document.getElementById("notifBody").value.trim();
+  const artId  = document.getElementById("articleId").value || "";
+  const url    = document.getElementById("notifLink").value.trim() || ("https://casininet.com/news-" + artId + ".html");
+  const image  = document.getElementById("notifImage").value.trim() || document.getElementById("heroImg").value.trim();
+
+  if (!title) { showNotifStatus("error", "❌ Title जरूरी है!"); return; }
+  if (!body)  { showNotifStatus("error", "❌ Body जरूरी है!"); return; }
+
+  const btn = document.getElementById("sendNotifBtn");
+  btn.disabled = true;
+  btn.innerHTML = "⏳ भेजा जा रहा है...";
+  showNotifStatus("info", "⏳ Notification भेजी जा रही है...");
+
+  try {
+    const res = await fetch(CF.sendNotification, {
+      method: "POST",
+      headers: {"Content-Type": "application/json", "Authorization": "Bearer " + CF_SECRET},
+      body: JSON.stringify({title, body, url, image})
+    });
+    const data = await res.json();
+    if (data.success) {
+      showNotifStatus("success", "✅ " + data.sent + "/" + data.total + " subscribers को notification मिली!");
+      setTokenBadge("normal", "🔔 " + data.total + " Subscribers");
+    } else {
+      showNotifStatus("error", "❌ Error: " + (data.error || "Unknown"));
+    }
+  } catch (e) {
+    showNotifStatus("error", "❌ Network error: " + e.message);
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> सभी Subscribers को Notify करें';
+}
+
+function showNotifStatus(type, msg) {
+  const el = document.getElementById("notifStatus");
+  el.className = "notif-status " + type;
+  el.textContent = msg;
+  if (type === "success") setTimeout(() => { el.className = "notif-status"; }, 8000);
+}
+</script>
+</body>
+</html>
