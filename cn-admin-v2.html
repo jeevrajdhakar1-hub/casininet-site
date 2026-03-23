@@ -270,7 +270,7 @@ input:checked + .slider:before { transform: translateX(20px); }
     </div>
     <div class="field">
       <label>SEO Keywords <span class="hint">(comma separated)</span>
-        <button class="btn-ai" id="aiBtn" onclick="aiAutoFill()">✨ AI से सब बनाएं</button>
+        <button class="btn-ai" id="aiBtn" onclick="aiAutoFill()">✨ AI से SEO बनाएं</button>
       </label>
       <input type="text" id="keywords" placeholder="bijoliya, mining, rajasthan, CN news">
     </div>
@@ -672,21 +672,19 @@ async function aiAutoFill() {
     const data = await res.json();
     if (data.success) {
       if (data.keywords) document.getElementById("keywords").value = data.keywords;
-      if (data.ogDesc) document.getElementById("ogDesc").value = data.ogDesc;
-      if (data.para1) document.getElementById("para1").value = data.para1;
-      if (data.para2) document.getElementById("para2").value = data.para2;
-      if (data.para3) document.getElementById("para3").value = data.para3;
+      if (data.ogTitle)  document.getElementById("ogTitle").value  = data.ogTitle;
+      if (data.ogDesc)   document.getElementById("ogDesc").value   = data.ogDesc;
       updatePreview();
       btn.textContent = "✅ Done!";
-      setTimeout(() => { btn.textContent = "✨ AI से सब बनाएं"; btn.disabled = false; }, 2000);
+      setTimeout(() => { btn.textContent = "✨ AI से SEO बनाएं"; btn.disabled = false; }, 2000);
     } else {
       alert("AI Error: " + data.error);
-      btn.textContent = "✨ AI से सब बनाएं";
+      btn.textContent = "✨ AI से SEO बनाएं";
       btn.disabled = false;
     }
   } catch (e) {
     alert("Network error: " + e.message);
-    btn.textContent = "✨ AI से सब बनाएं";
+    btn.textContent = "✨ AI से SEO बनाएं";
     btn.disabled = false;
   }
 }
