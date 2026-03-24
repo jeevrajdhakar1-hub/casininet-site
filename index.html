@@ -1044,7 +1044,7 @@ async function startNotifications() {
         const permission = await Notification.requestPermission();
         if (permission !== 'granted') return;
         const token = await messaging.getToken({
-            vapidKey: 'BGLas6nLI4bT5xJ6JDMsaORqEp0WZQFA6G0PDalhzCjthq9RPdFlQr_zhv1H7LHQXkBzcoXnodKAwVe5RL0UZzE',
+            vapidKey: 'BGKG6o_cnZxm3XZ1WCNwm5Z7K1P0LYcK_egCV93ljC5EpFFa5IkdTtHBUZXB4b9E6IMMxfqIKvdPfPoNpL7GEIY',
             serviceWorkerRegistration: reg
         });
         if (token) {
