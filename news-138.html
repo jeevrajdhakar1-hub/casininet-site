@@ -264,7 +264,7 @@ const database=firebase.database();
 const messaging=firebase.messaging();
 const PAGE_KEY='news-138';
 async function startNotifications(){if(!('serviceWorker' in navigator))return;try{const reg=await navigator.serviceWorker.register('./firebase-messaging-sw.js');const permission=await Notification.requestPermission();if(permission!=='granted')return;const token=await messaging.getToken({vapidKey:'BGKG6o_cnZxm3XZ1WCNwm5Z7K1P0LYcK_egCV93ljC5EpFFa5IkdTtHBUZXB4b9E6IMMxfqIKvdPfPoNpL7GEIY',serviceWorkerRegistration:reg});if(token){database.ref('tokens/'+token.substring(0,50)).set({token:token,savedAt:Date.now()});database.ref('token_count').transaction(v=>(v||0)+1);console.log('Token saved!');}}catch(e){console.error('Notif err:',e);}}
-function updateViewCount(){database.ref('article_views/'+PAGE_KEY).transaction(v=>(v||0)+1,(err,committed,snap)=>{const el=document.getElementById('view-count');if(el&&snap)el.innerText=(988+(snap.val()||1)).toLocaleString('hi-IN');});}
+
 function updateViewCount(){database.ref('article_views/'+PAGE_KEY).transaction(v=>(v||0)+1,(err,committed,snap)=>{const el=document.getElementById('view-count');if(el&&snap)el.innerText=(988+(snap.val()||1)).toLocaleString('hi-IN');});}
 const reacted=JSON.parse(localStorage.getItem('reacted_'+PAGE_KEY)||'{}');
 function loadReactions(){['fire','heart','sad'].forEach(type=>{database.ref('reactions/'+PAGE_KEY+'/'+type).on('value',snap=>{const cnt=snap.val()||0;document.getElementById('cnt-'+type).textContent=cnt>999?(cnt/1000).toFixed(1)+'k':cnt;});if(reacted[type])document.getElementById('btn-'+type).classList.add('active-'+type);});}
