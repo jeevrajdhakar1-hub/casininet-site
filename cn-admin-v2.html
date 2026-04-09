@@ -139,10 +139,6 @@ input:checked + .slider:before { transform: translateX(20px); }
 .s-btn-primary { background: var(--red); color: #fff; }
 .s-btn-secondary { background: var(--bg3); color: var(--text); border: 1px solid var(--border-strong); }
 
-/* SAVED PILL */
-.saved-pill { margin-left: auto; font-size: 10px; color: var(--green); font-weight: 700; background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.2); padding: 2px 8px; border-radius: 20px; display: none; }
-.saved-pill.show { display: inline-flex; }
-
 /* AI BUTTON */
 .btn-ai { background: linear-gradient(135deg,#1a1a2e,#16213e); border: 1px solid #a78bfa; color: #a78bfa; font-size: 11px; padding: 4px 10px; border-radius: 6px; cursor: pointer; font-family: inherit; font-weight: 700; transition: all 0.2s; }
 .btn-ai:hover { background: linear-gradient(135deg,#1f1f3e,#1a2548); }
@@ -153,6 +149,7 @@ input:checked + .slider:before { transform: translateX(20px); }
 .img-preview-wrap { margin-top: 12px; border-radius: 10px; overflow: hidden; display: none; position: relative; }
 .img-preview-wrap img { width: 100%; max-height: 200px; object-fit: cover; display: block; }
 .img-preview-label { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.7); font-size: 10px; color: var(--sub); padding: 6px 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+.img-info-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.2); color: var(--green); font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 20px; margin-top: 6px; }
 
 /* NOTIFICATION CARD */
 .notif-token-count { display: inline-flex; align-items: center; gap: 6px; background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.25); color: var(--green); font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 20px; letter-spacing: 0.5px; margin-left: auto; }
@@ -296,8 +293,9 @@ input:checked + .slider:before { transform: translateX(20px); }
         <button class="btn-upload" onclick="document.getElementById('imgFileInput').click()">📁 Upload करें</button>
       </label>
       <input type="file" id="imgFileInput" accept="image/*" style="display:none" onchange="uploadImageToCloud(this)">
-      <input type="url" id="heroImg" placeholder="https://... ya ऊपर से upload करें" oninput="previewHeroImg()">
+      <input type="url" id="heroImg" placeholder="https://... ya ऊपर se upload करें" oninput="previewHeroImg()">
       <div id="imgUploadStatus" style="font-size:11px;margin-top:4px;color:var(--sub);display:none;"></div>
+      <div id="imgInfoBadge" style="display:none;" class="img-info-badge">✅ 16:9 crop + compressed</div>
     </div>
     <div class="img-preview-wrap" id="heroPreviewWrap">
       <img id="heroPreviewImg" src="" alt="">
@@ -441,9 +439,6 @@ input:checked + .slider:before { transform: translateX(20px); }
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════
-//  CLOUD FUNCTION URLs — Sab secrets server pe hain!
-// ═══════════════════════════════════════════════════════
 const CF = {
   verifyPassword:  "https://verifypassword-jgugk4sdyq-uc.a.run.app",
   getNextId:       "https://getnextid-jgugk4sdyq-uc.a.run.app",
@@ -454,14 +449,11 @@ const CF = {
   sendNotification:"https://sendnotification-jgugk4sdyq-uc.a.run.app",
 };
 
-let CF_SECRET = "";  // verifyPassword se milega
+let CF_SECRET = "";
 let failCount = 0;
 const MAX_FAILS = 5;
 let lockUntil = 0;
 
-// ═══════════════════════════════════════════════════════
-//  PASSWORD — Cloud Function se verify hoga
-// ═══════════════════════════════════════════════════════
 async function checkPassword() {
   const now = Date.now();
   if (now < lockUntil) {
@@ -472,7 +464,6 @@ async function checkPassword() {
   const btn = document.querySelector(".btn-unlock");
   btn.textContent = "Verifying...";
   btn.disabled = true;
-
   try {
     const res = await fetch(CF.verifyPassword, {
       method: "POST",
@@ -532,9 +523,6 @@ function toggleEye() {
   }
 }
 
-// ═══════════════════════════════════════════════════════
-//  INIT AFTER LOGIN
-// ═══════════════════════════════════════════════════════
 async function initAfterLogin() {
   await autoSetNextId();
   fetchTokenCount();
@@ -556,9 +544,6 @@ async function autoSetNextId() {
   }
 }
 
-// ═══════════════════════════════════════════════════════
-//  ID MANAGEMENT
-// ═══════════════════════════════════════════════════════
 function updateIdDisplay() {
   const id = document.getElementById("articleId").value || "—";
   document.getElementById("displayId").textContent = id;
@@ -572,9 +557,6 @@ function changeId(delta) {
   updateIdDisplay();
 }
 
-// ═══════════════════════════════════════════════════════
-//  PREVIEW
-// ═══════════════════════════════════════════════════════
 function updatePreview() {
   const box = document.getElementById("previewBox");
   const headline = document.getElementById("headline").value;
@@ -604,12 +586,59 @@ function previewHeroImg() {
 }
 
 function togglePreview() {
-  const box = document.getElementById("previewBox");
-  box.classList.toggle("show");
+  document.getElementById("previewBox").classList.toggle("show");
 }
 
 function countChars(el, countId, max) {
   document.getElementById(countId).textContent = el.value.length + " / " + max;
+}
+
+// ═══════════════════════════════════════════════════════
+//  IMAGE PROCESS — 16:9 crop + compress
+// ═══════════════════════════════════════════════════════
+function processImage(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const TARGET_W = 1280;
+        const TARGET_H = 720;
+        canvas.width = TARGET_W;
+        canvas.height = TARGET_H;
+        const ctx = canvas.getContext("2d");
+
+        // 16:9 center crop
+        const imgRatio = img.width / img.height;
+        const targetRatio = 16 / 9;
+        let sx, sy, sw, sh;
+        if (imgRatio > targetRatio) {
+          // Image wider than 16:9 — crop sides
+          sh = img.height;
+          sw = sh * targetRatio;
+          sx = (img.width - sw) / 2;
+          sy = 0;
+        } else {
+          // Image taller than 16:9 — crop top/bottom
+          sw = img.width;
+          sh = sw / targetRatio;
+          sx = 0;
+          sy = (img.height - sh) / 2;
+        }
+
+        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, TARGET_W, TARGET_H);
+
+        // JPEG compress quality 0.75 (~70-80KB typical)
+        const dataUrl = canvas.toDataURL("image/jpeg", 0.75);
+        resolve(dataUrl.split(",")[1]);
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
 }
 
 // ═══════════════════════════════════════════════════════
@@ -619,34 +648,46 @@ async function uploadImageToCloud(input) {
   const file = input.files[0];
   if (!file) return;
   const status = document.getElementById("imgUploadStatus");
+  const badge = document.getElementById("imgInfoBadge");
   status.style.display = "block";
-  status.textContent = "⏳ Upload हो रही है...";
+  status.style.color = "var(--sub)";
+  badge.style.display = "none";
+  status.textContent = "⏳ Image process हो रही है (16:9 crop + compress)...";
 
   try {
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      const base64 = e.target.result.split(",")[1];
-      const res = await fetch(CF.uploadImage, {
-        method: "POST",
-        headers: {"Content-Type": "application/json", "Authorization": "Bearer " + CF_SECRET},
-        body: JSON.stringify({filename: file.name, base64, mimeType: file.type})
-      });
-      const data = await res.json();
-      if (data.success) {
-        document.getElementById("heroImg").value = data.url;
-        previewHeroImg();
-        status.textContent = "✅ Upload successful!";
-        status.style.color = "var(--green)";
-      } else {
-        status.textContent = "❌ Upload failed: " + data.error;
-        status.style.color = "#ff6b6b";
-      }
-    };
-    reader.readAsDataURL(file);
+    // Step 1: Browser mein process karo
+    const base64 = await processImage(file);
+
+    status.textContent = "⏳ GitHub pe upload हो रही है...";
+
+    // Step 2: Cloud Function ko bhejo
+    const res = await fetch(CF.uploadImage, {
+      method: "POST",
+      headers: {"Content-Type": "application/json", "Authorization": "Bearer " + CF_SECRET},
+      body: JSON.stringify({
+        filename: file.name.replace(/\.[^.]+$/, "") + ".jpg", // always .jpg
+        base64,
+        mimeType: "image/jpeg"
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      document.getElementById("heroImg").value = data.url;
+      previewHeroImg();
+      status.textContent = "✅ Upload successful!";
+      status.style.color = "var(--green)";
+      badge.style.display = "inline-flex";
+    } else {
+      status.textContent = "❌ Upload failed: " + data.error;
+      status.style.color = "#ff6b6b";
+    }
   } catch (e) {
     status.textContent = "❌ Error: " + e.message;
     status.style.color = "#ff6b6b";
   }
+
+  // Reset file input
+  input.value = "";
 }
 
 // ═══════════════════════════════════════════════════════
@@ -658,7 +699,6 @@ async function aiAutoFill() {
   const btn = document.getElementById("aiBtn");
   btn.textContent = "⏳ Generating...";
   btn.disabled = true;
-
   try {
     const res = await fetch(CF.generateAI, {
       method: "POST",
@@ -764,6 +804,8 @@ function resetForm() {
   document.getElementById("statusBar").className = "status-bar";
   document.getElementById("notifStatus").className = "notif-status";
   document.getElementById("notifPreviewBox").classList.remove("show");
+  document.getElementById("imgUploadStatus").style.display = "none";
+  document.getElementById("imgInfoBadge").style.display = "none";
   setStatus("", "");
   autoSetNextId();
 }
