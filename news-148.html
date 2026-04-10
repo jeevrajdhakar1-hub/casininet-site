@@ -321,31 +321,9 @@ if (!firebase.apps.length) {
 const database = firebase.database();
 const messaging = firebase.messaging();
 const PAGE_KEY = 'news-148';
-const VIEW_BASE = 988; // base offset for display count
 
-// ── View Count ────────────────────────────────────────────────────────────────
-// BUG FIX: original updateViewCount() was truncated mid-string, entire function was broken.
-// Now: POST to cloud function to increment, then read live count from Firebase RTDB.
-async function updateViewCount() {
-  try {
-    // Increment via cloud function (fire-and-forget)
-    fetch('https://trackview-jgugk4sdyq-uc.a.run.app', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ page: PAGE_KEY })
-    }).catch(() => {}); // silently ignore network errors
-  } catch(e) {}
+async function updateViewCount(){try{const r=await fetch('https://trackview-jgugk4sdyq-uc.a.run.app',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pageKey:PAGE_KEY})});const d=await r.json();const el=document.getElementById('view-count');if(el&&d.count)el.innerText=d.count.toLocaleString('hi-IN');}catch(e){console.log('View err:',e);}}
 
-  // Listen for live count from RTDB
-  database.ref('views/' + PAGE_KEY).on('value', snap => {
-    const el = document.getElementById('view-count');
-    if (el) {
-      const raw = snap.val() || 0;
-      const display = VIEW_BASE + raw;
-      el.innerText = display.toLocaleString('hi-IN');
-    }
-  });
-}
 
 // ── Reactions ─────────────────────────────────────────────────────────────────
 const reacted = JSON.parse(localStorage.getItem('reacted_' + PAGE_KEY) || '{}');
